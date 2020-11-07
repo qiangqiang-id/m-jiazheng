@@ -1,6 +1,7 @@
 <template>
   <div class="my-container">
-    我的
+    <div class="housekeeping icon-weixin"></div>
+
   </div>
 </template>
 
