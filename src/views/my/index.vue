@@ -12,23 +12,23 @@
       <div class="nav-box">
         <van-grid :border='false'>
           <van-grid-item>
-            <van-icon slot="icon"
-                      name="manager" />
+            <div slot="icon"
+                 class="icon-gerenziliao housekeeping"></div>
             <span slot="text">个人资料</span>
           </van-grid-item>
           <van-grid-item>
-            <van-icon slot="icon"
-                      name="manager" />
+            <div slot="icon"
+                 class="icon-fasfa-user1 housekeeping"></div>
             <span slot="text">我的关注</span>
           </van-grid-item>
           <van-grid-item>
-            <van-icon slot="icon"
-                      name="manager" />
+            <div slot="icon"
+                 class="icon-farfa-comment-dots housekeeping"></div>
             <span slot="text">我的评价</span>
           </van-grid-item>
           <van-grid-item>
-            <van-icon slot="icon"
-                      name="manager" />
+            <div slot="icon"
+                 class="icon-fa-fax housekeeping"></div>
             <span slot="text">已联系家政员</span>
           </van-grid-item>
         </van-grid>
@@ -37,20 +37,29 @@
     <div class="cell">
       <van-cell-group>
         <van-cell title="找家政服务记录"
-                  icon="location-o"
-                  is-link />
+                  is-link>
+          <div slot="icon"
+               class="icon-md-receipt housekeeping"></div>
+        </van-cell>
         <van-cell title="家政求职记录"
-                  icon="location-o"
-                  is-link />
+                  is-link>
+          <div slot="icon"
+               class="icon-ziyuan1 housekeeping"></div>
+        </van-cell>
       </van-cell-group>
       <van-cell-group class="usre-status">
         <van-cell title="身份认证通道"
-                  icon="location-o"
                   class="cell-buttom"
-                  is-link />
+                  is-link>
+          <div slot="icon"
+               class="icon-antFill-safety-certificate housekeeping"></div>
+        </van-cell>
         <van-cell title="关于我们"
                   icon="location-o"
-                  is-link />
+                  is-link>
+          <div slot="icon"
+               class="icon-fas_fa-info-circle_Copy housekeeping"></div>
+        </van-cell>
       </van-cell-group>
     </div>
   </div>
@@ -117,9 +126,13 @@ export default {
       span {
         font-size: 24px;
         color: #7b7777;
+        margin-top: 10px;
+      }
+      .housekeeping {
+        font-size: 40px;
       }
       ::v-deep.van-grid-item__content {
-        padding: 40px 0;
+        padding: 30px 0;
       }
     }
   }
@@ -130,6 +143,10 @@ export default {
       .cell-buttom {
         border-bottom: 1px solid #eeecec;
       }
+    }
+    .housekeeping {
+      font-size: 40px;
+      margin-right: 10px;
     }
   }
 }
