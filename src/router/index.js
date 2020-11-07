@@ -30,7 +30,9 @@ const routes = [
         component: () => import('@/views/my')
       }
     ]
-  }
+
+  },
+  { path: '/taoge', component: () => import('@/views/my/components/Personal-Information.vue') }
 ]
 
 const router = new VueRouter({
