@@ -16,7 +16,7 @@
             :key="index">
             <van-button plain
               round
-              size="mini">{item}</van-button>
+              size="mini">{{item}}</van-button>
           </div>
         </van-cell>
 
@@ -24,7 +24,7 @@
 
     </div>
     <div class="Page-buttom">
-      <i>1</i>
+      <i class="icon-md-location_on housekeeping"></i>
       <span>22.68km</span>
       <span>湖南省长沙市天心区</span>
     </div>
@@ -78,7 +78,7 @@ export default {
         display: flex;
         .Page-bnt-box {
           display: inline;
-          margin: 0 10px;
+          margin: 0 5px;
           .van-button {
             font-size: 12px;
             padding: 20px;
