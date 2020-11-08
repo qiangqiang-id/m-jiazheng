@@ -1,40 +1,45 @@
 <template>
-  <div class="Page-box">
-    <div class="Pag">
-      <div class="page-left">
-        <van-image class="imgs"
-          src="https://img.yzcdn.cn/vant/cat.jpeg" />
-      </div>
-      <div class="Page-right">
-        <div class="Page-right-box">
-          <h4>湖南黑马公司阿巴巴巴</h4>
-          <p>8000元 / 26天</p>
+  <van-cell>
+    <div class="Page-box"
+      slot="title"
+      v-for="item in data"
+      :key="item.id">
+      <div class="Pag">
+        <div class="page-left">
+          <van-image class="imgs"
+            src="https://img.yzcdn.cn/vant/cat.jpeg" />
         </div>
-        <van-cell class="Page-bnt">
-          <!-- 使用 title 插槽来自定义标题 -->
-          <div slot="title"
-            class="Page-bnt-box"
-            v-for="(item,index) in dd"
-            :key="index">
-            <van-button plain
-              round
-              size="mini">{{item}}</van-button>
+        <div class="Page-right">
+          <div class="Page-right-box">
+            <h4>{{item.age}}</h4>
+            <p>8000元 / 26天</p>
           </div>
-        </van-cell>
-        <van-cell class="Page-bottom">
-          <!-- 使用 title 插槽来自定义标题 -->
-          <span slot="title"
-            class="Page-bnt-bottom"
-            v-for="(item,index) in hh"
-            :key="index">
-            {{item}}
-          </span>
-        </van-cell>
+          <van-cell class="Page-bnt">
+            <!-- 使用 title 插槽来自定义标题 -->
+            <div slot="title"
+              class="Page-bnt-box"
+              v-for="(item,index) in dd"
+              :key="index">
+              <van-button plain
+                round
+                size="mini">{{item}}</van-button>
+            </div>
+          </van-cell>
+          <van-cell class="Page-bottom">
+            <!-- 使用 title 插槽来自定义标题 -->
+            <span slot="title"
+              class="Page-bnt-bottom"
+              v-for="(item,index) in hh"
+              :key="index">
+              {{item}}
+            </span>
+          </van-cell>
 
+        </div>
       </div>
+      <div class="Page-but"></div>
     </div>
-    <div class="Page-but"></div>
-  </div>
+  </van-cell>
 </template>
 
 <script>
@@ -42,13 +47,24 @@ export default {
   data () {
     return {
       dd: [1111, 2222, 3333, 4444],
-      hh: ['阿巴', '你好', '阿巴', '你好']
+      hh: ['阿巴', '你好', '阿巴', '你好'],
+      data: [
+        { id: 1, age: 'ahaha' },
+        { id: 2, age: 'ahaha' },
+        { id: 3, age: 'ahaha' },
+        { id: 4, age: 'ahaha' },
+        { id: 5, age: 'ahaha' }
+      ]
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.van-cell {
+  padding: 0;
+  margin: 0;
+}
 .Page-box {
   padding: 32px;
   background-color: #fff;
