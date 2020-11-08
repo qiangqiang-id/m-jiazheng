@@ -11,9 +11,9 @@
       class="inputs"
       :clearable='true'
       show-action
-      placeholder="请输入搜索关键词">
+      placeholder="智能匹配">
       <template #action>
-        <div class="city">长沙</div>
+        <div class="city">长沙<i class="housekeeping icon-jiantou-down"></i></div>
       </template>
     </van-search>
     <!-- /导航栏 -->
