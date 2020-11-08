@@ -32,11 +32,13 @@
 
     </div>
     <comment-like></comment-like>
+
   </div>
 </template>
 
 <script>
 import CommentLike from '../../components/companyList'
+
 export default {
   name: 'CompanyIndex',
   components: {
