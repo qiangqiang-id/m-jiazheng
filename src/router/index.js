@@ -30,6 +30,20 @@ const routes = [
         component: () => import('@/views/my')
       }
     ]
+  }, {
+    path: '/home/business',
+    name: 'business',
+    component: () => import('@/views/cooperation/business-form')
+  },
+  {
+    path: '/home/domestic',
+    name: 'domestic',
+    component: () => import('@/views/cooperation/domestic-service')
+  },
+  {
+    path: '/home/homeservice',
+    name: 'homeservice',
+    component: () => import('@/views/cooperation/home-service')
   }
 ]
 
