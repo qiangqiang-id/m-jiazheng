@@ -1,6 +1,32 @@
 import mockjs from 'mockjs'
 
 var Random = mockjs.Random
+// 模拟手机号码
+mockjs.mobile_prefix = ['134', '135', '136', '137', '138', '139', '150', '151',
+  '152', '157', '158', '159', '130', '131', '132', '155', '156', '133', '153']
+
+mockjs.numeric = '0123456789'
+
+mockjs.random = function (len, list) {
+  if (len <= 1) { len = 1 }
+  var s = ''
+  var n = list.length
+  if (typeof list === 'string') {
+    while (len-- > 0) {
+      s += list.charAt(Math.random() * n)
+    }
+  } else if (list instanceof Array) {
+    while (len-- > 0) {
+      s += list[Math.floor(Math.random() * n)]
+    }
+  }
+  return s
+}
+mockjs.getMobile = function () {
+  return mockjs.random(1, mockjs.mobile_prefix) +
+    mockjs.random(8, mockjs.numeric)
+}
+// 模拟手机号码
 const type = []
 for (var i = 0; i < 8; i++) {
   type.push({
@@ -15,7 +41,11 @@ var k = 1
 for (let i = 0; i < k; i++) {
   datas.push({
     id: k,
+    // 性别 0为女性 1为男性
+    sex: Math.round(Math.random()),
     name: Random.cname(),
+    // 手机号码
+    mobile: mockjs.getMobile(),
     // 工作经验
     experience: Random.natural(1, 8),
     // 随机地址
