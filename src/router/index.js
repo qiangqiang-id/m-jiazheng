@@ -27,13 +27,31 @@ const routes = [
       {
         path: '/my',
         name: 'my',
-        component: () => import('@/views/my')
+        component: () => import('@/views/my'),
+        children: []
       }
     ]
   },
-  { path: '/taoge', component: () => import('@/views/my/components/Personal-Information.vue') },
-  { path: '/login', name: '/login', component: () => import('@/views/login') }
-
+  {
+    path: '/taoge',
+    name: 'taoge',
+    component: () => import('@/views/my/components/Personal-Information.vue')
+  },
+  {
+    path: '/login',
+    name: '/login',
+    component: () => import('@/views/login')
+  },
+  {
+    path: '/verify',
+    name: 'verify',
+    component: () => import('../views/my/components/identity.vue')
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: () => import('../views/my/components/admin.vue')
+  }
 ]
 
 const router = new VueRouter({
