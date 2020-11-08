@@ -5,19 +5,26 @@
                  @click-left='$router.push("/home")' />
     <div class="infobox">
       <div class="top">
-        <van-image src="https://img.yzcdn.cn/vant/cat.jpeg" />
+        <van-image :src="info.img" />
         <div class="userinfo">
-          <div class="user">张丽丽</div>
+          <div class="user">{{info.name}}</div>
           <van-tag plain
                    round
-                   type="primary">二星育婴师</van-tag>
-          <span class="textcol">湖南长沙 | 46岁 | 7年经验</span>
+                   type="primary">{{info.label}}</van-tag>
+          <span class="textcol">{{info.address}} | {{info.age}} | {{info.experience}}</span>
         </div>
         <van-button type="info"
+                    v-if="attention"
+                    class="attention"
+                    @click="attentionClick"
+                    round>已关注</van-button>
+        <van-button type="info"
+                    v-else
+                    @click="attentionClick"
                     round>关注</van-button>
       </div>
-      <span class="text">注册公司：湖南前海优家网络科技有限公司</span>
-      <div class="text">职业：保姆 月嫂 育婴师 早教/托育</div>
+      <span class="text">注册公司：{{info.is_company}}</span>
+      <div class="text">职业：{{info.profession}}</div>
       <div class="bottom">
         <div class="bottom-left">
           <div slot="icon"
@@ -26,6 +33,7 @@
         </div>
         <div class="bottom-right">
           <van-button type="info"
+                      @click="phoneShow=true"
                       round
                       plain>电话联系</van-button>
           <van-button type="info"
@@ -41,7 +49,7 @@
       <div class="skill">
         <van-tag plain
                  round
-                 v-for="(item,index) in skillList"
+                 v-for="(item,index) in info.skill"
                  :key="index"
                  type="primary">{{item}}</van-tag>
       </div>
@@ -49,20 +57,18 @@
         <span>个人简介</span>
         <van-icon name="arrow-up" />
       </div>
-      <div class="perinfotext">2019年8月在湖南女子学院优家培训平台以优异的成绩，
-        荣获中级育婴结业证书，并获得被动操和实操能手荣誉证书。参加国家职业资格证考试，获得国家职业资格证书育婴员证，会做精致的辅食，婴儿常见疾病的护理，宝宝哄睡，以及良好的生活习惯。擅长科学育儿，会新生儿的黄疸辩证和护理，会脐带消毒和护理，臀部护理，洗澡抚触，婴儿主被动操，穿脱衣服，做简单早教。其他技能：亲和力非常不错，形象气质很好，积极主动，能很好的与他人沟通，做事细心，勤快，有耐心，敬业，能吃苦。
-        普通话标准，有爱心，曾在私塾教书2年，对胎婴幼儿教育有一定的认识。有带过一个1岁左右的女宝宝到3岁多上幼儿园的经验，做饭菜好吃，可以兼做饭菜，家务。</div>
+      <div class="perinfotext">{{info.intro}}</div>
       <div class="perinfo">
         <span>个人简介</span>
         <van-icon name="arrow-up" />
       </div>
       <div class="info">
-        <span>任职公司：湖南前海优家网络科技有限公司</span>
-        <span>籍贯民族：汉族</span>
-        <span>生肖属相：蛇</span>
-        <span>星座：摩蝎座 (12.22~1.19)</span>
-        <span>出生日期：1997-12-23</span>
-        <span>学历：中专</span>
+        <span>任职公司：{{info.be_company}}</span>
+        <span>籍贯民族：{{info.nation}}</span>
+        <span>生肖属相：{{info.culture}}</span>
+        <span>星座：{{info.constellation}}</span>
+        <span>出生日期：{{info.born}}</span>
+        <span>学历：{{info.education}}</span>
       </div>
       <div class="perinfo">
         <span>证件信息</span>
@@ -96,6 +102,21 @@
         </van-grid-item>
       </van-grid>
     </div>
+    <!-- 电话号码弹出层 -->
+    <van-popup v-model="phoneShow"
+               class="phoneShowBox"
+               position="bottom"
+               :style="{ height: '30%' }">
+      <van-picker title="电话号码"
+                  class="picker"
+                  show-toolbar
+                  item-height="9px"
+                  :columns="columns" />
+      <div class="btn-cancel">
+        <van-button @click="phoneShow=false">取消</van-button>
+      </div>
+    </van-popup>
+
   </div>
 </template>
 
@@ -103,8 +124,42 @@
 export default {
   data () {
     return {
-      skillList: ['做饭', '月子餐', '家庭保洁', '洗衣', '育婴护理', '小孩看管', '家教辅导']
+      info: {},
+      phoneShow: false,
+      attention: true,
+      columns: []
     }
+  },
+  methods: {
+    async getUserInfo () {
+      const { data: res } = await this.$axios.get('http://localhost:8080/matronInfo/3')
+      console.log(res)
+      this.info = res.data
+      this.columns.push(res.data.phone)
+    },
+    attentionClick () {
+      this.$toast.loading({
+        message: '请稍后...',
+        forbidClick: true, // 禁止背景点击
+        duration: 0// 展示时长(ms)，值为 0 时，toast 不会消失
+      })
+      if (this.attention) {
+        // 已关注 点击取消关注
+        setTimeout(() => {
+          this.$toast('取消关注成功')
+          this.attention = !this.attention
+        }, 1000)
+      } else {
+        // 添加关注
+        setTimeout(() => {
+          this.$toast('关注成功')
+          this.attention = !this.attention
+        }, 1000)
+      }
+    }
+  },
+  created () {
+    this.getUserInfo()
   }
 }
 </script>
@@ -139,9 +194,13 @@ export default {
     box-sizing: border-box;
     .top {
       .van-button {
-        width: 140px;
+        width: 150px;
         height: 50px;
         background-color: #3f51b5;
+      }
+      .attention {
+        background-color: #999;
+        border: 1px solid #999;
       }
       display: flex;
       justify-content: space-between;
@@ -274,6 +333,38 @@ export default {
     margin-top: 50px;
     .housekeeping {
       font-size: 50px;
+    }
+  }
+  .phoneShowBox {
+    background-color: transparent;
+    width: 95%;
+    margin-left: 2.5%;
+    ::v-deep.picker {
+      // height: 200px;
+      border-radius: 20px;
+      overflow: hidden;
+      .van-picker__confirm {
+        display: none;
+      }
+      .van-picker__cancel {
+        display: none;
+      }
+      .van-picker__title {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+    .btn-cancel {
+      margin-bottom: 20px;
+      .van-button {
+        margin-top: 15px;
+        width: 100%;
+        border: 0;
+        border-radius: 20px;
+        color: #333;
+        font-size: 30px;
+      }
     }
   }
 }
