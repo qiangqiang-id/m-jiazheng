@@ -34,8 +34,8 @@ const companyMsg = []
 for (let i = 0; i < 3; i++) {
   companyMsg.push({
     id: i,
-    shopAddress: Random.city(true) + ' 东方红县', // 随机生成地址
-    companyName: Random.city(true) + ' 家政有限公司', // 公司名
+    shopAddress: Random.city(true) + ' 东方红县 夹皮沟404号', // 随机生成地址
+    companyName: Random.ctitle(3, 5) + '家政有限公司', // 公司名
     evaluate: ['服务好', '客户至上', '巴拉巴拉'], // 评价
     distance: Random.float(5, 30, 1, 2) + 'km'// 距离
   })
