@@ -1,9 +1,12 @@
 <template>
   <div class="layout-container">
-    <!-- <van-nav-bar class="nav-header">
+
+    <!--
+            <van-nav-bar
+            class="nav-header">
       <span slot="left"
             class="header-text">家政平台</span>
-    </van-nav-bar> -->
+      </van-nav-bar> -->
     <router-view />
     <van-tabbar v-model="active">
       <van-tabbar-item icon="home-o"

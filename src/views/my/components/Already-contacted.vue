@@ -5,12 +5,16 @@
                  title="已联系家政人员"
                  left-arrow
                  @click-left="$router.back()" />
+    <company-list />
   </div>
 </template>
 
 <script>
+import CompanyList from '@/components/companyList'
 export default {
-
+  components: {
+    CompanyList
+  }
 }
 </script>
 
