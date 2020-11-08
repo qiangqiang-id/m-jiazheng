@@ -24,7 +24,7 @@
         <!-- 使用 title 插槽来自定义标题 -->
         <div slot="title"
           class="btn-box"
-          v-for="(item,index) in dd"
+          v-for="(item,index) in occupation"
           :key="index">
           <van-button plain
             round
@@ -55,8 +55,40 @@ export default {
   data () {
     return {
       value: '',
-      dd: [1111, 222, 333, 444, 555, 666, 77, 888, 999]
+      // 职业
+      occupation: [],
+      // 家服人员信息
+      infoList: []
     }
+  },
+  props: {},
+  created () {
+    this.getInformation()
+  },
+
+  computed: {},
+
+  methods: {
+    // 返回按钮
+    onClickLeft () {
+
+    },
+    // 获取家政人员基本信息
+    async getInformation () {
+      const { data: res } = await this.$axios.get('http://localhost:8080/data|get')
+
+      console.log('getInformation -> res', res)
+      if (res.status === 200) {
+        this.$toast.success('获取信息成功')
+        // this.infoList.push(res.datas)
+        this.infoList = res.datas
+        // console.log(this.infoList)
+        this.occupation = this.infoList[0].profession
+        console.log(this.occupation)
+        this.occupation.push('全部职业')
+      }
+    }
+
   }
 }
 </script>
@@ -78,7 +110,7 @@ export default {
   }
   .attribute-tag {
     padding: 26px;
-    height: 183px;
+    // height: 183px;
     .van-cell__title {
       // display: flex;
       // flex-wrap: wrap;

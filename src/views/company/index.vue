@@ -25,10 +25,9 @@
         <!-- 使用 title 插槽来自定义标题 -->
         <div slot="title"
           class="btn-box"
-          v-for="(items,index) in cycleButton"
+          v-for="(items,index) in occupation"
           :key="index">
           <van-button plain
-            class="Page-bnt-box"
             round
             size="mini">{{items}}</van-button>
         </div>
@@ -56,8 +55,8 @@ export default {
       value: '',
       // 家服公司信息,
       companyMsg: [],
-      // 循环按钮
-      cycleButton: []
+      // 职业
+      occupation: []
 
     }
   },
@@ -75,10 +74,10 @@ export default {
         // this.companyMsg.push(res.data)
       }
       this.companyMsg = res.data
-      this.cycleButton = this.companyMsg[0].evaluate
-      this.cycleButton.push('全部职业')
-      console.log(this.companyMsg)
-      console.log(this.companyMsg[1].evaluate)
+      this.occupation = this.companyMsg[0].profession
+      this.occupation.push('全部职业')
+      // console.log(this.companyMsg)
+      // console.log(this.companyMsg[1].evaluate)
     }
   }
 
@@ -108,6 +107,7 @@ export default {
       padding: 20px;
       border: 1px solid #979191;
       color: #979191;
+      margin: 10px 20px;
     }
     .van-cell__title {
       // display: flex;
@@ -115,7 +115,6 @@ export default {
       width: 100%;
       .btn-box {
         display: inline;
-        margin: 10px 20px;
       }
     }
   }

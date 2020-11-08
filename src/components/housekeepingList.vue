@@ -31,7 +31,7 @@
               {{item.address}}
             </span>
             <span class="Page-bnt-bottom">
-              3{{item.experience}}岁
+              {{item.age}}岁
             </span>
             <span class="Page-bnt-bottom">
               服务{{item.service}}户
