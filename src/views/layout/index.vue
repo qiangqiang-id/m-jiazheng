@@ -8,7 +8,7 @@
             class="header-text">家政平台</span>
       </van-nav-bar> -->
     <router-view />
-    <van-tabbar v-model="active">
+    <van-tabbar route>
       <van-tabbar-item icon="home-o"
                        to="/home">首页</van-tabbar-item>
       <van-tabbar-item icon="search"
@@ -26,7 +26,7 @@ export default {
   name: 'LayoutIndex',
   data () {
     return {
-      active: 0
+
     }
   }
 }
