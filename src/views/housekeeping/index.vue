@@ -1,6 +1,5 @@
 <template>
   <div class="housekeeping-container">
-    家政人员页面
     <!-- <myFollow></myFollow> -->
 
     <!-- 头部 -->
