@@ -16,6 +16,7 @@
         <van-swipe-item>3</van-swipe-item>
         <van-swipe-item>4</van-swipe-item>
       </van-swipe>
+
     </div>
     <!-- /轮播图 -->
     <!-- 服务模块 -->
@@ -61,7 +62,9 @@
     <!-- /服务模块 -->
     <!-- 家政公司 -->
     <div class="conpany">
-
+      <van-nav-bar>
+        <span slot="left">湖南征信认证家服公司</span>
+      </van-nav-bar>
     </div>
     <!-- /家政公司 -->
     <!-- 家政人员 -->
@@ -76,17 +79,32 @@ export default {
   name: 'HomeIndex',
   data () {
     return {
-      typeList: []
+      typeList: [],
+      bannerPicList: []
     }
   },
   created () {
     this.getTypeList()
+    this.getBannerPic()
   },
   methods: {
     async getTypeList () {
-      const data = await this.$axios.get('http://localhost:8080/type')
-      console.log(data.data)
-      this.typeList = data.data.type
+      try {
+        const data = await this.$axios.get('http://localhost:8080/type')
+        console.log(data.data)
+        this.typeList = data.data.type
+      } catch (err) {
+        this.$toast('数据获取失败')
+      }
+    },
+    async getBannerPic () {
+      try {
+        const data = await this.$axios.get('http://localhost:8080/pic')
+        console.log(data.data.data.picPath)
+        this.bannerPicList = data.data.data.picPath
+      } catch (err) {
+        this.$toast('数据获取失败')
+      }
     }
   }
 }
@@ -155,11 +173,18 @@ export default {
       }
     }
   }
+  .conpany {
+    margin-top: 20px;
+  }
 }
 ::v-deep .van-grid-item__content::after {
   border-width: 0;
 }
 ::v-deep .van-hairline--bottom::after {
   border-bottom-width: 0;
+}
+.banner-pic {
+  width: 100%;
+  height: 100%;
 }
 </style>

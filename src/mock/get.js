@@ -11,5 +11,13 @@ export default {
       status: 200,
       type: type
     }
+  },
+  'http://localhost:8080/pic|get': options => {
+    return {
+      status: 200,
+      data: {
+        picPath: ['@/assets/images/banner1', '@/assets/images/banner2', '@/assets/images/banner3', '@/assets/images/banner5', '@/assets/images/banner5']
+      }
+    }
   }
 }
