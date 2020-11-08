@@ -51,6 +51,12 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: () => import('../views/my/components/admin.vue')
+  },
+  // 我的关注
+  {
+    path: '/myFollow',
+    name: 'myFollow',
+    component: () => import('@/components/my_follow')
   }
 ]
 

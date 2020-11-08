@@ -9,17 +9,23 @@
       </van-nav-bar>
       <!-- 底部按钮 -->
       <van-tabs v-model="active">
-        <van-tab title="家服公司">内容 1</van-tab>
-        <van-tab title="家服人员">内容 2</van-tab>
+        <van-tab title="家服公司">
+          <companyList></companyList>
+        </van-tab>
+        <van-tab title="家服人员">
+          <housekeepingList></housekeepingList>
+        </van-tab>
       </van-tabs>
     </div>
   </div>
 </template>
 
 <script>
+import companyList from '@/components/companyList'
+import housekeepingList from '@/components/housekeepingList'
 export default {
   name: '',
-  components: {},
+  components: { companyList, housekeepingList },
   props: {},
   data () {
     return {
