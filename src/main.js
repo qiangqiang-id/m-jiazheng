@@ -6,6 +6,9 @@ import 'amfe-flexible'
 import Vant from 'vant'
 import 'vant/lib/index.css'
 import '@/assets/global.scss'
+import '@/mock/index.js'
+import axios from 'axios'
+Vue.prototype.$axios = axios
 Vue.use(Vant)
 Vue.config.productionTip = false
 
