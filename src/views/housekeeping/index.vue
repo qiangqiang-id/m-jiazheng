@@ -1,6 +1,6 @@
 <template>
   <div class="housekeeping-container">
-    <!-- <myFollow></myFollow> -->
+    <my-follow></my-follow>
     <!-- 头部 -->
     <van-nav-bar class="nav-header">
       <span slot="left"
@@ -63,21 +63,22 @@
         <div class="box">
 
         </div>
-
         <house-keeping-list></house-keeping-list>
       </div>
-
     </div>
+  </div>
 </template>
 
 <script>
 
-// import myFollow from '@/components/my_follow'
+import myFollow from '@/components/my_follow'
 import HouseKeepingList from '../../components/housekeepingList'
 export default {
   name: 'HousekeepingIndex',
+
   components: {
-    HouseKeepingList
+    HouseKeepingList,
+    myFollow
   },
   data () {
     return {
