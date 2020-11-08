@@ -11,9 +11,12 @@
       <van-tabs v-model="active">
         <van-tab title="家服公司">
           <companyList></companyList>
+
         </van-tab>
         <van-tab title="家服人员">
-          <housekeepingList></housekeepingList>
+          <housekeepingList v-for="item in infoList "
+                            :key="item.id"
+                            :userInfo='item'></housekeepingList>
         </van-tab>
       </van-tabs>
     </div>
@@ -29,10 +32,17 @@ export default {
   props: {},
   data () {
     return {
-      active: 1
+      active: 1,
+      // 家服人员信息
+      infoList: [],
+      // 家服公司信息,
+      companyMsg: []
     }
   },
-  created () {},
+  created () {
+    this.getInformation()
+    this.getCompanyInformation()
+  },
 
   computed: {},
 
@@ -40,6 +50,25 @@ export default {
     // 返回按钮
     onClickLeft () {
 
+    },
+    // 获取家政人员基本信息
+    async getInformation () {
+      const { data: res } = await this.$axios.get('http://localhost:8080/data|get')
+
+      console.log('getInformation -> res', res)
+      if (res.status === 200) {
+        this.$toast.success('获取信息成功')
+        this.infoList.push(res.datas)
+      }
+    }, // 获取家政公司基本信息
+    async getCompanyInformation () {
+      const { data: res } = await this.$axios.get('http://localhost:8080/info|get')
+
+      console.log('getInformation -> res', res)
+      if (res.status === 200) {
+        this.$toast.success('获取信息成功')
+        this.companyMsg.push(res.data)
+      }
     }
 
   },

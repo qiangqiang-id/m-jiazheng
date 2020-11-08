@@ -54,9 +54,14 @@ const routes = [
   },
   // 我的关注
   {
-    path: '/myFollow',
-    name: 'myFollow',
+    path: '/myfollow',
+    name: 'myfollow',
     component: () => import('@/components/my_follow')
+  },
+  {
+    path: '/matching_company',
+    name: 'matching_company',
+    component: () => import('@/components/matching_company')
   }
 ]
 
