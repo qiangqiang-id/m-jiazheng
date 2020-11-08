@@ -23,11 +23,15 @@
       <!-- 选择框 -->
       <van-cell class="attribute-tag">
         <!-- 使用 title 插槽来自定义标题 -->
-        <template #title>
+        <div slot="title"
+          class="btn-box"
+          v-for="(items,index) in cycleButton"
+          :key="index">
           <van-button plain
+            class="Page-bnt-box"
             round
-            size="mini">朴素按钮</van-button>
-        </template>
+            size="mini">{{items}}</van-button>
+        </div>
         <!-- /选择框 -->
       </van-cell>
 
@@ -49,9 +53,35 @@ export default {
   },
   data () {
     return {
-      value: ''
+      value: '',
+      // 家服公司信息,
+      companyMsg: [],
+      // 循环按钮
+      cycleButton: []
+
+    }
+  },
+  created () {
+    this.getCompanyInformation()
+  },
+  methods: {
+    // 获取家政公司基本信息
+    async getCompanyInformation () {
+      const { data: res } = await this.$axios.get('http://localhost:8080/info|get')
+
+      console.log('getInformation -> res', res)
+      if (res.status === 200) {
+        this.$toast.success('获取信息成功')
+        // this.companyMsg.push(res.data)
+      }
+      this.companyMsg = res.data
+      this.cycleButton = this.companyMsg[0].evaluate
+      this.cycleButton.push('全部职业')
+      console.log(this.companyMsg)
+      console.log(this.companyMsg[1].evaluate)
     }
   }
+
 }
 </script>
 
@@ -72,12 +102,21 @@ export default {
   }
   .attribute-tag {
     padding: 26px;
-    height: 183px;
+    // height: 183px;
     .van-button--default {
       font-size: 12px;
       padding: 20px;
       border: 1px solid #979191;
       color: #979191;
+    }
+    .van-cell__title {
+      // display: flex;
+      // flex-wrap: wrap;
+      width: 100%;
+      .btn-box {
+        display: inline;
+        margin: 10px 20px;
+      }
     }
   }
   .box {
