@@ -90,6 +90,7 @@ export default {
     }
   }
   .Page-buttom {
+    height: 60px;
     border-bottom: 1px solid rgb(223, 218, 218);
     padding: 17px;
     i {
