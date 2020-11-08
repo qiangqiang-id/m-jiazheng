@@ -1,13 +1,13 @@
 <template>
   <van-cell>
     <div class="Page-box"
-      slot="title"
-      v-for="item in data"
-      :key="item.id">
+         slot="title"
+         v-for="item in data"
+         :key="item.id">
       <div class="Pag">
         <div class="page-left">
           <van-image class="imgs"
-            src="https://img.yzcdn.cn/vant/cat.jpeg" />
+                     src="https://img.yzcdn.cn/vant/cat.jpeg" />
         </div>
         <div class="Page-right">
           <div class="Page-right-box">
@@ -17,20 +17,20 @@
           <van-cell class="Page-bnt">
             <!-- 使用 title 插槽来自定义标题 -->
             <div slot="title"
-              class="Page-bnt-box"
-              v-for="(item,index) in dd"
-              :key="index">
+                 class="Page-bnt-box"
+                 v-for="(item,index) in dd"
+                 :key="index">
               <van-button plain
-                round
-                size="mini">{{item}}</van-button>
+                          round
+                          size="mini">{{item}}</van-button>
             </div>
           </van-cell>
           <van-cell class="Page-bottom">
             <!-- 使用 title 插槽来自定义标题 -->
             <span slot="title"
-              class="Page-bnt-bottom"
-              v-for="(item,index) in hh"
-              :key="index">
+                  class="Page-bnt-bottom"
+                  v-for="(item,index) in hh"
+                  :key="index">
               {{item}}
             </span>
           </van-cell>
@@ -55,6 +55,12 @@ export default {
         { id: 4, age: 'ahaha' },
         { id: 5, age: 'ahaha' }
       ]
+    }
+  },
+  props: {
+    userInfo: {
+      type: Array,
+      required: true
     }
   }
 }

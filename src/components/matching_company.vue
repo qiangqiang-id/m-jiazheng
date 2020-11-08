@@ -1,5 +1,35 @@
 <template>
   <div class="matching_company-container">
+    <!-- 区县 -->
+    <div>
+      <van-cell :border='false'>
+        <div slot="title"
+             class="title">
+          区县
+        </div>
+      </van-cell>
+      <van-grid title="家政"
+                class="van-matching"
+                :column-num="4"
+                :gutter="20"
+                :border='false'
+                :clickable='true'>
+        <van-grid-item text="辖市区"
+                       class="text" />
+        <van-grid-item text="文字"
+                       class="text" />
+        <van-grid-item text="文字"
+                       class="text" />
+        <van-grid-item text="文字"
+                       class="text" />
+        <van-grid-item text="文字"
+                       class="text" />
+
+      </van-grid>
+      <div class="fold">展开
+        <van-icon name="arrow-down" />
+      </div>
+    </div>
     <!-- 职业类型 -->
     <div>
       <van-cell :border='false'>
@@ -14,7 +44,7 @@
                 :gutter="20"
                 :border='false'
                 :clickable='true'>
-        <van-grid-item text="文字"
+        <van-grid-item text="全部职业"
                        class="text" />
         <van-grid-item text="文字"
                        class="text" />
@@ -42,7 +72,8 @@
                 class="van-matching"
                 :column-num="4"
                 :gutter="20"
-                :border='false'>
+                :border='false'
+                :clickable='true'>
         <van-grid-item text="文字"
                        class="text" />
         <van-grid-item text="文字"
@@ -68,7 +99,8 @@
                 class="van-matching"
                 :column-num="4"
                 :gutter="20"
-                :border='false'>
+                :border='false'
+                :clickable='true'>
         <van-grid-item text="文字"
                        class="text" />
         <van-grid-item text="文字"
@@ -91,7 +123,8 @@
                 class="van-matching"
                 :column-num="4"
                 :gutter="20"
-                :border='false'>
+                :border='false'
+                :clickable='true'>
         <van-grid-item text="文字"
                        class="text" />
         <van-grid-item text="文字"
@@ -114,7 +147,8 @@
                 class="van-matching"
                 :column-num="4"
                 :gutter="20"
-                :border='false'>
+                :border='false'
+                :clickable='true'>
         <van-grid-item text="文字"
                        class="text" />
         <van-grid-item text="文字"
@@ -151,7 +185,9 @@ export default {
 
   computed: {},
 
-  methods: {},
+  methods: {
+
+  },
 
   mounted () {},
 
