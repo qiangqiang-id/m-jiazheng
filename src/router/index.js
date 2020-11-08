@@ -32,7 +32,8 @@ const routes = [
     ]
   },
   { path: '/taoge', component: () => import('@/views/my/components/Personal-Information.vue') },
-  { path: '/login', name: '/login', component: () => import('@/views/login') }
+  { path: '/login', name: '/login', component: () => import('@/views/login') },
+  { path: '/Already', component: () => import('@/views/my/components/Already-contacted') }
 
 ]
 
