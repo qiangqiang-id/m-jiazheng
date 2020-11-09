@@ -77,6 +77,7 @@ export default {
     isSubmit () {
       // console.log(2)
       this.$router.push('/my')
+      this.$toast('我已阅读并同意')
     }
   }
 }
