@@ -2,15 +2,19 @@
   <div class="home-container">
     <!-- 头部 -->
     <van-nav-bar class="nav-header">
-      <span slot="left"
-            class="header-text">家政平台</span>
+      <span
+        slot="left"
+        class="header-text"
+      >家政平台</span>
     </van-nav-bar>
     <!-- /头部 -->
     <!-- 轮播图 -->
     <div class="banner">
-      <van-swipe class="my-swipe"
-                 :autoplay="3000"
-                 indicator-color="white">
+      <van-swipe
+        class="my-swipe"
+        :autoplay="3000"
+        indicator-color="white"
+      >
         <van-swipe-item>1</van-swipe-item>
         <van-swipe-item>2</van-swipe-item>
         <van-swipe-item>3</van-swipe-item>
@@ -20,37 +24,60 @@
     <!-- /轮播图 -->
     <!-- 服务模块 -->
     <div class="main">
-      <van-grid :column-num="3"
-                class="server">
-        <van-grid-item icon="photo-o"
-                       class="server-btn"
-                       text="入驻商务部" />
-        <van-grid-item icon="photo-o"
-                       class="server-btn"
-                       text="家政求职" />
-        <van-grid-item icon="photo-o"
-                       class="server-btn"
-                       text="找家庭服务" />
-        <van-grid-item icon="photo-o"
-                       class="server-btn"
-                       text="线上家政培训" />
-        <van-grid-item icon="photo-o"
-                       class="server-btn"
-                       text="线上家政保险" />
-        <van-grid-item icon="photo-o"
-                       class="server-btn"
-                       text="合同" />
+      <van-grid
+        :column-num="3"
+        class="server"
+      >
+        <van-grid-item
+          icon="photo-o"
+          class="server-btn"
+          text="入驻商务部"
+        />
+        <van-grid-item
+          icon="photo-o"
+          class="server-btn"
+          text="家政求职"
+        />
+        <van-grid-item
+          icon="photo-o"
+          class="server-btn"
+          text="找家庭服务"
+          to="/look"
+        />
+        <van-grid-item
+          icon="photo-o"
+          class="server-btn"
+          text="线上家政培训"
+        />
+        <van-grid-item
+          icon="photo-o"
+          class="server-btn"
+          text="线上家政保险"
+        />
+        <van-grid-item
+          icon="photo-o"
+          class="server-btn"
+          text="合同"
+        />
       </van-grid>
-      <van-grid :column-num="4"
-                class="type">
-        <van-grid-item class="type-item"
-                       v-for="item in typeList"
-                       :key="item.id">
-          <div slot="default"
-               class="type-content">
+      <van-grid
+        :column-num="4"
+        class="type"
+      >
+        <van-grid-item
+          class="type-item"
+          v-for="item in typeList"
+          :key="item.id"
+        >
+          <div
+            slot="default"
+            class="type-content"
+          >
             <div class="type-btn">
-              <van-icon class="type-icon"
-                        name="smile-o"></van-icon>
+              <van-icon
+                class="type-icon"
+                name="smile-o"
+              ></van-icon>
             </div>
             <span class="type-text">{{item.text}}</span>
           </div>

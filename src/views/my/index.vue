@@ -66,6 +66,7 @@
                class="icon-antFill-safety-certificate housekeeping"></div>
         </van-cell>
         <van-cell title="关于我们"
+                  @click="$router.push('/about')"
                   icon="location-o"
                   is-link>
           <div slot="icon"
