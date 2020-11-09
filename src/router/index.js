@@ -27,8 +27,7 @@ const routes = [
       {
         path: '/my',
         name: 'my',
-        component: () => import('@/views/my'),
-        children: []
+        component: () => import('@/views/my')
       }
     ]
   },
@@ -82,6 +81,16 @@ const routes = [
     path: '/home/homeservice',
     name: 'homeservice',
     component: () => import('@/views/cooperation/home-service')
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import('../views/my/components/about/index.vue')
+  },
+  {
+    path: '/look',
+    name: 'look',
+    component: () => import('../views/look/index.vue')
   }
 ]
 
