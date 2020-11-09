@@ -52,6 +52,11 @@ const routes = [
     name: 'admin',
     component: () => import('../views/my/components/admin.vue')
   },
+  {
+    path: '/housekeeping/:housekeepingID',
+    name: 'housekeepingInfo',
+    component: () => import('@/components/housekeepingInfo.vue')
+  },
   // 我的关注
   {
     path: '/myfollow',
@@ -62,11 +67,25 @@ const routes = [
     path: '/matching_company',
     name: 'matching_company',
     component: () => import('@/components/matching_company')
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import('../views/my/components/about/index.vue')
+  },
+  {
+    path: '/look',
+    name: 'look',
+    component: () => import('../views/look/index.vue')
   }
 ]
 
 const router = new VueRouter({
   routes
 })
+
+// router.beforeEach((to, from, next) => {
+
+// })
 
 export default router

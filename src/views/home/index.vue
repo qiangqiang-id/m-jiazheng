@@ -30,7 +30,8 @@
           text="家政求职" />
         <van-grid-item icon="photo-o"
           class="server-btn"
-          text="找家庭服务" />
+          text="找家庭服务"
+          to="/look" />
         <van-grid-item icon="photo-o"
           class="server-btn"
           text="线上家政培训" />

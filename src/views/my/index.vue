@@ -3,6 +3,16 @@
     <van-nav-bar left-text="我的" />
     <div class="userbox">
       <div class="not-login"
+           v-if="userinfo">
+        <div class="icon-img">
+          <van-image :src="user.img"
+                     round
+                     fit="cover" />
+        </div>
+        <span>{{user.name}}</span>
+      </div>
+      <div class="not-login"
+           v-else
            @click="toLogin">
         <div class="icon-img">
           <van-icon name="user-o" />
@@ -11,7 +21,7 @@
       </div>
       <div class="nav-box">
         <van-grid :border='false'>
-          <van-grid-item>
+          <van-grid-item to='/taoge'>
             <div slot="icon"
                  class="icon-gerenziliao housekeeping"></div>
             <span slot="text">个人资料</span>
@@ -50,28 +60,68 @@
       <van-cell-group class="usre-status">
         <van-cell title="身份认证通道"
                   class="cell-buttom"
-                  is-link>
+                  is-link
+                  @click="identity=true">
           <div slot="icon"
                class="icon-antFill-safety-certificate housekeeping"></div>
         </van-cell>
         <van-cell title="关于我们"
+                  @click="$router.push('/about')"
                   icon="location-o"
                   is-link>
           <div slot="icon"
                class="icon-fas_fa-info-circle_Copy housekeeping"></div>
         </van-cell>
       </van-cell-group>
+      <van-button type="danger"
+                  v-if="userinfo"
+                  class="logout-btn"
+                  @click="logout"
+                  round>退出登录</van-button>
     </div>
+    <!-- 身份认证弹出层 -->
+    <van-popup v-model="identity"
+               position="bottom">
+      <div class="identitypopUp">
+        <div @click="$router.push('/verify')">家服人员授权认证</div>
+        <div @click="$router.push('/admin')">家服公司管理员认证</div>
+      </div>
+    </van-popup>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'MyIndex',
+  data () {
+    return {
+      identity: false,
+      user: {}
+    }
+  },
   methods: {
     toLogin () {
       this.$router.push('/login')
+    },
+    logout () {
+      this.$dialog.confirm({
+        title: '确定退出？'
+      })
+        .then(() => {
+          // on confirm
+          this.$store.commit('saveuserinfo', null)
+        })
+        .catch(() => {
+          // on cancel
+        })
     }
+  },
+  computed: {
+    ...mapState(['userinfo'])
+  },
+  mounted () {
+    this.user = JSON.parse(this.userinfo)
   }
 }
 </script>
@@ -112,6 +162,10 @@ export default {
         .van-icon {
           font-size: 100px;
         }
+        .van-image {
+          width: 150px;
+          height: 150px;
+        }
       }
       span {
         color: #fff;
@@ -137,6 +191,12 @@ export default {
     }
   }
   .cell {
+    .logout-btn {
+      width: 80%;
+      margin-top: 50px;
+      height: 80px;
+      margin-left: 10%;
+    }
     margin-top: 100px;
     .usre-status {
       margin-top: 10px;
@@ -147,6 +207,19 @@ export default {
     .housekeeping {
       font-size: 40px;
       margin-right: 10px;
+    }
+  }
+  .van-popup {
+    background-color: #f8f8f8;
+  }
+  .identitypopUp {
+    text-align: center;
+    div {
+      height: 100px;
+      background-color: #fff;
+      font-size: 30px;
+      line-height: 100px;
+      margin-top: 10px;
     }
   }
 }

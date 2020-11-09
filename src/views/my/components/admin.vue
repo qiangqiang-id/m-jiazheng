@@ -1,35 +1,111 @@
 <template>
   <div class="admin">
     <!-- 导航栏 -->
-    <van-nav-bar
-      left-text="授权与协议"
-      left-arrow
-    />
-    <!-- 导航栏 -->
+    <van-nav-bar @click-left="$router.back()"
+                 left-text="授权与协议"
+                 left-arrow />
+    <!-- /导航栏 -->
     <!-- 头像 -->
     <div class="box">
       <div class="box1">
-        <van-image
-          class="img"
-          round
-          src="https://img.yzcdn.cn/vant/cat.jpeg"
-        />
-        <span class="name">熊某人</span>
+        <van-image class="img"
+                   round
+                   src="https://img.yzcdn.cn/vant/cat.jpeg" />
+        <span class="name">{{list.status}}</span>
       </div>
-      <!-- 头像 -->
+      <!-- /头像 -->
 
       <!-- 中间部分 -->
-      <div class="box2"></div>
-      <!-- 中间部分 -->
 
-      <!-- 底部 -->
-      <div class="bottom">提交认证</div>
+      <div class="box2">
+        <!-- 标题 -->
+        <div class="title-box">
+          <div class="icon"></div>
+          <div class="title">
+            请输入您的用户名和密码进行认证
+          </div>
+        </div>
+        <!-- /标题 -->
+
+        <!-- 表单 -->
+        <van-form @submit="onSubmit">
+          <van-field clearable
+                     v-model="user.username"
+                     label="用户账户 :"
+                     required
+                     :rules="yonghu.username"
+                     maxlength="11"
+                     type="Number" />
+          <van-field v-model="user.password"
+                     type="password"
+                     label="用户密码 :"
+                     required
+                     :rules="yonghu.password"
+                     maxlength="6" />
+
+          <!-- 底部 -->
+          <van-button class="bottom"
+                      block
+                      type="info"
+                      native-type="submit">
+            提交认证
+          </van-button>
+        </van-form>
+        <!-- /表单 -->
+      </div>
+      <!-- /中间部分 -->
+
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
+  data () {
+    return {
+      user: {
+        username: '',
+        password: ''
+      },
+
+      yonghu: {
+        username: [{
+          required: true,
+          message: '账户名不能为空'
+        }, {
+          pattern: /^1[3|5|7|8]\d{9}$/,
+          message: '账户格式错误'
+        }],
+        password: [{
+          required: true,
+          message: '账户密码不能为空'
+        }, {
+          pattern: /^\d{6}$/,
+          message: '密码格式错误'
+        }]
+      },
+      list: {}// 所有数据
+    }
+  },
+  created () {
+    this.isGain()
+  },
+  methods: {
+    onSubmit (values) {
+      // console.log('submit', values)
+
+      this.$router.push('/my')
+
+      this.$toast('认证成功')
+    },
+    async isGain () {
+      const res = await this.$axios.get('http://localhost:8080/t')
+      console.log(res.data)
+      this.list = res.data
+    }
+
+  }
 
 }
 </script>
@@ -79,7 +155,7 @@ export default {
   .box2 {
     position: fixed;
     top: 400px;
-    left: 35px;
+    left: 33px;
     width: 684px;
     height: 800px;
     background-color: #ffffff;
@@ -88,6 +164,7 @@ export default {
   .bottom {
     position: fixed;
     bottom: 0;
+    left: 0;
     background-color: #3f51b5;
     height: 108px;
     width: 100%;
@@ -95,6 +172,44 @@ export default {
     line-height: 108px;
     font-size: 28px;
     color: #ffffff;
+  }
+
+  .title {
+    font-size: 28px;
+    background-color: #fff;
+    height: 80px;
+    line-height: 80px;
+    border-radius: 10px 10px 0 0;
+    padding-left: 40px;
+  }
+
+  .icon {
+    position: absolute;
+    left: 22px;
+    top: 25px;
+    width: 8px;
+    height: 28px;
+    background-color: #3f51b5;
+  }
+
+  .van-cell {
+    // background-color: #f0eeee;
+    border-bottom: 1px solid #f0eeee;
+    // background-color: rgb(177, 177, 177);
+    .van-cell__title {
+      color: #000;
+    }
+  }
+
+  .van-cell::after {
+    border: 0;
+  }
+
+  .title-box {
+    border-bottom: 1px solid #f0eeee;
+  }
+  .van-icon {
+    color: #cfcfcf;
   }
 }
 </style>
