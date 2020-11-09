@@ -15,7 +15,8 @@
         show-action
         placeholder="智能匹配">
         <template #action>
-          <div class="city">长沙<i class="housekeeping icon-jiantou-down"></i></div>
+          <div class="city"
+            @click="isUpCityNameshow=true">{{city}}<i class="housekeeping icon-jiantou-down"></i></div>
         </template>
       </van-search>
       <!-- /导航栏 -->
@@ -39,6 +40,16 @@
       </div>
       <comment-like></comment-like>
     </div>
+    <!-- 编辑地址 -->
+    <van-popup v-model="isUpCityNameshow"
+      position="bottom">
+      <van-picker title="选择城市"
+        show-toolbar
+        :columns="columns"
+        @confirm="onConfirm"
+        @cancel="onCancel" />
+    </van-popup>
+    <!-- /编辑地址 -->
   </div>
 </template>
 
@@ -56,7 +67,12 @@ export default {
       // 家服公司信息,
       companyMsg: [],
       // 职业
-      occupation: []
+      occupation: [],
+      // 选择城市的名字
+      isUpCityNameshow: false,
+      columns: ['杭州', '宁波', '温州', '绍兴', '湖州', '嘉兴', '金华', '衢州', '长沙'],
+      // 城市
+      city: '长沙'
 
     }
   },
@@ -68,7 +84,7 @@ export default {
     async getCompanyInformation () {
       const { data: res } = await this.$axios.get('http://localhost:8080/info|get')
 
-      console.log('getInformation -> res', res)
+      // console.log('getInformation -> res', res)
       if (res.status === 200) {
         this.$toast.success('获取信息成功')
         // this.companyMsg.push(res.data)
@@ -78,6 +94,14 @@ export default {
       this.occupation.push('全部职业')
       // console.log(this.companyMsg)
       // console.log(this.companyMsg[1].evaluate)
+    },
+    onConfirm (value, index) {
+      this.city = value
+      this.isUpCityNameshow = false
+    },
+
+    onCancel () {
+      this.isUpCityNameshow = false
     }
   }
 

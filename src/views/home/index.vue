@@ -85,7 +85,7 @@ export default {
   methods: {
     async getTypeList () {
       const data = await this.$axios.get('http://localhost:8080/type')
-      console.log(data.data)
+      // console.log(data.data)
       this.typeList = data.data.type
     }
   }

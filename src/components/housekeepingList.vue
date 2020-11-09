@@ -70,7 +70,7 @@ export default {
     async getInformation () {
       const { data: res } = await this.$axios.get('http://localhost:8080/data|get')
 
-      console.log('getInformation -> res', res)
+      // console.log('getInformation -> res', res)
       if (res.status === 200) {
         this.$toast.success('获取信息成功')
         // console.log(res.datas)
