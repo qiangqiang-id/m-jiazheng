@@ -2,7 +2,7 @@
   <div class="identity">
 
     <!-- 导航栏 -->
-    <van-nav-bar @click-left="$router.back()"
+    <van-nav-bar @click-left="$router.push('/my')"
                  left-text="授权与协议"
                  left-arrow />
     <!-- 导航栏 -->
