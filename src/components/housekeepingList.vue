@@ -1,13 +1,13 @@
 <template>
   <van-cell>
     <div class="Page-box"
-      slot="title"
-      v-for="item in infoList"
-      :key="item.id">
+         slot="title"
+         v-for="item in infoList"
+         :key="item.id">
       <div class="Pag">
         <div class="page-left">
           <van-image class="imgs"
-            src="https://img.yzcdn.cn/vant/cat.jpeg" />
+                     src="https://img.yzcdn.cn/vant/cat.jpeg" />
         </div>
         <div class="Page-right">
           <div class="Page-right-box">
@@ -17,12 +17,12 @@
           <van-cell class="Page-bnt">
             <!-- 使用 title 插槽来自定义标题 -->
             <div slot="title"
-              class="Page-bnt-box"
-              v-for="(items,index) in item.label"
-              :key="index">
+                 class="Page-bnt-box"
+                 v-for="(items,index) in item.label"
+                 :key="index">
               <van-button plain
-                round
-                size="mini">{{items}}</van-button>
+                          round
+                          size="mini">{{items}}</van-button>
             </div>
           </van-cell>
           <van-cell class="Page-bottom">
@@ -72,7 +72,7 @@ export default {
 
       console.log('getInformation -> res', res)
       if (res.status === 200) {
-        this.$toast.success('获取信息成功')
+        // this.$toast.success('获取信息成功')
         // console.log(res.datas)
         this.infoList = res.datas
 

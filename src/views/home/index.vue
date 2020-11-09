@@ -31,10 +31,12 @@
         </van-grid-item> -->
         <van-grid-item icon="photo-o"
                        class="server-btn"
-                       text="入驻商务部" />
+                       text="入驻商务部"
+                       @click="$router.push('/home/business')" />
         <van-grid-item icon="photo-o"
                        class="server-btn"
-                       text="家政求职" />
+                       text="家政求职"
+                       @click="$router.push('/home/domestic')" />
         <van-grid-item icon="photo-o"
                        class="server-btn"
                        text="找家庭服务" />
@@ -51,17 +53,16 @@
       <van-grid :column-num="4"
                 class="type">
         <van-grid-item class="type-item"
-                       v-for="(item,index) in pic"
-                       :key="index">
+                       v-for="item in typeList"
+                       :key="item.id"
+                       @click="$router.push('/housekeeping')">
           <div slot="default"
                class="type-content">
             <div class="type-btn">
               <img class="type-pic"
-                   :src="item">
-              <!-- <van-icon class="type-icon"
-                        name="smile-o"></van-icon> -->
+                   :src="item.pic">
             </div>
-            <span class="type-text">{{index}}</span>
+            <span class="type-text">{{item.text}}</span>
           </div>
         </van-grid-item>
       </van-grid>
@@ -76,7 +77,7 @@
           湖南征信认证家服公司
         </span>
       </van-nav-bar>
-      <company-list></company-list>
+      <company-list @click="$router.push('/companyInfo')"></company-list>
       <van-nav-bar class="more">
         <span slot="title"
               class="more-text">更多公司</span>
@@ -120,7 +121,6 @@ export default {
   data () {
     return {
       serverPic: ['//s1.ayibang.com/static/h5/6.1/css/img/hdb/banner_05d6a2b.png', '//s1.ayibang.com/static/h5/6.1/css/img/gdstimg1_b41f803.png', '//s1.ayibang.com/static/h5/6.1/css/img/img1_99f039a.png', '//s1.ayibang.com/static/h5/6.1/css/img/dbdlimg2_8bf257f.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/yes8_e7641e5.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/djaz/img1_cdbf2f1.png'],
-      pic: ['//s1.ayibang.com/static/h5/6.1/css/img/BM_rcbj_015da9a.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_yyss_76a2c75.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_cwkh_6035b37.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_xyyt_6fb2c30.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_zglr_ef31f34.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_bbhl_d90cfba.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_rcbj_015da9a.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_cwkh_6035b37.jpg'],
       typeList: [],
       bannerPicList: []
     }
@@ -141,7 +141,6 @@ export default {
     async getBannerPic () {
       try {
         const data = await this.$axios.get('http://localhost:8080/banner')
-        console.log(data.data.data)
         this.bannerPicList = data.data.data
       } catch (err) {
         this.$toast('数据获取失败')

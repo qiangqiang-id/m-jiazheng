@@ -4,16 +4,16 @@
     <!-- 头部 -->
     <van-nav-bar class="nav-header">
       <span slot="left"
-        class="header-text">家政平台</span>
+            class="header-text">家政平台</span>
     </van-nav-bar>
     <!-- /头部 -->
     <div class="elevator">
       <!-- 导航栏 -->
       <van-search v-model="value"
-        class="inputs"
-        :clearable='true'
-        show-action
-        placeholder="智能匹配">
+                  class="inputs"
+                  :clearable='true'
+                  show-action
+                  placeholder="智能匹配">
         <template #action>
           <div class="city">长沙<i class="housekeeping icon-jiantou-down"></i></div>
         </template>
@@ -24,12 +24,12 @@
       <van-cell class="attribute-tag">
         <!-- 使用 title 插槽来自定义标题 -->
         <div slot="title"
-          class="btn-box"
-          v-for="(items,index) in occupation"
-          :key="index">
+             class="btn-box"
+             v-for="(items,index) in occupation"
+             :key="index">
           <van-button plain
-            round
-            size="mini">{{items}}</van-button>
+                      round
+                      size="mini">{{items}}</van-button>
         </div>
         <!-- /选择框 -->
       </van-cell>
@@ -70,7 +70,7 @@ export default {
 
       console.log('getInformation -> res', res)
       if (res.status === 200) {
-        this.$toast.success('获取信息成功')
+        // this.$toast.success('获取信息成功')
         // this.companyMsg.push(res.data)
       }
       this.companyMsg = res.data

@@ -16,7 +16,7 @@
     <!-- banner图 -->
     <div class="banner">
       <img class="banner-pic"
-           src="//s1.ayibang.com/static/h5/6.1/css/img/bannerbm_7c57ace.jpg">
+           :src="infoList.banner">
     </div>
     <!-- /banner图 -->
     <!-- 用户数量区域 -->
@@ -24,21 +24,23 @@
       <van-grid :column-num="2">
         <van-grid-item class="user-register">
           <span slot="text"
-                class="total">1</span>
+                class="total">{{infoList.num1}}</span>
           <span slot="text"
                 class="text">注册家政员数</span>
         </van-grid-item>
         <van-grid-item class="user-register">
           <span slot="text"
-                class="total">1</span>
+                class="total">{{infoList.num2}}</span>
           <span slot="text"
                 class="text">已认证客户数</span>
         </van-grid-item>
       </van-grid>
       <div class="follow">
-        <van-button class="follow-btn"
-                    type="info"
-                    round>关注</van-button>
+        <van-button @click="editIsFollow"
+                    :loading="isLoading"
+                    class="follow-btn"
+                    :type="infoList.is_follow ? 'info' : 'default'"
+                    round>{{infoList.is_follow ? '关注' : '已关注'}}</van-button>
       </div>
     </div>
     <!-- /用户数量区域 -->
@@ -51,7 +53,7 @@
       <van-grid :column-num="4"
                 class="type">
         <van-grid-item class="type-item"
-                       v-for="item in businessList"
+                       v-for="item in infoList.business"
                        :key="item">
           <div slot="default"
                class="type-content">
@@ -65,43 +67,55 @@
       </van-grid>
     </div>
     <!-- 标签栏 -->
-    <van-tabbar v-model="active">
-      <van-tabbar-item icon="share">分享</van-tabbar-item>
+    <van-tabbar v-model="active1"
+                active-color="#7d7e80">
+      <van-tabbar-item icon="share"
+                       @click="isShowShare =true">分享</van-tabbar-item>
+      <van-share-sheet v-model="isShowShare"
+                       title="立即分享给好友"
+                       :options="options"
+                       @select="onSelect"
+                       @cancel="isShowShare = false" />
 
-      <van-tabbar-item class="housekeeping icon-weixin">微信联系</van-tabbar-item>
-      <van-tabbar-item class="housekeeping icon-fasfa-phoneCopy1">电话联系</van-tabbar-item>
+      <van-tabbar-item class="housekeeping icon-weixin"
+                       @click="showMobilePopup('微信')">微信联系</van-tabbar-item>
+      <van-tabbar-item class="housekeeping icon-fasfa-phoneCopy1"
+                       @click="showMobilePopup('电话')">电话联系</van-tabbar-item>
     </van-tabbar>
     <!-- /标签栏 -->
     <!-- 公司资料 -->
     <div class="company-introduce">
-      <van-tabs v-model="active1"
+      <van-tabs v-model="active2"
                 class="tab">
         <van-tab title="公司资料">
-          <van-cell>
+          <van-cell v-for="(item,index) in infoList.compang_pic"
+                    :key="index">
             <span slot="title"
-                  class="business-text">公司资质</span>
+                  class="business-text">{{item.name}}</span>
             <div slot="label"
                  class="company-pic">
-              <div class="company-pic-item"></div>
-              <div class="company-pic-item"></div>
-              <div class="company-pic-item"></div>
+              <div class="company-pic-item"
+                   v-for="(value,index) in item.picPath"
+                   :key="index">
+                <img :src="value" />
+              </div>
             </div>
           </van-cell>
           <van-cell>
             <span slot="title"
                   class="business-text">基本资料</span>
             <div slot="label">
-              <p>公司名称：</p>
-              <p>法人代表：</p>
-              <p>公司电话：</p>
-              <p>公司规模：</p>
-              <p>公司地址：</p>
+              <p>公司名称：{{infoList.company_name}}</p>
+              <p>法人代表：{{infoList.representative}}</p>
+              <p>公司电话：{{infoList.mobile}}</p>
+              <p>公司规模：{{infoList.scale}}</p>
+              <p>公司地址：{{infoList.address}}</p>
             </div>
           </van-cell>
           <van-cell>
             <span slot="title"
                   class="business-text">公司介绍</span>
-            <p slot="label">这是一个段落</p>
+            <p slot="label"> {{infoList.intorduce}}</p>
           </van-cell>
         </van-tab>
         <van-tab title="注册人员">
@@ -112,6 +126,21 @@
       </van-tabs>
     </div>
     <!-- /公司资料 -->
+    <!-- 电话联系弹出框 -->
+    <van-popup v-model="isShowMobile"
+               class="mobile-popup"
+               position="bottom"
+               :style="{ height: '35%' }">
+      <van-picker item-height="20px"
+                  show-toolbar
+                  class="mobile-picker"
+                  :columns="columns">
+        <span slot="title">{{mode}}</span>
+      </van-picker>
+      <div class="mobile-cancel-btn"
+           @click="isShowMobile=false">取消</div>
+    </van-popup>
+    <!-- /电话联系弹出框 -->
   </div>
 </template>
 
@@ -120,8 +149,55 @@ export default {
   name: 'CompanyInfo',
   data () {
     return {
-      active: '',
-      businessList: ['月嫂', '育婴师', '保姆']
+      active1: '',
+      active2: 0,
+      infoList: {},
+      isLoading: false,
+      // 分享
+      isShowShare: false,
+      // 联系电话框
+      isShowMobile: false,
+      options: [
+        { name: '微信', icon: 'wechat' },
+        { name: '微博', icon: 'weibo' },
+        { name: '复制链接', icon: 'link' },
+        { name: '分享海报', icon: 'poster' },
+        { name: '二维码', icon: 'qrcode' }
+      ],
+      columns: ['1334454545'],
+      mode: ''
+    }
+  },
+  created () {
+    this.getCompanyInfo()
+  },
+  methods: {
+    async getCompanyInfo () {
+      try {
+        const data = await this.$axios.get('http://localhost:8080/test')
+        console.log(data.data)
+        this.infoList = data.data
+      } catch (err) {
+        this.$toast('获取信息失败')
+      }
+    },
+    async editIsFollow () {
+      this.isLoading = true
+      try {
+        await this.$axios.put('http://localhost:8080/is_follow', { is_follow: !this.infoList.is_follow })
+        this.infoList.is_follow = !this.infoList.is_follow
+      } catch (err) {
+        this.$toast('操作失败，请重试')
+      }
+      this.isLoading = false
+    },
+    onSelect (option) {
+      this.$toast(option.name)
+      this.showShare = false
+    },
+    showMobilePopup (value) {
+      this.isShowMobile = true
+      this.mode = value
     }
   }
 }
@@ -150,7 +226,6 @@ export default {
     margin-top: -35px;
     width: 674px;
     height: 342px;
-    background-color: pink;
     .banner-pic {
       width: 100%;
     }
@@ -254,8 +329,36 @@ export default {
     .company-pic-item {
       width: 190px;
       height: 148px;
-      background-color: pink;
+      img {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
+}
+.mobile-popup {
+  box-sizing: border-box;
+
+  padding: 0 20px;
+  background: rgba(0, 0, 0, 0.2);
+  // opacity: 0.2;
+  ::v-deep .van-picker-column__item {
+  }
+  .mobile-cancel-btn {
+    margin-top: 20px;
+    text-align: center;
+    line-height: 80px;
+    height: 80px;
+    background-color: #fff;
+    border-radius: 20px;
+  }
+}
+::v-deep.mobile-picker {
+  border-radius: 20px;
+  overflow: hidden;
+}
+::v-deep .van-picker__confirm,
+::v-deep .van-picker__cancel {
+  visibility: hidden;
 }
 </style>

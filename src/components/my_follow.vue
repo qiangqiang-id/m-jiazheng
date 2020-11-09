@@ -57,7 +57,7 @@ export default {
 
       console.log('getInformation -> res', res)
       if (res.status === 200) {
-        this.$toast.success('获取信息成功')
+        // this.$toast.success('获取信息成功')
         this.infoList.push(res.datas)
       }
     }, // 获取家政公司基本信息
@@ -66,7 +66,7 @@ export default {
 
       console.log('getInformation -> res', res)
       if (res.status === 200) {
-        this.$toast.success('获取信息成功')
+        // this.$toast.success('获取信息成功')
         this.companyMsg.push(res.data)
       }
       // const { data: res } = await this.$axios.get('http://localhost:8080/info|get')

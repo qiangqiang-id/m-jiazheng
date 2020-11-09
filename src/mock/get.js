@@ -29,10 +29,11 @@ mockjs.getMobile = function () {
 // 模拟手机号码
 const type = []
 const pic1 = ['//s1.ayibang.com/static/h5/6.1/css/img/BM_rcbj_015da9a.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_yyss_76a2c75.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_cwkh_6035b37.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_xyyt_6fb2c30.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_zglr_ef31f34.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_bbhl_d90cfba.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_rcbj_015da9a.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_cwkh_6035b37.jpg']
+const text = ['保姆', '月嫂', '厨师', '育婴师', '产康师', '家装/搬家', '早教/托教', '养老/陪护', '保洁/清洗']
 for (var i = 0; i < 8; i++) {
   type.push({
     id: i,
-    text: '月嫂' + i,
+    text: text[i],
     pic: pic1[i]
   })
 }
@@ -58,7 +59,7 @@ for (let i = 0; i < k; i++) {
     // 服务几户
     service: Random.natural(20, 200),
     // 评价
-    profession: ['保姆', '月嫂', '厨师', '育婴师', '产康师', '家装/搬家', '早教/托教', '养老/陪护', '保洁/清洗'],
+    profession: text,
     // 职业大全
     evaluate: Random.natural(1, 2000),
     // 标签
@@ -71,7 +72,7 @@ const companyMsg = []
 for (let i = 0; i < 10; i++) {
   companyMsg.push({
     id: i,
-    profession: ['保姆', '月嫂', '厨师', '育婴师', '产康师', '家装/搬家', '早教/托教', '养老/陪护', '保洁/清洗'],
+    profession: text,
     // 职业大全
     shopAddress: Random.city(true) + ' 东方红县 夹皮沟404号', // 随机生成地址
     companyName: Random.ctitle(3, 5) + '家政有限公司', // 公司名
@@ -80,6 +81,7 @@ for (let i = 0; i < 10; i++) {
 
   })
 }
+// 轮播图
 const bannerPic = ['//s1.ayibang.com/static/h5/6.1/css/img/rcbjimg1_e668551.png',
   '//s1.ayibang.com/static/h5/6.1/css/img/rcbjnew1_a8f95a0.png',
   '//s1.ayibang.com/static/h5/6.1/css/img/yes8_e7641e5.jpg']
