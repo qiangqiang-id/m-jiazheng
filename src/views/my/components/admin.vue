@@ -2,6 +2,7 @@
   <div class="admin">
     <!-- 导航栏 -->
     <van-nav-bar
+      @click-left="$router.back()"
       left-text="授权与协议"
       left-arrow
     />
