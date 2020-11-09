@@ -27,7 +27,8 @@ const routes = [
       {
         path: '/my',
         name: 'my',
-        component: () => import('@/views/my')
+        component: () => import('@/views/my'),
+        children: []
       }
     ]
   },
@@ -91,7 +92,11 @@ const routes = [
     path: '/look',
     name: 'look',
     component: () => import('../views/look/index.vue')
-  }
+  },
+  { path: '/taoge', component: () => import('@/views/my/components/Personal-Information.vue') },
+  { path: '/login', name: '/login', component: () => import('@/views/login') },
+  { path: '/Already', component: () => import('@/views/my/components/Already-contacted') }
+
 ]
 
 const router = new VueRouter({

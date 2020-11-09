@@ -24,15 +24,45 @@
                 @click="isNameShow=true" />
 
       <van-cell title="性别："
-                value="内容"
                 @click="isProfileGenderShow = true"
                 is-link />
-      <van-cell title="手机号码：" />
+      <!-- 手机号码 -->
+      <van-cell>
+        <van-cell-group>
+          <van-field slot="default">
+            <span slot="label"
+                  class="van-phone">手机号码：</span>
+          </van-field>
+        </van-cell-group>
+      </van-cell>
       <van-cell title="服务区域："
-                value="内容"
-                is-link />
-      <van-cell title="详细地址：" />
-      <van-cell title="手验证码：" />
+                is-link
+                @click="isDiZhiShow=true" />
+      <!-- 详细地址 -->
+      <van-cell>
+        <van-cell-group>
+          <van-field slot="default">
+            <span slot="label"
+                  class="van-phone">详细地址：</span>
+          </van-field>
+        </van-cell-group>
+      </van-cell>
+      <!-- 手验证码 -->
+      <van-cell>
+        <van-cell-group>
+          <van-field slot="default">
+            <span slot="label"
+                  class="van-phone">手验证码：</span>
+            <van-button slot="button"
+                        type="primary"
+                        size="mini"
+                        round
+                        icon-position="right">获取验证码</van-button>
+
+          </van-field>
+
+        </van-cell-group>
+      </van-cell>
     </div>
 
     <!-- 编辑姓名的弹出层 -->
@@ -55,11 +85,19 @@
     <!-- 编辑性别的弹出层 -->
     <van-popup v-model="isProfileGenderShow"
                position="bottom">
-      <van-picker title="标题"
+      <van-picker title="性别"
                   v-if="isProfileGenderShow"
                   show-toolbar
                   :columns="columns"
                   @cancel="onCancel" />
+    </van-popup>
+
+    <!-- 选择地区的弹出层 -->
+    <van-popup v-model="isDiZhiShow"
+               position="bottom">
+      <van-area title="地区"
+                :area-list="areaList"
+                value="110101" />
     </van-popup>
   </div>
 </template>
@@ -67,17 +105,18 @@
 <script>
 import UpdateName from '@/views/my/components/Update-name'
 import UpdatePhoto from '@/views/my/components/Update-photo'
-
+import Area from '@/assets/Area.js'
 export default {
   name: 'PersonalInformation',
   data () {
     return {
-
+      areaList: Area,
       isNameShow: false,
       isImgShow: false,
       img: null,
       isProfileGenderShow: false,
-      columns: ['男', '女']
+      columns: ['男', '女'],
+      isDiZhiShow: false
     }
   },
   methods: {
@@ -144,6 +183,14 @@ export default {
       .user-img {
         width: 110px;
         height: 108px;
+      }
+    }
+    .van-field {
+      padding: 0;
+      .van-phone {
+        color: #101010;
+        font-size: 26px;
+        font-weight: 700;
       }
     }
   }

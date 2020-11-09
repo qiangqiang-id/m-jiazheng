@@ -1,19 +1,15 @@
 <template>
   <div class="admin">
     <!-- 导航栏 -->
-    <van-nav-bar
-      left-text="授权与协议"
-      left-arrow
-    />
+    <van-nav-bar left-text="授权与协议"
+                 left-arrow />
     <!-- /导航栏 -->
     <!-- 头像 -->
     <div class="box">
       <div class="box1">
-        <van-image
-          class="img"
-          round
-          src="https://img.yzcdn.cn/vant/cat.jpeg"
-        />
+        <van-image class="img"
+                   round
+                   src="https://img.yzcdn.cn/vant/cat.jpeg" />
         <span class="name">熊某人</span>
       </div>
       <!-- /头像 -->
@@ -32,37 +28,39 @@
 
         <!-- 表单 -->
         <van-form @submit="onSubmit">
-          <van-field
-            clearable
-            v-model="user.username"
-            label="用户账户 :"
-            required
-            :rules="yonghu.username"
-            maxlength="11"
-            type="Number"
-          />
-          <van-field
-            v-model="user.password"
-            type="password"
-            label="用户密码 :"
-            required
-            :rules="yonghu.password"
-            maxlength="6"
-          />
+          <van-field clearable
+                     v-model="user.username"
+                     label="用户账户 :"
+                     required
+                     :rules="yonghu.username"
+                     maxlength="11"
+                     type="Number" />
+          <van-field v-model="user.password"
+                     type="password"
+                     label="用户密码 :"
+                     required
+                     :rules="yonghu.password"
+                     maxlength="6" />
         </van-form>
         <!-- /表单 -->
       </div>
       <!-- /中间部分 -->
 
       <!-- 底部 -->
-      <van-button
-        class="bottom"
-        block
-        type="info"
-        native-type="submit"
-      >
+      <van-button class="bottom"
+                  block
+                  type="info"
+                  native-type="submit">
         提交认证
       </van-button>
+      <!-- 头像 -->
+
+      <!-- 中间部分 -->
+      <div class="box2"></div>
+      <!-- 中间部分 -->
+
+      <!-- 底部 -->
+      <div class="bottom">提交认证</div>
     </div>
   </div>
 </template>

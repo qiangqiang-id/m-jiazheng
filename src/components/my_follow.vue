@@ -10,13 +10,13 @@
       <!-- 底部按钮 -->
       <van-tabs v-model="active">
         <van-tab title="家服公司">
-          <companyList></companyList>
+          <company-list></company-list>
 
         </van-tab>
         <van-tab title="家服人员">
-          <housekeepingList v-for="item in infoList "
-                            :key="item.id"
-                            :userInfo='item'></housekeepingList>
+          <housekeeping-list v-for="item in infoList "
+                             :key="item.id"
+                             :userInfo='item'></housekeeping-list>
         </van-tab>
       </van-tabs>
     </div>
@@ -69,6 +69,13 @@ export default {
         this.$toast.success('获取信息成功')
         this.companyMsg.push(res.data)
       }
+      // const { data: res } = await this.$axios.get('http://localhost:8080/info|get')
+
+      // console.log('getInformation -> res', res)
+      // if (res.status === 200) {
+      //   this.$toast.success('获取信息成功')
+      //   this.companyMsg.push(res.data)
+      // }
     }
 
   },

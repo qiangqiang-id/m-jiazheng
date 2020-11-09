@@ -8,10 +8,10 @@ import 'vant/lib/index.css'
 import '@/assets/global.scss'
 import '@/mock/index.js'
 import axios from 'axios'
-
 Vue.prototype.$axios = axios
 
 Vue.use(Lazyload)
+Vue.prototype.$axios = axios
 Vue.use(Vant)
 Vue.use(Area)
 Vue.config.productionTip = false

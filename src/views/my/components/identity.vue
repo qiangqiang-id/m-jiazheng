@@ -2,55 +2,50 @@
   <div class="identity">
 
     <!-- 导航栏 -->
-    <van-nav-bar
-      left-text="授权与协议"
-      left-arrow
-    />
+    <van-nav-bar left-text="授权与协议"
+                 left-arrow />
     <!-- 导航栏 -->
     <!-- 头像 -->
     <div class="box">
       <div class="box1">
-        <van-image
-          class="img"
-          round
-          src="https://img.yzcdn.cn/vant/cat.jpeg"
-        />
+        <van-image class="img"
+                   round
+                   src="https://img.yzcdn.cn/vant/cat.jpeg" />
         <span class="name">{{list.status}}</span>
+        <span class="name">熊某人</span>
       </div>
     </div>
     <!-- 头像 -->
 
     <!-- 中间内容 -->
-    <div
-      class="box2"
-      v-html="list.text"
-    >
+    <div class="box2"
+         v-html="list.text">
     </div>
     <!-- 中间内容 -->
 
     <!-- 底部 -->
-    <van-button
-      class="bottom"
-      block
-      type="info"
-      native-type="submit"
-      :disabled="this.isdisabled"
-    >
-      <van-radio-group
-        v-model="radio"
-        class="radio"
-      >
+    <van-button class="bottom"
+                block
+                type="info"
+                native-type="submit"
+                :disabled="this.isdisabled">
+      <van-radio-group v-model="radio"
+                       class="radio">
 
-        <van-radio
-          name="1"
-          @click="isunfasten"
-        ></van-radio>
+        <van-radio name="1"
+                   @click="isunfasten"></van-radio>
 
       </van-radio-group>
 
       我已阅读并同意以上协议
     </van-button>
 
+    =======
+    <div class="box2"></div>
+    <!-- 中间内容 -->
+
+    <!-- 底部 -->
+    <div class="bottom">我已阅读并同意以上协议</div>
   </div>
 </template>
 
@@ -78,6 +73,7 @@ export default {
       this.isdisabled = false
     }
   }
+
 }
 </script>
 
@@ -132,6 +128,12 @@ export default {
     background-color: #fcfcfc;
     border-radius: 15px;
     // box-shadow: 0 0 0.1px 0.1px;
+    top: 400px;
+    left: 35px;
+    width: 684px;
+    height: 800px;
+    background-color: #ffffff;
+    border-radius: 15px;
   }
   .bottom {
     position: fixed;
