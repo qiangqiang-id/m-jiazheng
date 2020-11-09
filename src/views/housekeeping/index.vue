@@ -116,6 +116,10 @@ export default {
       border: 1px solid #979191;
       color: #979191;
       margin: 10px 20px;
+      &:hover {
+        border: 1px solid #3f51b5;
+        color: #3f51b5;
+      }
     }
   }
   .box {
