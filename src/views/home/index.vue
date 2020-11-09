@@ -8,13 +8,13 @@
     <!-- /头部 -->
     <!-- 轮播图 -->
     <div class="banner">
-      <van-swipe class="my-swipe"
-                 :autoplay="3000"
-                 indicator-color="white">
-        <van-swipe-item>1</van-swipe-item>
-        <van-swipe-item>2</van-swipe-item>
-        <van-swipe-item>3</van-swipe-item>
-        <van-swipe-item>4</van-swipe-item>
+      <van-swipe :autoplay="3000">
+        <van-swipe-item class="my-swipe"
+                        v-for="(image, index) in images"
+                        :key="index">
+          <img class="banner-pic"
+               v-lazy="image" />
+        </van-swipe-item>
       </van-swipe>
 
     </div>
@@ -23,6 +23,12 @@
     <div class="main">
       <van-grid :column-num="3"
                 class="server">
+        <!-- <van-grid-item class="server-btn"
+                       v-for="(item,index) in serverPic"
+                       :key="index">
+          <img class="server-pic"
+               :src="item">
+        </van-grid-item> -->
         <van-grid-item icon="photo-o"
                        class="server-btn"
                        text="入驻商务部" />
@@ -45,41 +51,82 @@
       <van-grid :column-num="4"
                 class="type">
         <van-grid-item class="type-item"
-                       v-for="item in typeList"
-                       :key="item.id">
+                       v-for="(item,index) in pic"
+                       :key="index">
           <div slot="default"
                class="type-content">
             <div class="type-btn">
-              <van-icon class="type-icon"
-                        name="smile-o"></van-icon>
+              <img class="type-pic"
+                   :src="item">
+              <!-- <van-icon class="type-icon"
+                        name="smile-o"></van-icon> -->
             </div>
-            <span class="type-text">{{item.text}}</span>
+            <span class="type-text">{{index}}</span>
           </div>
         </van-grid-item>
-
       </van-grid>
     </div>
     <!-- /服务模块 -->
     <!-- 家政公司 -->
     <div class="conpany">
       <van-nav-bar>
-        <span slot="left">湖南征信认证家服公司</span>
+        <i slot="left"
+           class="housekeeping icon-fasfa-home"></i>
+        <span slot="left">
+          湖南征信认证家服公司
+        </span>
+      </van-nav-bar>
+      <company-list></company-list>
+      <van-nav-bar class="more">
+        <span slot="title"
+              class="more-text">更多公司</span>
+        <van-icon slot="title"
+                  class="more-icon"
+                  name="arrow" />
       </van-nav-bar>
     </div>
     <!-- /家政公司 -->
     <!-- 家政人员 -->
-    <div class="housekeeping"></div>
+    <div class="housekeepings">
+      <van-nav-bar>
+        <i slot="left"
+           class="housekeeping icon-fasfa-user"></i>
+        <span slot="left">
+          诚信注册家服员
+        </span>
+      </van-nav-bar>
+      <housekeeping-list></housekeeping-list>
+      <van-nav-bar class="more">
+        <span slot="title"
+              class="more-text">更多家服员</span>
+        <van-icon slot="title"
+                  class="more-icon"
+                  name="arrow" />
+      </van-nav-bar>
+    </div>
     <!-- /家政人员 -->
-
   </div>
 </template>
 
 <script>
+import CompanyList from '@/components/companyList.vue'
+import HousekeepingList from '@/components/housekeepingList.vue'
 export default {
   name: 'HomeIndex',
+  components: {
+    CompanyList,
+    HousekeepingList
+  },
   data () {
     return {
+      serverPic: ['//s1.ayibang.com/static/h5/6.1/css/img/hdb/banner_05d6a2b.png', '//s1.ayibang.com/static/h5/6.1/css/img/gdstimg1_b41f803.png', '//s1.ayibang.com/static/h5/6.1/css/img/img1_99f039a.png', '//s1.ayibang.com/static/h5/6.1/css/img/dbdlimg2_8bf257f.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/yes8_e7641e5.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/djaz/img1_cdbf2f1.png'],
+      pic: ['//s1.ayibang.com/static/h5/6.1/css/img/BM_rcbj_015da9a.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_yyss_76a2c75.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_cwkh_6035b37.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_xyyt_6fb2c30.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_zglr_ef31f34.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_bbhl_d90cfba.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_rcbj_015da9a.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_cwkh_6035b37.jpg'],
       typeList: [],
+      images: [
+        '//s1.ayibang.com/static/h5/6.1/css/img/rcbjimg1_e668551.png',
+        '//s1.ayibang.com/static/h5/6.1/css/img/rcbjnew1_a8f95a0.png',
+        '//s1.ayibang.com/static/h5/6.1/css/img/rcbjnew1_a8f95a0.png'
+      ],
       bannerPicList: []
     }
   },
@@ -112,19 +159,24 @@ export default {
 
 <style lang="scss" scoped>
 .home-container {
-  padding-bottom: 200px;
+  padding-bottom: 130px;
   background-color: #f9f5f5;
   .banner {
     padding: 40px 30px;
     box-sizing: border-box;
     height: 360px;
+    width: 100%;
     background-color: #3f51b5;
-    .my-swipe .van-swipe-item {
+    .my-swipe {
+      width: 100%;
       color: #fff;
       font-size: 20px;
-      line-height: 290px;
+      height: 290px;
       text-align: center;
       background-color: #39a9ed;
+      .banner-pic {
+        width: 100%;
+      }
     }
   }
   .main {
@@ -134,6 +186,9 @@ export default {
       .server-btn {
         display: flex;
         justify-content: space-around;
+        .server-pic {
+          width: 100%;
+        }
         .van-grid-item__content {
           background-color: #eeecec;
           width: 212px;
@@ -163,6 +218,11 @@ export default {
               height: 100px;
               border-radius: 50%;
               background-color: #eeecec;
+              overflow: hidden;
+              type-pic {
+                width: 100%;
+                border-radius: 50%;
+              }
             }
             .type-text {
               margin-top: 20px;
@@ -174,7 +234,44 @@ export default {
     }
   }
   .conpany {
+    position: relative;
     margin-top: 20px;
+    .housekeeping {
+      font-size: 30px;
+      margin-right: 10px;
+    }
+    .more {
+      position: absolute;
+      bottom: -30px;
+      left: 0;
+      right: 0;
+      .more-icon,
+      .more-text {
+        vertical-align: middle;
+        font-size: 25px;
+        color: #878684;
+      }
+    }
+  }
+  .housekeepings {
+    position: relative;
+    margin-top: 50px;
+    .housekeeping {
+      font-size: 30px;
+      margin-right: 10px;
+    }
+  }
+  .more {
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+    right: 0;
+    .more-icon,
+    .more-text {
+      vertical-align: middle;
+      font-size: 25px;
+      color: #878684;
+    }
   }
 }
 ::v-deep .van-grid-item__content::after {

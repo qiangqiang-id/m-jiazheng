@@ -2,8 +2,10 @@
   <div class="my-container">
     <van-nav-bar left-text="我的" />
     <div class="userbox">
-      <div class="not-login"
-           @click="toLogin">
+      <div
+        class="not-login"
+        @click="toLogin"
+      >
         <div class="icon-img">
           <van-icon name="user-o" />
         </div>
@@ -12,23 +14,31 @@
       <div class="nav-box">
         <van-grid :border='false'>
           <van-grid-item>
-            <div slot="icon"
-                 class="icon-gerenziliao housekeeping"></div>
+            <div
+              slot="icon"
+              class="icon-gerenziliao housekeeping"
+            ></div>
             <span slot="text">个人资料</span>
           </van-grid-item>
           <van-grid-item>
-            <div slot="icon"
-                 class="icon-fasfa-user1 housekeeping"></div>
+            <div
+              slot="icon"
+              class="icon-fasfa-user1 housekeeping"
+            ></div>
             <span slot="text">我的关注</span>
           </van-grid-item>
           <van-grid-item>
-            <div slot="icon"
-                 class="icon-farfa-comment-dots housekeeping"></div>
+            <div
+              slot="icon"
+              class="icon-farfa-comment-dots housekeeping"
+            ></div>
             <span slot="text">我的评价</span>
           </van-grid-item>
           <van-grid-item>
-            <div slot="icon"
-                 class="icon-fa-fax housekeeping"></div>
+            <div
+              slot="icon"
+              class="icon-fa-fax housekeeping"
+            ></div>
             <span slot="text">已联系家政员</span>
           </van-grid-item>
         </van-grid>
@@ -36,29 +46,46 @@
     </div>
     <div class="cell">
       <van-cell-group>
-        <van-cell title="找家政服务记录"
-                  is-link>
-          <div slot="icon"
-               class="icon-md-receipt housekeeping"></div>
+        <van-cell
+          title="找家政服务记录"
+          is-link
+        >
+          <div
+            slot="icon"
+            class="icon-md-receipt housekeeping"
+          ></div>
         </van-cell>
-        <van-cell title="家政求职记录"
-                  is-link>
-          <div slot="icon"
-               class="icon-ziyuan1 housekeeping"></div>
+        <van-cell
+          title="家政求职记录"
+          is-link
+        >
+          <div
+            slot="icon"
+            class="icon-ziyuan1 housekeeping"
+          ></div>
         </van-cell>
       </van-cell-group>
       <van-cell-group class="usre-status">
-        <van-cell title="身份认证通道"
-                  class="cell-buttom"
-                  is-link>
-          <div slot="icon"
-               class="icon-antFill-safety-certificate housekeeping"></div>
+        <van-cell
+          title="身份认证通道"
+          class="cell-buttom"
+          is-link
+        >
+          <div
+            slot="icon"
+            class="icon-antFill-safety-certificate housekeeping"
+          ></div>
         </van-cell>
-        <van-cell title="关于我们"
-                  icon="location-o"
-                  is-link>
-          <div slot="icon"
-               class="icon-fas_fa-info-circle_Copy housekeeping"></div>
+        <van-cell
+          title="关于我们"
+          icon="location-o"
+          is-link
+          to="/about"
+        >
+          <div
+            slot="icon"
+            class="icon-fas_fa-info-circle_Copy housekeeping"
+          ></div>
         </van-cell>
       </van-cell-group>
     </div>

@@ -2,25 +2,45 @@
   <div class="identity">
 
     <!-- 导航栏 -->
-    <van-nav-bar
-      left-text="授权与协议"
-      left-arrow
-    />
+    <van-nav-bar left-text="授权与协议"
+                 left-arrow />
     <!-- 导航栏 -->
     <!-- 头像 -->
     <div class="box">
       <div class="box1">
-        <van-image
-          class="img"
-          round
-          src="https://img.yzcdn.cn/vant/cat.jpeg"
-        />
+        <van-image class="img"
+                   round
+                   src="https://img.yzcdn.cn/vant/cat.jpeg" />
+        <span class="name">{{list.status}}</span>
         <span class="name">熊某人</span>
       </div>
     </div>
     <!-- 头像 -->
 
     <!-- 中间内容 -->
+    <div class="box2"
+         v-html="list.text">
+    </div>
+    <!-- 中间内容 -->
+
+    <!-- 底部 -->
+    <van-button class="bottom"
+                block
+                type="info"
+                native-type="submit"
+                :disabled="this.isdisabled">
+      <van-radio-group v-model="radio"
+                       class="radio">
+
+        <van-radio name="1"
+                   @click="isunfasten"></van-radio>
+
+      </van-radio-group>
+
+      我已阅读并同意以上协议
+    </van-button>
+
+    =======
     <div class="box2"></div>
     <!-- 中间内容 -->
 
@@ -32,6 +52,27 @@
 <script>
 
 export default {
+  data () {
+    return {
+      radio: '0',
+      list: {}, // 所有数据
+      isdisabled: true
+
+    }
+  },
+  created () {
+    this.request()
+  },
+  methods: {
+    async request () {
+      const res = await this.$axios.get('http://localhost:8080/t')
+      console.log(res.data)
+      this.list = res.data
+    },
+    isunfasten () {
+      this.isdisabled = false
+    }
+  }
 
 }
 </script>
@@ -80,6 +121,13 @@ export default {
   }
   .box2 {
     position: fixed;
+    top: 370px;
+    left: 35px;
+    width: 684px;
+    height: 800px;
+    background-color: #fcfcfc;
+    border-radius: 15px;
+    // box-shadow: 0 0 0.1px 0.1px;
     top: 400px;
     left: 35px;
     width: 684px;
@@ -95,8 +143,22 @@ export default {
     width: 100%;
     text-align: center;
     line-height: 108px;
-    font-size: 28px;
+    font-size: 34px;
     color: #ffffff;
+  }
+  .radio {
+    position: absolute;
+    left: 140px;
+    top: 31px;
+  }
+  .p {
+    font-size: 24px;
+    text-indent: 2em;
+    margin: 10px 30px;
+  }
+  .p1 {
+    font-size: 24px;
+    margin: 0px 30px;
   }
 }
 </style>
