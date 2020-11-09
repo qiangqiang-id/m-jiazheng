@@ -104,11 +104,10 @@ export default {
   methods: {
     onSubmit (values) {
       // console.log('submit', values)
-      try {
-        this.$router.push('/my')
-      } catch {
-        this.$toast('认证成功')
-      }
+
+      this.$router.push('/my')
+
+      this.$toast('认证成功')
     },
     async isGain () {
       const res = await this.$axios.get('http://localhost:8080/t')
