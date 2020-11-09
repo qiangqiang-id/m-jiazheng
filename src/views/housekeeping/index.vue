@@ -8,15 +8,7 @@
     <!-- /头部 -->
     <div class="elevator">
       <!-- 导航栏 -->
-      <van-search v-model="value"
-        class="inputs"
-        :clearable='true'
-        show-action
-        placeholder="智能匹配">
-        <template #action>
-          <div class="city">长沙<i class="housekeeping icon-jiantou-down"></i></div>
-        </template>
-      </van-search>
+      <city-inquire></city-inquire>
       <!-- /导航栏 -->
 
       <!-- 选择框 -->
@@ -38,7 +30,10 @@
 
       </div>
 
-      <house-keeping-list></house-keeping-list>
+      <house-keeping-list v-for=" item in infoList"
+        :key="item.id"
+        :value='item'>
+      </house-keeping-list>
     </div>
 
   </div>
@@ -46,19 +41,19 @@
 
 <script>
 
-import HouseKeepingList from '../../components/housekeepingList'
+import HouseKeepingList from '@/components/housekeepingList'
+import CityInquire from '../../components/CityInquire '
 export default {
   name: 'HousekeepingIndex',
   components: {
-    HouseKeepingList
+    HouseKeepingList, CityInquire
   },
   data () {
     return {
       value: '',
-      // 职业
-      occupation: [],
       // 家服人员信息
-      infoList: []
+      infoList: [], // 职业
+      occupation: []
     }
   },
   props: {},
@@ -84,7 +79,7 @@ export default {
         this.infoList = res.datas
         // console.log(this.infoList)
         this.occupation = this.infoList[0].profession
-        console.log(this.occupation)
+        // console.log(this.occupation)
         this.occupation.push('全部职业')
       }
     }
@@ -95,18 +90,11 @@ export default {
 
 <style lang="scss" scoped>
 .housekeeping-container {
+  height: 100%;
   .nav-header {
     width: 100%;
     position: fixed;
     top: 0;
-  }
-  height: 100%;
-  .inputs {
-    border-top: 1px solid rgb(98, 114, 194);
-    background-color: #3f51b5;
-    .city {
-      color: #fff;
-    }
   }
   .attribute-tag {
     padding: 26px;
