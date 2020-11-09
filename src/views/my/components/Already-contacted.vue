@@ -10,10 +10,38 @@
 </template>
 
 <script>
-import CompanyList from '@/components/companyList'
+import CompanyList from '@/views/housekeeping/index'
 export default {
   components: {
     CompanyList
+  },
+  created () {
+    this.getInformation()
+  },
+
+  computed: {},
+
+  methods: {
+    // 返回按钮
+    onClickLeft () {
+
+    },
+    // 获取家政人员基本信息
+    async getInformation () {
+      const { data: res } = await this.$axios.get('http://localhost:8080/data|get')
+
+      // console.log('getInformation -> res', res)
+      if (res.status === 200) {
+        this.$toast.success('获取信息成功')
+        // this.infoList.push(res.datas)
+        this.infoList = res.datas
+        // console.log(this.infoList)
+        this.occupation = this.infoList[0].profession
+        // console.log(this.occupation)
+        this.occupation.push('全部职业')
+      }
+    }
+
   }
 }
 </script>
