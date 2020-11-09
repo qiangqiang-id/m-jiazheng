@@ -10,7 +10,7 @@
     <div class="banner">
       <van-swipe :autoplay="3000">
         <van-swipe-item class="my-swipe"
-                        v-for="(image, index) in images"
+                        v-for="(image, index) in bannerPicList"
                         :key="index">
           <img class="banner-pic"
                v-lazy="image" />
@@ -122,11 +122,6 @@ export default {
       serverPic: ['//s1.ayibang.com/static/h5/6.1/css/img/hdb/banner_05d6a2b.png', '//s1.ayibang.com/static/h5/6.1/css/img/gdstimg1_b41f803.png', '//s1.ayibang.com/static/h5/6.1/css/img/img1_99f039a.png', '//s1.ayibang.com/static/h5/6.1/css/img/dbdlimg2_8bf257f.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/yes8_e7641e5.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/djaz/img1_cdbf2f1.png'],
       pic: ['//s1.ayibang.com/static/h5/6.1/css/img/BM_rcbj_015da9a.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_yyss_76a2c75.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_cwkh_6035b37.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_xyyt_6fb2c30.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_zglr_ef31f34.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_bbhl_d90cfba.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_rcbj_015da9a.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_cwkh_6035b37.jpg'],
       typeList: [],
-      images: [
-        '//s1.ayibang.com/static/h5/6.1/css/img/rcbjimg1_e668551.png',
-        '//s1.ayibang.com/static/h5/6.1/css/img/rcbjnew1_a8f95a0.png',
-        '//s1.ayibang.com/static/h5/6.1/css/img/rcbjnew1_a8f95a0.png'
-      ],
       bannerPicList: []
     }
   },
@@ -138,7 +133,6 @@ export default {
     async getTypeList () {
       try {
         const data = await this.$axios.get('http://localhost:8080/type')
-        console.log(data.data)
         this.typeList = data.data.type
       } catch (err) {
         this.$toast('数据获取失败')
@@ -146,9 +140,9 @@ export default {
     },
     async getBannerPic () {
       try {
-        const data = await this.$axios.get('http://localhost:8080/pic')
-        console.log(data.data.data.picPath)
-        this.bannerPicList = data.data.data.picPath
+        const data = await this.$axios.get('http://localhost:8080/banner')
+        console.log(data.data.data)
+        this.bannerPicList = data.data.data
       } catch (err) {
         this.$toast('数据获取失败')
       }
@@ -219,7 +213,7 @@ export default {
               border-radius: 50%;
               background-color: #eeecec;
               overflow: hidden;
-              type-pic {
+              .type-pic {
                 width: 100%;
                 border-radius: 50%;
               }

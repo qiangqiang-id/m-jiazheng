@@ -28,11 +28,12 @@ mockjs.getMobile = function () {
 }
 // 模拟手机号码
 const type = []
+const pic1 = ['//s1.ayibang.com/static/h5/6.1/css/img/BM_rcbj_015da9a.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_yyss_76a2c75.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_cwkh_6035b37.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_xyyt_6fb2c30.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_zglr_ef31f34.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_bbhl_d90cfba.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_rcbj_015da9a.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_cwkh_6035b37.jpg']
 for (var i = 0; i < 8; i++) {
   type.push({
     id: i,
-    text: '月嫂' + i
-
+    text: '月嫂' + i,
+    pic: pic1[i]
   })
 }
 // 服务人员基本信息
@@ -79,6 +80,9 @@ for (let i = 0; i < 10; i++) {
 
   })
 }
+const bannerPic = ['//s1.ayibang.com/static/h5/6.1/css/img/rcbjimg1_e668551.png',
+  '//s1.ayibang.com/static/h5/6.1/css/img/rcbjnew1_a8f95a0.png',
+  '//s1.ayibang.com/static/h5/6.1/css/img/yes8_e7641e5.jpg']
 export default {
   'http://localhost:8080/type|get': options => {
     return {
@@ -98,6 +102,13 @@ export default {
       status: 200,
       msg: '获取信息成功',
       data: companyMsg
+    }
+  },
+  'http://localhost:8080/banner|get': options => {
+    return {
+      status: 200,
+      msg: '获取信息成功',
+      data: bannerPic
     }
   }
 
