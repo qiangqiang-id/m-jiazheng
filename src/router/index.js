@@ -27,9 +27,42 @@ const routes = [
       {
         path: '/my',
         name: 'my',
-        component: () => import('@/views/my')
+        component: () => import('@/views/my'),
+        children: []
       }
     ]
+  },
+  {
+    path: '/login',
+    name: '/login',
+    component: () => import('@/views/login')
+  },
+  {
+    path: '/verify',
+    name: 'verify',
+    component: () => import('../views/my/components/identity.vue')
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: () => import('../views/my/components/admin.vue')
+  },
+  {
+    path: '/companyInfo',
+    name: 'companyInfo',
+    props: true,
+    component: () => import('@/components/company-info.vue')
+  },
+  // 我的关注
+  {
+    path: '/myfollow',
+    name: 'myfollow',
+    component: () => import('@/components/my_follow')
+  },
+  {
+    path: '/matching_company',
+    name: 'matching_company',
+    component: () => import('@/components/matching_company')
   }, {
     path: '/home/business',
     name: 'business',
@@ -44,7 +77,20 @@ const routes = [
     path: '/home/homeservice',
     name: 'homeservice',
     component: () => import('@/views/cooperation/home-service')
-  }
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import('../views/my/components/about/index.vue')
+  },
+  {
+    path: '/look',
+    name: 'look',
+    component: () => import('../views/look/index.vue')
+  },
+  { path: '/taoge', component: () => import('@/views/my/components/Personal-Information.vue') },
+  { path: '/Already', component: () => import('@/views/my/components/Already-contacted') }
+
 ]
 
 const router = new VueRouter({
