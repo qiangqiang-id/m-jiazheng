@@ -48,6 +48,10 @@ const routes = [
     component: () => import('../views/my/components/admin.vue')
   },
   {
+    path: '/housekeeping/:housekeepingID',
+    name: 'housekeepingInfo',
+    component: () => import('@/components/housekeepingInfo.vue')
+  }, {
     path: '/companyInfo',
     name: 'companyInfo',
     props: true,
@@ -96,5 +100,9 @@ const routes = [
 const router = new VueRouter({
   routes
 })
+
+// router.beforeEach((to, from, next) => {
+
+// })
 
 export default router

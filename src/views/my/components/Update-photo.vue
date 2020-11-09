@@ -29,6 +29,7 @@ export default {
   },
   mounted () {
     const image = this.$refs.img
+    console.log(typeof image)
     this.cropper = new Cropper(image, {
       viewMode: 1,
       dragMode: 'move',
@@ -38,7 +39,6 @@ export default {
       cropBoxResizable: false,
       background: false,
       movable: true
-
     })
   },
   methods: {

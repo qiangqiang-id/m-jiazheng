@@ -79,7 +79,22 @@ export default {
     onSendNum () {
       this.isShow = true
     },
-    onSubmit () {}
+    async onSubmit () {
+      this.$toast.loading({
+        message: '登录中...',
+        forbidClick: true, // 禁止背景点击
+        duration: 0// 展示时长(ms)，值为 0 时，toast 不会消失
+      })
+      const { data: res } = await this.$axios.post('http://localhost:8080/login', this.user)
+      this.$toast.success('登录成功')
+      // console.log(res)
+      const dataObj = res.data
+      dataObj.phone = res.phone
+      // console.log(dataObj)
+      const data = JSON.stringify(dataObj)
+      this.$store.commit('saveuserinfo', data)
+      this.$router.push(this.$route.query.redirect || '/my')
+    }
   }
 }
 </script>

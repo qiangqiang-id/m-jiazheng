@@ -9,15 +9,7 @@
     <!-- /头部 -->
     <div class="elevator">
       <!-- 导航栏 -->
-      <van-search v-model="value"
-                  class="inputs"
-                  :clearable='true'
-                  show-action
-                  placeholder="智能匹配">
-        <template #action>
-          <div class="city">长沙<i class="housekeeping icon-jiantou-down"></i></div>
-        </template>
-      </van-search>
+      <city-inquire></city-inquire>
       <!-- /导航栏 -->
 
       <!-- 选择框 -->
@@ -37,22 +29,27 @@
       <div class="box">
 
       </div>
-      <comment-like></comment-like>
+      <comment-like v-for=" item in companyMsg"
+                    :key="item.id"
+                    :value='item'></comment-like>
+
     </div>
+
   </div>
 </template>
 
 <script>
-import CommentLike from '../../components/companyList'
-
+import CommentLike from '@/components/companyList'
+import CityInquire from '@/components/CityInquire '
 export default {
   name: 'CompanyIndex',
   components: {
-    CommentLike
+    CommentLike,
+    CityInquire
   },
   data () {
     return {
-      value: '',
+
       // 家服公司信息,
       companyMsg: [],
       // 职业
@@ -68,17 +65,17 @@ export default {
     async getCompanyInformation () {
       const { data: res } = await this.$axios.get('http://localhost:8080/info|get')
 
-      console.log('getInformation -> res', res)
+      // console.log('getInformation -> res', res)
       if (res.status === 200) {
         // this.$toast.success('获取信息成功')
         // this.companyMsg.push(res.data)
+        this.companyMsg = res.data
+        this.occupation = this.companyMsg[0].profession
+        this.occupation.push('全部职业')
+        // console.log(this.companyMsg)
       }
-      this.companyMsg = res.data
-      this.occupation = this.companyMsg[0].profession
-      this.occupation.push('全部职业')
-      // console.log(this.companyMsg)
-      // console.log(this.companyMsg[1].evaluate)
     }
+
   }
 
 }
@@ -92,13 +89,7 @@ export default {
     position: fixed;
     top: 0;
   }
-  .inputs {
-    border-top: 1px solid rgb(98, 114, 194);
-    background-color: #3f51b5;
-    .city {
-      color: #fff;
-    }
-  }
+
   .attribute-tag {
     padding: 26px;
     // height: 183px;
@@ -108,6 +99,10 @@ export default {
       border: 1px solid #979191;
       color: #979191;
       margin: 10px 20px;
+      &:hover {
+        border: 1px solid #3f51b5;
+        color: #3f51b5;
+      }
     }
     .van-cell__title {
       // display: flex;

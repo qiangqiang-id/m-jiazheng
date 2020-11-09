@@ -66,6 +66,7 @@
 </template>
 
 <script>
+
 export default {
   data () {
     return {
@@ -73,6 +74,7 @@ export default {
         username: '',
         password: ''
       },
+
       yonghu: {
         username: [{
           required: true,
@@ -88,13 +90,27 @@ export default {
           pattern: /^\d{6}$/,
           message: '密码格式错误'
         }]
-      }
+      },
+      list: {}// 所有数据
     }
+  },
+  created () {
+    this.isGain()
   },
   methods: {
     onSubmit (values) {
-      console.log('submit', values)
+      // console.log('submit', values)
+
+      this.$router.push('/my')
+
+      this.$toast('认证成功')
+    },
+    async isGain () {
+      const res = await this.$axios.get('http://localhost:8080/t')
+      console.log(res.data)
+      this.list = res.data
     }
+
   }
 
 }
@@ -154,6 +170,7 @@ export default {
   .bottom {
     position: fixed;
     bottom: 0;
+    left: 0;
     background-color: #3f51b5;
     height: 108px;
     width: 100%;

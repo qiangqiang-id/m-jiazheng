@@ -4,6 +4,7 @@
     <van-nav-bar class="nav-header">
       <span slot="left"
             class="header-text">家政平台</span>
+      <span class="header-text">家政平台</span>
     </van-nav-bar>
     <!-- /头部 -->
     <!-- 轮播图 -->
@@ -39,7 +40,8 @@
                        @click="$router.push('/home/domestic')" />
         <van-grid-item icon="photo-o"
                        class="server-btn"
-                       text="找家庭服务" />
+                       text="找家庭服务"
+                       to="/look" />
         <van-grid-item icon="photo-o"
                        class="server-btn"
                        text="线上家政培训" />
