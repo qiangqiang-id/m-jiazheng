@@ -28,17 +28,19 @@
                 block
                 type="info"
                 native-type="submit"
-                :disabled="this.isdisabled">
-      <van-radio-group v-model="radio"
-                       class="radio">
-
-        <van-radio name="1"
-                   @click="isunfasten"></van-radio>
-
-      </van-radio-group>
+                :disabled="this.isDisabled"
+                @click="isSubmit">
 
       我已阅读并同意以上协议
     </van-button>
+    <van-radio-group v-model="radio"
+                     class="radio">
+
+      <van-radio name="1"
+                 @click.stop="isunfasten"
+                 class="type"></van-radio>
+
+    </van-radio-group>
 
   </div>
 </template>
@@ -50,7 +52,7 @@ export default {
     return {
       radio: '0',
       list: {}, // 所有数据
-      isdisabled: true
+      isDisabled: true
 
     }
   },
@@ -64,12 +66,18 @@ export default {
       this.list = res.data
     },
     isunfasten () {
-      this.isdisabled = !this.isdisabled
-      if (this.isdisabled) {
+      // console.log(1111111)
+      this.isDisabled = !this.isDisabled
+      if (this.isDisabled) {
         this.radio = '0'
       } else {
         this.radio = '1'
       }
+    },
+    isSubmit () {
+      // console.log(2)
+      this.$router.push('/my')
+      this.$toast('我已阅读并同意')
     }
   }
 }
@@ -77,8 +85,9 @@ export default {
 
 <style lang="scss" scoped>
 ::v-deep.identity {
+  position: relative;
   background-color: #3f51b5;
-  // height: 412px;
+  height: 412px;
   width: 100%;
   .van-hairline--bottom::after {
     border-bottom-width: 0;
@@ -125,7 +134,6 @@ export default {
     height: 800px;
     background-color: #fcfcfc;
     border-radius: 15px;
-    // box-shadow: 0 0 0.1px 0.1px;
   }
   .bottom {
     position: fixed;
@@ -133,15 +141,18 @@ export default {
     background-color: #3f51b5;
     height: 108px;
     width: 100%;
+    padding: 0 20%;
     text-align: center;
     line-height: 108px;
     font-size: 34px;
     color: #ffffff;
   }
+
   .radio {
     position: absolute;
     left: 140px;
     top: 31px;
+    z-index: 999;
   }
   .p {
     font-size: 24px;
@@ -151,6 +162,10 @@ export default {
   .p1 {
     font-size: 24px;
     margin: 0px 30px;
+  }
+  .type {
+    position: fixed;
+    bottom: 35px;
   }
 }
 </style>

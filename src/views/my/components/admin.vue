@@ -1,7 +1,7 @@
 <template>
   <div class="admin">
     <!-- 导航栏 -->
-    <van-nav-bar @click-left="$router.push('/my')"
+    <van-nav-bar @click-left="$router.back()"
                  left-text="授权与协议"
                  left-arrow />
     <!-- /导航栏 -->
@@ -11,7 +11,7 @@
         <van-image class="img"
                    round
                    src="https://img.yzcdn.cn/vant/cat.jpeg" />
-        <span class="name">熊某人</span>
+        <span class="name">{{list.status}}</span>
       </div>
       <!-- /头像 -->
 
@@ -42,23 +42,25 @@
                      required
                      :rules="yonghu.password"
                      maxlength="6" />
+
+          <!-- 底部 -->
+          <van-button class="bottom"
+                      block
+                      type="info"
+                      native-type="submit">
+            提交认证
+          </van-button>
         </van-form>
         <!-- /表单 -->
       </div>
       <!-- /中间部分 -->
 
-      <!-- 底部 -->
-      <van-button class="bottom"
-                  block
-                  type="info"
-                  native-type="submit">
-        提交认证
-      </van-button>
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   data () {
     return {
@@ -66,6 +68,7 @@ export default {
         username: '',
         password: ''
       },
+
       yonghu: {
         username: [{
           required: true,
@@ -81,13 +84,27 @@ export default {
           pattern: /^\d{6}$/,
           message: '密码格式错误'
         }]
-      }
+      },
+      list: {}// 所有数据
     }
+  },
+  created () {
+    this.isGain()
   },
   methods: {
     onSubmit (values) {
-      console.log('submit', values)
+      // console.log('submit', values)
+
+      this.$router.push('/my')
+
+      this.$toast('认证成功')
+    },
+    async isGain () {
+      const res = await this.$axios.get('http://localhost:8080/t')
+      console.log(res.data)
+      this.list = res.data
     }
+
   }
 
 }
@@ -147,6 +164,7 @@ export default {
   .bottom {
     position: fixed;
     bottom: 0;
+    left: 0;
     background-color: #3f51b5;
     height: 108px;
     width: 100%;
