@@ -136,22 +136,9 @@ export default {
   },
   methods: {
     async getTypeList () {
-      try {
-        const data = await this.$axios.get('http://localhost:8080/type')
-        console.log(data.data)
-        this.typeList = data.data.type
-      } catch (err) {
-        this.$toast('数据获取失败')
-      }
-    },
-    async getBannerPic () {
-      try {
-        const data = await this.$axios.get('http://localhost:8080/pic')
-        console.log(data.data.data.picPath)
-        this.bannerPicList = data.data.data.picPath
-      } catch (err) {
-        this.$toast('数据获取失败')
-      }
+      const data = await this.$axios.get('http://localhost:8080/type')
+      // console.log(data.data)
+      this.typeList = data.data.type
     }
   }
 }

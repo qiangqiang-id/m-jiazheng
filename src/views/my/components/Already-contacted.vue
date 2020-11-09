@@ -5,7 +5,7 @@
                  title="已联系家政人员"
                  left-arrow
                  @click-left="$router.back()" />
-    <company-list />
+    <company-list class="list-top" />
   </div>
 </template>
 
@@ -20,8 +20,9 @@ export default {
 
 <style lang="scss" scoped>
 .nav-top-bar {
+  position: fixed;
+  top: 0px;
   left: 0px;
-  top: 38px;
   width: 100%;
   height: 128px;
   line-height: 40px;
@@ -41,5 +42,8 @@ export default {
     font-size: 36px;
     margin-top: 10px;
   }
+}
+.list-top {
+  margin-top: 128px;
 }
 </style>

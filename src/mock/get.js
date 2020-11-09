@@ -44,6 +44,7 @@ for (let i = 0; i < k; i++) {
     // 性别 0为女性 1为男性
     sex: Math.round(Math.random()),
     id: i,
+    // 随机生成一个常见的中文姓名
     name: Random.cname(),
     // 手机号码
     mobile: mockjs.getMobile(),
@@ -61,7 +62,9 @@ for (let i = 0; i < k; i++) {
     // 职业大全
     evaluate: Random.natural(1, 2000),
     // 标签
-    label: [Random.natural(1, 8) + '星育婴师', Random.natural(1, 8) + '年工作经验', Random.ctitle(3, 5)]
+    label: [Random.natural(1, 8) + '星育婴师', Random.natural(1, 8) + '年工作经验', Random.ctitle(3, 5)],
+    // 生成一段随机的Base64 图片编码
+    image: Random.dataImage()
 
   })
 }
@@ -79,6 +82,21 @@ for (let i = 0; i < 10; i++) {
 
   })
 }
+
+// 服务人员个人信息
+const userInfo = {
+  // 随机生成一个常见的中文姓名
+  name: Random.cname(),
+  // 随机地址
+  address: Random.city(true),
+  // 生成随机的 图片
+  image: Random.image('200x100', '#fb0a2a'),
+  // 手机号码
+  mobile: mockjs.getMobile(),
+  // 随机生成0或1
+  sex: Random.integer(0, 1)
+}
+
 export default {
   'http://localhost:8080/type|get': options => {
     return {
@@ -98,6 +116,13 @@ export default {
       status: 200,
       msg: '获取信息成功',
       data: companyMsg
+    }
+  },
+  'http://localhost:8080/userinfo|get': options => {
+    return {
+      status: 200,
+      msg: '获取信息成功',
+      data: userInfo
     }
   }
 
