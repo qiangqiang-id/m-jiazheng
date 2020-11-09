@@ -5,7 +5,8 @@
       class="nav-bar-header"
       left-arrow
       title="入驻商务部"
-    ></van-nav-bar>
+      :border='false'
+    />
     <div class="box"></div>
 
     <!-- 中间表单内容 -->

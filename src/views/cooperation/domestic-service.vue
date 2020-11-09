@@ -5,12 +5,13 @@
       class="nav-bar-header"
       left-arrow
       title=" 家政服务"
+      :border='false'
     />
     <div class="box"></div>
     <!-- 中间表单内容 -->
     <div class="main-form">
       <van-cell
-        title="企业资料"
+        title="做家政"
         icon="minus"
       >
 
@@ -18,9 +19,9 @@
       <van-form @submit="onSubmit">
         <van-field
           v-model="user.name"
-          name="用户名"
-          label="*用户名："
-          placeholder="请输入用户名"
+          name="姓名"
+          label="*姓名："
+          placeholder="请输入姓名"
           :rules="userFormRules.name"
         />
         <van-field
