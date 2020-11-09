@@ -63,7 +63,7 @@ for (let i = 0; i < k; i++) {
 // 月嫂1信息详情
 const matronInfo1 = {
   name: '张丽丽',
-  img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1819216937,2118754409&fm=26&gp=0.jpg',
+  img: 'https://beijing.198526.com/baomuimages/images/198526-5bd71b0762614.jpg',
   // 标签
   label: '三星保姆',
   age: '43岁',
@@ -96,7 +96,7 @@ const matronInfo1 = {
 // 月嫂2信息详情
 const matronInfo2 = {
   name: '李月娥',
-  img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1355153719,3297569375&fm=26&gp=0.jpg',
+  img: 'https://beijing.198526.com/baomuimages/images/198526-5bd71ab431760.jpg',
   // 标签
   label: '三星厨师',
   age: '39岁',
@@ -129,7 +129,7 @@ const matronInfo2 = {
 // 月嫂3信息详情
 const matronInfo3 = {
   name: '顾婷婷',
-  img: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2323574114,2421130113&fm=26&gp=0.jpg',
+  img: 'https://beijing.198526.com/baomuimages/images/198526-5bd71cf3c2f0d.jpg',
   // 标签
   label: '三星保姆',
   age: '41岁',

@@ -2,50 +2,38 @@
   <div class="identity">
 
     <!-- 导航栏 -->
-    <van-nav-bar
-      @click-left="$router.back()"
-      left-text="授权与协议"
-      left-arrow
-    />
+    <van-nav-bar @click-left="$router.back()"
+                 left-text="授权与协议"
+                 left-arrow />
     <!-- 导航栏 -->
     <!-- 头像 -->
     <div class="box">
       <div class="box1">
-        <van-image
-          class="img"
-          round
-          src="https://img.yzcdn.cn/vant/cat.jpeg"
-        />
+        <van-image class="img"
+                   round
+                   src="https://img.yzcdn.cn/vant/cat.jpeg" />
         <span class="name">{{list.status}}</span>
       </div>
     </div>
     <!-- 头像 -->
 
     <!-- 中间内容 -->
-    <div
-      class="box2"
-      v-html="list.text"
-    >
+    <div class="box2"
+         v-html="list.text">
     </div>
     <!-- 中间内容 -->
 
     <!-- 底部 -->
-    <van-button
-      class="bottom"
-      block
-      type="info"
-      native-type="submit"
-      :disabled="this.isdisabled"
-    >
-      <van-radio-group
-        v-model="radio"
-        class="radio"
-      >
+    <van-button class="bottom"
+                block
+                type="info"
+                native-type="submit"
+                :disabled="this.isdisabled">
+      <van-radio-group v-model="radio"
+                       class="radio">
 
-        <van-radio
-          name="1"
-          @click="isunfasten"
-        ></van-radio>
+        <van-radio name="1"
+                   @click="isunfasten"></van-radio>
 
       </van-radio-group>
 
@@ -76,7 +64,12 @@ export default {
       this.list = res.data
     },
     isunfasten () {
-      this.isdisabled = false
+      this.isdisabled = !this.isdisabled
+      if (this.isdisabled) {
+        this.radio = '0'
+      } else {
+        this.radio = '1'
+      }
     }
   }
 }

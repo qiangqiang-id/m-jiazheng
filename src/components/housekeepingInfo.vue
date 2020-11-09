@@ -38,6 +38,7 @@
                       plain>电话联系</van-button>
           <van-button type="info"
                       round
+                      @click="wechatShow=true"
                       plain>微信联系</van-button>
         </div>
       </div>
@@ -54,21 +55,25 @@
                  type="primary">{{item}}</van-tag>
       </div>
       <div class="perinfo">
-        <span>个人简介</span>
-        <van-icon name="arrow-up" />
+        <van-collapse v-model="activeNames">
+          <van-collapse-item title="个人简介"
+                             name="1">{{info.intro}}</van-collapse-item>
+        </van-collapse>
       </div>
-      <div class="perinfotext">{{info.intro}}</div>
       <div class="perinfo">
-        <span>个人简介</span>
-        <van-icon name="arrow-up" />
-      </div>
-      <div class="info">
-        <span>任职公司：{{info.be_company}}</span>
-        <span>籍贯民族：{{info.nation}}</span>
-        <span>生肖属相：{{info.culture}}</span>
-        <span>星座：{{info.constellation}}</span>
-        <span>出生日期：{{info.born}}</span>
-        <span>学历：{{info.education}}</span>
+        <van-collapse v-model="activeNames">
+          <van-collapse-item title="个人简介"
+                             name="2">
+            <div class="info">
+              <span>任职公司：{{info.be_company}}</span>
+              <span>籍贯民族：{{info.nation}}</span>
+              <span>生肖属相：{{info.culture}}</span>
+              <span>星座：{{info.constellation}}</span>
+              <span>出生日期：{{info.born}}</span>
+              <span>学历：{{info.education}}</span>
+            </div>
+          </van-collapse-item>
+        </van-collapse>
       </div>
       <div class="perinfo">
         <span>证件信息</span>
@@ -84,19 +89,23 @@
     </div>
     <div class="footer">
       <van-grid>
-        <van-grid-item text="评价">
+        <van-grid-item text="评价"
+                       @click="showAppraise=true">
           <div slot="icon"
                class="icon-md-textsms housekeeping"></div>
         </van-grid-item>
-        <van-grid-item text="分享">
+        <van-grid-item text="分享"
+                       @click="showShare=true">
           <div slot="icon"
                class="icon-fasfa-share-alt-square housekeeping"></div>
         </van-grid-item>
-        <van-grid-item text="微信联系">
+        <van-grid-item text="微信联系"
+                       @click="wechatShow=true">
           <div slot="icon"
                class="icon-weixin housekeeping"></div>
         </van-grid-item>
-        <van-grid-item text="电话联系">
+        <van-grid-item text="电话联系"
+                       @click="phoneShow=true">
           <div slot="icon"
                class="icon-fasfa-phoneCopy1 housekeeping"></div>
         </van-grid-item>
@@ -106,9 +115,8 @@
     <van-popup v-model="phoneShow"
                class="phoneShowBox"
                position="bottom"
-               :style="{ height: '30%' }">
+               :style="{ height: '24%' }">
       <van-picker title="电话号码"
-                  class="picker"
                   show-toolbar
                   item-height="9px"
                   :columns="columns" />
@@ -116,7 +124,37 @@
         <van-button @click="phoneShow=false">取消</van-button>
       </div>
     </van-popup>
-
+    <!-- 微信弹出层 -->
+    <van-popup v-model="wechatShow"
+               class="phoneShowBox"
+               position="bottom"
+               :style="{ height: '24%' }">
+      <van-picker title="微信"
+                  show-toolbar
+                  item-height="9px"
+                  :columns="WeChatList" />
+      <div class="btn-cancel">
+        <van-button @click="wechatShow=false">取消</van-button>
+      </div>
+    </van-popup>
+    <!-- 分享弹出层 -->
+    <van-share-sheet v-model="showShare"
+                     title="立即分享给好友"
+                     :options="options" />
+    <!-- 评价弹出层 -->
+    <van-popup v-model="showAppraise"
+               position="bottom"
+               class="Appraise">
+      <van-field v-model="message"
+                 rows="2"
+                 autosize
+                 type="textarea"
+                 maxlength="50"
+                 clearable
+                 placeholder="请输入评价"
+                 show-word-limit />
+      <van-button type="info">发送</van-button>
+    </van-popup>
   </div>
 </template>
 
@@ -126,16 +164,35 @@ export default {
     return {
       info: {},
       phoneShow: false,
+      wechatShow: false,
       attention: true,
-      columns: []
+      columns: [],
+      WeChatList: [],
+      activeNames: ['1', '2'],
+      showShare: false,
+      options: [
+        [
+          { name: '微信', icon: 'wechat' },
+          { name: '微博', icon: 'weibo' },
+          { name: 'QQ', icon: 'qq' }
+
+        ],
+        [
+          { name: '复制链接', icon: 'link' },
+          { name: '分享海报', icon: 'poster' },
+          { name: '二维码', icon: 'qrcode' }
+        ]
+      ],
+      showAppraise: false,
+      message: ''
     }
   },
   methods: {
     async getUserInfo () {
       const { data: res } = await this.$axios.get('http://localhost:8080/matronInfo/3')
-      console.log(res)
       this.info = res.data
       this.columns.push(res.data.phone)
+      this.WeChatList.push(res.data.wechat)
     },
     attentionClick () {
       this.$toast.loading({
@@ -166,6 +223,18 @@ export default {
 
 <style lang="scss" scoped>
 .housekeepingInfo {
+  ::v-deep.van-share-sheet__option {
+    flex: 1;
+  }
+  .Appraise {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    .van-button {
+      width: 140px;
+      margin-right: 20px;
+    }
+  }
   background-color: #f8f8f8;
   ::v-deep.van-nav-bar {
     height: 180px;
@@ -275,11 +344,15 @@ export default {
     background-color: #fff;
     .perinfo {
       font-size: 30px;
-      border-left: 15px solid #3f51b5;
-      padding-left: 15px;
       margin-top: 20px;
-      display: flex;
-      justify-content: space-between;
+      ::v-deep.van-cell {
+        padding-left: 0;
+      }
+      ::v-deep.van-cell__title {
+        font-size: 30px;
+        padding-left: 10px;
+        border-left: 15px solid #3f51b5;
+      }
       .van-icon {
         margin: 10px 40px 0 0;
       }
@@ -311,7 +384,6 @@ export default {
     .info {
       display: flex;
       flex-direction: column;
-      padding: 10px 30px;
       font-size: 25px;
       color: #7b7777;
     }
@@ -339,7 +411,7 @@ export default {
     background-color: transparent;
     width: 95%;
     margin-left: 2.5%;
-    ::v-deep.picker {
+    ::v-deep.van-picker {
       // height: 200px;
       border-radius: 20px;
       overflow: hidden;
