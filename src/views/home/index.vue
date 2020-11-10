@@ -9,21 +9,21 @@
     <!-- /头部 -->
     <!-- 轮播图 -->
     <div class="banner">
-      <van-swipe class="my-swipe"
+      <!-- <van-swipe class="my-swipe"
                  :autoplay="3000"
                  indicator-color="white">
         <van-swipe-item>1</van-swipe-item>
         <van-swipe-item>2</van-swipe-item>
         <van-swipe-item>3</van-swipe-item>
-        <van-swipe-item>4</van-swipe-item>
-        <van-swipe :autoplay="3000">
-          <van-swipe-item class="my-swipe"
-                          v-for="(image, index) in images"
-                          :key="index">
-            <img class="banner-pic"
-                 v-lazy="image" />
-          </van-swipe-item>
-        </van-swipe>
+        <van-swipe-item>4</van-swipe-item> -->
+      <van-swipe :autoplay="3000">
+        <van-swipe-item class="my-swipe"
+                        v-for="(image, index) in images"
+                        :key="index">
+          <img class="banner-pic"
+               v-lazy="image" />
+        </van-swipe-item>
+      </van-swipe>
 
     </div>
     <!-- /轮播图 -->
