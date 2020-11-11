@@ -2,7 +2,7 @@
   <van-cell class="waike">
     <div class="Page-box"
       slot="title"
-      v-for="item in data"
+      v-for="item in companyMsg"
       :key="item.id">
       <div class="Pag">
         <div class="page-left">
@@ -10,17 +10,17 @@
             src="https://img.yzcdn.cn/vant/cat.jpeg" />
         </div>
         <div class="Page-right">
-          <h4>湖南黑马公司阿巴巴巴</h4>
-          <p>{{item.age}}</p>
+          <h4>{{item.companyName}}</h4>
+          <p>{{item.companyName}}</p>
           <van-cell class="Page-bnt">
             <!-- 使用 title 插槽来自定义标题 -->
             <div slot="title"
               class="Page-bnt-box"
-              v-for="(item,index) in dd"
+              v-for="(items,index) in item.evaluate"
               :key="index">
               <van-button plain
                 round
-                size="mini">{{item}}</van-button>
+                size="mini">{{items}}</van-button>
             </div>
           </van-cell>
 
@@ -29,8 +29,8 @@
       </div>
       <div class="Page-buttom">
         <i class="icon-md-location_on housekeeping"></i>
-        <span>22.68km</span>
-        <span>湖南省长沙市天心区</span>
+        <span>{{item.distance}}</span>
+        <span>{{item.shopAddress}}</span>
       </div>
     </div>
   </van-cell>
@@ -40,14 +40,27 @@
 export default {
   data () {
     return {
-      dd: [1111, 2222, 3333, 4444],
-      data: [
-        { id: 1, age: 'ahaha' },
-        { id: 2, age: 'ahaha' },
-        { id: 3, age: 'ahaha' },
-        { id: 4, age: 'ahaha' },
-        { id: 5, age: 'ahaha' }
-      ]
+
+      // 家服公司信息,
+      companyMsg: []
+    }
+  },
+  created () {
+    this.getCompanyInformation()
+  },
+  methods: {
+    // 获取家政公司基本信息
+    async getCompanyInformation () {
+      const { data: res } = await this.$axios.get('http://localhost:8080/info|get')
+
+      console.log('getInformation -> res', res)
+      if (res.status === 200) {
+        this.$toast.success('获取信息成功')
+        // this.companyMsg.push(res.data)
+      }
+      this.companyMsg = res.data
+      // console.log(this.companyMsg)
+      // console.log(this.companyMsg[1].evaluate)
     }
   }
 }

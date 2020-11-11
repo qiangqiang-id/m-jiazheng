@@ -28,25 +28,29 @@ mockjs.getMobile = function () {
 }
 // 模拟手机号码
 const type = []
+const pic1 = ['//s1.ayibang.com/static/h5/6.1/css/img/BM_rcbj_015da9a.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_yyss_76a2c75.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_cwkh_6035b37.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_xyyt_6fb2c30.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_zglr_ef31f34.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_bbhl_d90cfba.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_rcbj_015da9a.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_cwkh_6035b37.jpg']
 for (var i = 0; i < 8; i++) {
   type.push({
     id: i,
-    text: '月嫂' + i
-
+    text: '月嫂' + i,
+    pic: pic1[i]
   })
 }
 // 服务人员基本信息
 const datas = []
-var k = 1
+var k = 10
 for (let i = 0; i < k; i++) {
   datas.push({
-    id: k,
+    // id: k,
     // 性别 0为女性 1为男性
     sex: Math.round(Math.random()),
+    id: i,
     name: Random.cname(),
     // 手机号码
     mobile: mockjs.getMobile(),
     // 工作经验
+    age: Random.natural(30, 50),
+    // 保姆年龄
     experience: Random.natural(1, 8),
     // 随机地址
     address: Random.city(true),
@@ -54,9 +58,12 @@ for (let i = 0; i < k; i++) {
     // 服务几户
     service: Random.natural(20, 200),
     // 评价
+    profession: ['保姆', '月嫂', '厨师', '育婴师', '产康师', '家装/搬家', '早教/托教', '养老/陪护', '保洁/清洗'],
+    // 职业大全
     evaluate: Random.natural(1, 2000),
     // 标签
     label: [Random.natural(1, 8) + '星育婴师', Random.natural(1, 8) + '年工作经验', Random.ctitle(3, 5)]
+
   })
 }
 
@@ -160,15 +167,21 @@ const matronInfo3 = {
 }
 // 家服公司基本信息
 const companyMsg = []
-for (let i = 0; i < 3; i++) {
+for (let i = 0; i < 10; i++) {
   companyMsg.push({
     id: i,
+    profession: ['保姆', '月嫂', '厨师', '育婴师', '产康师', '家装/搬家', '早教/托教', '养老/陪护', '保洁/清洗'],
+    // 职业大全
     shopAddress: Random.city(true) + ' 东方红县 夹皮沟404号', // 随机生成地址
     companyName: Random.ctitle(3, 5) + '家政有限公司', // 公司名
     evaluate: ['服务好', '客户至上', '巴拉巴拉'], // 评价
-    distance: Random.float(5, 30, 1, 2) + 'km'// 距离
+    distance: Random.float(5, 30, 1, 2) + 'km' // 距离
+
   })
 }
+const bannerPic = ['//s1.ayibang.com/static/h5/6.1/css/img/rcbjimg1_e668551.png',
+  '//s1.ayibang.com/static/h5/6.1/css/img/rcbjnew1_a8f95a0.png',
+  '//s1.ayibang.com/static/h5/6.1/css/img/yes8_e7641e5.jpg']
 export default {
   'http://localhost:8080/type|get': options => {
     return {
@@ -204,6 +217,13 @@ export default {
       status: 200,
       msg: '获取信息成功',
       data: matronInfo
+    }
+  },
+  'http://localhost:8080/banner|get': options => {
+    return {
+      status: 200,
+      msg: '获取信息成功',
+      data: bannerPic
     }
   }
 

@@ -80,6 +80,7 @@ export default {
       this.$toast('我已阅读并同意')
     }
   }
+
 }
 </script>
 
