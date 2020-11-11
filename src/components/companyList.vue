@@ -1,6 +1,6 @@
 <template>
   <van-cell class="waike"
-            @click="$router.push(`/companyInfo/${value.id}`)">
+            @click="goCompany">
     <div class="Page-box"
          slot="title">
       <div class="Pag">
@@ -10,7 +10,7 @@
         </div>
         <div class="Page-right">
           <h4>{{value.companyName}}</h4>
-          <p>{{value.companyName}}</p>
+          <p>{{value.profession}}</p>
           <van-cell class="Page-bnt">
             <!-- 使用 title 插槽来自定义标题 -->
             <div slot="title"
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+// import { mapMutations } from 'vuex'
 export default {
   name: 'companyList',
   props: {
@@ -53,6 +54,10 @@ export default {
   },
   methods: {
     // 获取家政公司基本信息
+    goCompany () {
+      this.$router.push(`/companyInfo/${this.value.id}`)
+      this.$store.commit('setCompany', { name: this.value.companyName, address: this.value.shopAddress })
+    }
 
   }
 }

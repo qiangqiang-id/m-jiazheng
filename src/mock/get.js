@@ -173,7 +173,7 @@ const companyMsg = []
 for (let i = 0; i < 10; i++) {
   companyMsg.push({
     id: i,
-    profession: text,
+    profession: '品质家政服务领导者',
     // 职业大全
     shopAddress: Random.city(true) + ' 东方红县 夹皮沟404号', // 随机生成地址
     companyName: Random.ctitle(3, 5) + '家政有限公司', // 公司名

@@ -1,3 +1,4 @@
+
 <template>
   <div class="housekeepingInfo"
        ref="housekeepingInfoRef">
@@ -9,11 +10,11 @@
       <div class="top">
         <van-image :src="info.img" />
         <div class="userinfo">
-          <div class="user">{{info.name}}</div>
+          <div class="user">{{housekeeping.name}}</div>
           <van-tag plain
                    round
                    type="primary">{{info.label}}</van-tag>
-          <span class="textcol">{{info.address}} | {{info.age}} | {{info.experience}}</span>
+          <span class="textcol">{{housekeeping.address}} | {{info.age}} | {{info.experience}}</span>
         </div>
         <van-button type="info"
                     v-if="attention"
@@ -163,6 +164,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'HousekeepingInfo',
   data () {
@@ -191,6 +193,9 @@ export default {
       showAppraise: false,
       message: ''
     }
+  },
+  computed: {
+    ...mapState(['housekeeping'])
   },
   methods: {
     async getUserInfo () {
@@ -285,7 +290,7 @@ export default {
       .userinfo {
         display: flex;
         flex-direction: column;
-        margin-left: -60px;
+        margin-left: 0px;
         height: 140px;
         justify-content: space-between;
         div {

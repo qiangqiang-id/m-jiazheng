@@ -1,3 +1,4 @@
+import { mapState } from 'vuex';
 <template>
   <div class="Company-info-container">
     <!-- 头部 -->
@@ -90,11 +91,11 @@
               <span slot="title"
                     class="business-text">基本资料</span>
               <div slot="label">
-                <p>公司名称：{{infoList.company_name}}</p>
+                <p>公司名称：{{company.name}}</p>
                 <p>法人代表：{{infoList.representative}}</p>
                 <p>公司电话：{{infoList.mobile}}</p>
                 <p>公司规模：{{infoList.scale}}</p>
-                <p>公司地址：{{infoList.address}}</p>
+                <p>公司地址：{{company.address}}</p>
               </div>
             </van-cell>
             <van-cell>
@@ -149,6 +150,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'CompanyInfo',
   data () {
@@ -177,6 +179,9 @@ export default {
   },
   mounted () {
     this.$refs['company-info-ref'].scrollTop = 0
+  },
+  computed: {
+    ...mapState(['company'])
   },
   methods: {
     async getCompanyInfo () {
