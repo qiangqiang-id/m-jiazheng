@@ -9,26 +9,40 @@ const routes = [
     name: 'layout',
     component: () => import(/* webpackChunkName: "about" */ '../views/layout'),
     children: [
+      { path: '', redirect: 'home' },
       {
         path: '/home',
         name: 'home',
-        component: () => import('@/views/home/index.vue')
+        component: () => import('@/views/home/index.vue'),
+        meta: {
+          index: 1
+        }
       },
+
       {
         path: '/company',
         name: 'company',
-        component: () => import('@/views/company')
+        component: () => import('@/views/company'),
+        meta: {
+          index: 2
+        }
       },
       {
         path: '/housekeeping',
         name: 'housekeeping',
-        component: () => import('@/views/housekeeping')
+        component: () => import('@/views/housekeeping'),
+        meta: {
+          index: 3
+        }
       },
       {
         path: '/my',
         name: 'my',
         component: () => import('@/views/my'),
-        children: []
+        children: [],
+        meta: {
+          index: 4
+        }
       }
     ]
   },

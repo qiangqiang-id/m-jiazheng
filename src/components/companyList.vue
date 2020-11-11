@@ -28,7 +28,7 @@
       <div class="Page-buttom">
         <i class="icon-md-location_on housekeeping"></i>
         <span>{{value.distance}}</span>
-        <span>{{value.shopAddress}}</span>
+        <span class="site">{{value.shopAddress}}</span>
       </div>
     </div>
   </van-cell>
@@ -110,6 +110,8 @@ export default {
     }
   }
   .Page-buttom {
+    width: 600px;
+    display: flex;
     height: 60px;
     border-bottom: 1px solid rgb(223, 218, 218);
     padding: 17px;
@@ -124,6 +126,11 @@ export default {
         margin: 0 14px;
         color: #979191;
       }
+    }
+    .site {
+      overflow: hidden; //盒子溢出隐藏
+      text-overflow: ellipsis; //文字溢出显示省略号
+      white-space: nowrap; //文字不换行
     }
   }
 }
