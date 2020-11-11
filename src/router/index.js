@@ -47,11 +47,6 @@ const routes = [
     ]
   },
   {
-    path: '/taoge',
-    name: 'taoge',
-    component: () => import('@/views/my/components/Personal-Information.vue')
-  },
-  {
     path: '/login',
     name: '/login',
     component: () => import('@/views/login')
@@ -70,6 +65,11 @@ const routes = [
     path: '/housekeeping/:housekeepingID',
     name: 'housekeepingInfo',
     component: () => import('@/components/housekeepingInfo.vue')
+  }, {
+    path: '/companyInfo',
+    name: 'companyInfo',
+    props: true,
+    component: () => import('@/components/company-info.vue')
   },
   // 我的关注
   {
@@ -81,6 +81,20 @@ const routes = [
     path: '/matching_company',
     name: 'matching_company',
     component: () => import('@/components/matching_company')
+  }, {
+    path: '/home/business',
+    name: 'business',
+    component: () => import('@/views/cooperation/business-form')
+  },
+  {
+    path: '/home/domestic',
+    name: 'domestic',
+    component: () => import('@/views/cooperation/domestic-service')
+  },
+  {
+    path: '/home/homeservice',
+    name: 'homeservice',
+    component: () => import('@/views/cooperation/home-service')
   },
   {
     path: '/about',
@@ -91,7 +105,10 @@ const routes = [
     path: '/look',
     name: 'look',
     component: () => import('../views/look/index.vue')
-  }
+  },
+  { path: '/taoge', component: () => import('@/views/my/components/Personal-Information.vue') },
+  { path: '/Already', component: () => import('@/views/my/components/Already-contacted') }
+
 ]
 
 const router = new VueRouter({

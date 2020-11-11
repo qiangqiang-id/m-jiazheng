@@ -2,8 +2,7 @@
   <div class="identity">
 
     <!-- 导航栏 -->
-    <van-nav-bar @click-left="$router.push('/my')"
-                 left-text="授权与协议"
+    <van-nav-bar left-text="授权与协议"
                  left-arrow />
     <!-- 导航栏 -->
     <!-- 头像 -->
@@ -13,6 +12,7 @@
                    round
                    src="https://img.yzcdn.cn/vant/cat.jpeg" />
         <span class="name">{{list.status}}</span>
+        <span class="name">熊某人</span>
       </div>
     </div>
     <!-- 头像 -->
@@ -28,8 +28,14 @@
                 block
                 type="info"
                 native-type="submit"
-                :disabled="this.isDisabled"
-                @click="isSubmit">
+                :disabled="this.isdisabled">
+      <van-radio-group v-model="radio"
+                       class="radio">
+
+        <van-radio name="1"
+                   @click="isunfasten"></van-radio>
+
+      </van-radio-group>
 
       我已阅读并同意以上协议
     </van-button>
@@ -42,6 +48,11 @@
 
     </van-radio-group>
 
+    <div class="box2"></div>
+    <!-- 中间内容 -->
+
+    <!-- 底部 -->
+    <div class="bottom">我已阅读并同意以上协议</div>
   </div>
 </template>
 
@@ -80,6 +91,7 @@ export default {
       this.$toast('我已阅读并同意')
     }
   }
+
 }
 </script>
 
@@ -133,6 +145,13 @@ export default {
     width: 684px;
     height: 800px;
     background-color: #fcfcfc;
+    border-radius: 15px;
+    // box-shadow: 0 0 0.1px 0.1px;
+    top: 400px;
+    left: 35px;
+    width: 684px;
+    height: 800px;
+    background-color: #ffffff;
     border-radius: 15px;
   }
   .bottom {

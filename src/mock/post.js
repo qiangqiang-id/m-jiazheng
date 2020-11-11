@@ -1,3 +1,4 @@
+
 const data = {
   name: '李月娥',
   sex: '女',
@@ -10,6 +11,14 @@ export default {
       msg: '登录成功',
       phone: JSON.parse(options.body).mobile,
       data
+    }
+  },
+  'http://localhost:8080/userinfo|post': options => {
+    return {
+      status: 200,
+      msg: '更新信息成功',
+      options
+
     }
   }
 }

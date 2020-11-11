@@ -1,8 +1,7 @@
 <template>
   <div class="admin">
     <!-- 导航栏 -->
-    <van-nav-bar @click-left="$router.back()"
-                 left-text="授权与协议"
+    <van-nav-bar left-text="授权与协议"
                  left-arrow />
     <!-- /导航栏 -->
     <!-- 头像 -->
@@ -11,7 +10,7 @@
         <van-image class="img"
                    round
                    src="https://img.yzcdn.cn/vant/cat.jpeg" />
-        <span class="name">{{list.status}}</span>
+        <span class="name">熊某人</span>
       </div>
       <!-- /头像 -->
 
@@ -42,19 +41,26 @@
                      required
                      :rules="yonghu.password"
                      maxlength="6" />
-
-          <!-- 底部 -->
-          <van-button class="bottom"
-                      block
-                      type="info"
-                      native-type="submit">
-            提交认证
-          </van-button>
         </van-form>
         <!-- /表单 -->
       </div>
       <!-- /中间部分 -->
 
+      <!-- 底部 -->
+      <van-button class="bottom"
+                  block
+                  type="info"
+                  native-type="submit">
+        提交认证
+      </van-button>
+      <!-- 头像 -->
+
+      <!-- 中间部分 -->
+      <div class="box2"></div>
+      <!-- 中间部分 -->
+
+      <!-- 底部 -->
+      <div class="bottom">提交认证</div>
     </div>
   </div>
 </template>
