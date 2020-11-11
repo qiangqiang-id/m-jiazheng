@@ -1,26 +1,59 @@
 <template>
-  <div>
-    <house-keeping-list v-for=" item in infoList"
-                        :key="item.id"
-                        :value='item'>
-    </house-keeping-list>
+  <div class="housekeeping-container">
+    <!-- 头部 -->
+    <van-nav-bar class="nav-header">
+      <span slot="left"
+        class="header-text">家政平台</span>
+    </van-nav-bar>
+    <!-- /头部 -->
+    <div class="elevator">
+      <!-- 导航栏 -->
+      <city-inquire></city-inquire>
+      <!-- /导航栏 -->
+
+      <!-- 选择框 -->
+      <van-cell class="attribute-tag">
+        <!-- 使用 title 插槽来自定义标题 -->
+        <div slot="title"
+          class="btn-box"
+          v-for="(item,index) in occupation"
+          :key="index">
+          <van-button plain
+            round
+            size="mini">{{item}}</van-button>
+        </div>
+
+        <!-- /选择框 -->
+      </van-cell>
+
+      <div class="box">
+
+      </div>
+
+      <house-keeping-list v-for=" item in infoList"
+        :key="item.id"
+        :value='item'>
+      </house-keeping-list>
+    </div>
+
   </div>
 </template>
 
 <script>
 
 import HouseKeepingList from '@/components/housekeepingList'
-
+import CityInquire from '../../components/CityInquire '
 export default {
   name: 'HousekeepingIndex',
   components: {
-    HouseKeepingList
+    HouseKeepingList, CityInquire
   },
   data () {
     return {
       value: '',
       // 家服人员信息
-      infoList: []
+      infoList: [], // 职业
+      occupation: []
     }
   },
   props: {},
@@ -44,6 +77,10 @@ export default {
         this.$toast.success('获取信息成功')
         // this.infoList.push(res.datas)
         this.infoList = res.datas
+        // console.log(this.infoList)
+        this.occupation = this.infoList[0].profession
+        // console.log(this.occupation)
+        this.occupation.push('全部职业')
       }
     }
 
