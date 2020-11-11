@@ -1,26 +1,25 @@
 <template>
-  <van-cell class="waike">
+  <van-cell class="waike"
+            @click="$router.push(`/companyInfo/${value.id}`)">
     <div class="Page-box"
-      slot="title"
-      v-for="item in companyMsg"
-      :key="item.id">
+         slot="title">
       <div class="Pag">
         <div class="page-left">
           <van-image class="imgs"
-            src="https://img.yzcdn.cn/vant/cat.jpeg" />
+                     src="https://img.yzcdn.cn/vant/cat.jpeg" />
         </div>
         <div class="Page-right">
-          <h4>{{item.companyName}}</h4>
-          <p>{{item.companyName}}</p>
+          <h4>{{value.companyName}}</h4>
+          <p>{{value.companyName}}</p>
           <van-cell class="Page-bnt">
             <!-- 使用 title 插槽来自定义标题 -->
             <div slot="title"
-              class="Page-bnt-box"
-              v-for="(items,index) in item.evaluate"
-              :key="index">
+                 class="Page-bnt-box"
+                 v-for="(items,index) in value.evaluate"
+                 :key="index">
               <van-button plain
-                round
-                size="mini">{{items}}</van-button>
+                          round
+                          size="mini">{{items}}</van-button>
             </div>
           </van-cell>
 
@@ -29,8 +28,8 @@
       </div>
       <div class="Page-buttom">
         <i class="icon-md-location_on housekeeping"></i>
-        <span>{{item.distance}}</span>
-        <span>{{item.shopAddress}}</span>
+        <span>{{value.distance}}</span>
+        <span>{{value.shopAddress}}</span>
       </div>
     </div>
   </van-cell>
@@ -38,30 +37,23 @@
 
 <script>
 export default {
+  name: 'companyList',
+  props: {
+    value: {
+      type: Object, required: true
+    }
+  },
   data () {
     return {
 
-      // 家服公司信息,
-      companyMsg: []
     }
   },
   created () {
-    this.getCompanyInformation()
+
   },
   methods: {
     // 获取家政公司基本信息
-    async getCompanyInformation () {
-      const { data: res } = await this.$axios.get('http://localhost:8080/info|get')
 
-      console.log('getInformation -> res', res)
-      if (res.status === 200) {
-        this.$toast.success('获取信息成功')
-        // this.companyMsg.push(res.data)
-      }
-      this.companyMsg = res.data
-      // console.log(this.companyMsg)
-      // console.log(this.companyMsg[1].evaluate)
-    }
   }
 }
 </script>

@@ -1,5 +1,7 @@
+import housekeepingList from '@/components/housekeepingList';
 <template>
-  <div class="housekeepingInfo">
+  <div class="housekeepingInfo"
+       ref="housekeepingInfoRef">
     <van-nav-bar left-text="家政平台"
                  left-arrow
                  @click-left='$router.push("/home")' />
@@ -90,6 +92,7 @@
       </div>
 
     </div>
+
     <div class="footer">
       <van-grid>
         <van-grid-item text="评价"
@@ -114,6 +117,7 @@
         </van-grid-item>
       </van-grid>
     </div>
+
     <!-- 电话号码弹出层 -->
     <van-popup v-model="phoneShow"
                class="phoneShowBox"
@@ -163,12 +167,16 @@
 
 <script>
 export default {
+  name: 'HousekeepingInfo',
+  props: {
+    housekeepingID: String
+  },
   data () {
     return {
       info: {},
       phoneShow: false,
       wechatShow: false,
-      attention: true,
+      attention: false,
       columns: [],
       WeChatList: [],
       activeNames: ['1', '2'],
@@ -192,7 +200,7 @@ export default {
   },
   methods: {
     async getUserInfo () {
-      const { data: res } = await this.$axios.get('http://localhost:8080/matronInfo/3')
+      const { data: res } = await this.$axios.get(`http://localhost:8080/matronInfo/${this.housekeepingID}`)
       this.info = res.data
       this.columns.push(res.data.phone)
       this.WeChatList.push(res.data.wechat)
@@ -208,13 +216,13 @@ export default {
         setTimeout(() => {
           this.$toast('取消关注成功')
           this.attention = !this.attention
-        }, 1000)
+        }, 500)
       } else {
         // 添加关注
         setTimeout(() => {
           this.$toast('关注成功')
           this.attention = !this.attention
-        }, 1000)
+        }, Math.floor(Math.random() * (1000 - 0)) + 0)
       }
     }
   },

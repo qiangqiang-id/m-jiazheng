@@ -29,10 +29,11 @@ mockjs.getMobile = function () {
 // 模拟手机号码
 const type = []
 const pic1 = ['//s1.ayibang.com/static/h5/6.1/css/img/BM_rcbj_015da9a.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_yyss_76a2c75.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_cwkh_6035b37.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_xyyt_6fb2c30.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_zglr_ef31f34.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_bbhl_d90cfba.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_rcbj_015da9a.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/BM_cwkh_6035b37.jpg']
+const text = ['保姆', '月嫂', '厨师', '育婴师', '产康师', '家装/搬家', '早教/托教', '养老/陪护', '保洁/清洗']
 for (var i = 0; i < 8; i++) {
   type.push({
     id: i,
-    text: '月嫂' + i,
+    text: text[i],
     pic: pic1[i]
   })
 }
@@ -41,10 +42,10 @@ const datas = []
 var k = 10
 for (let i = 0; i < k; i++) {
   datas.push({
-    // id: k,
     // 性别 0为女性 1为男性
     sex: Math.round(Math.random()),
     id: i,
+    // 随机生成一个常见的中文姓名
     name: Random.cname(),
     // 手机号码
     mobile: mockjs.getMobile(),
@@ -58,11 +59,13 @@ for (let i = 0; i < k; i++) {
     // 服务几户
     service: Random.natural(20, 200),
     // 评价
-    profession: ['保姆', '月嫂', '厨师', '育婴师', '产康师', '家装/搬家', '早教/托教', '养老/陪护', '保洁/清洗'],
+    profession: text,
     // 职业大全
     evaluate: Random.natural(1, 2000),
     // 标签
-    label: [Random.natural(1, 8) + '星育婴师', Random.natural(1, 8) + '年工作经验', Random.ctitle(3, 5)]
+    label: [Random.natural(1, 8) + '星育婴师', Random.natural(1, 8) + '年工作经验', Random.ctitle(3, 5)],
+    // 生成一段随机的Base64 图片编码
+    image: Random.dataImage()
 
   })
 }
@@ -165,12 +168,44 @@ const matronInfo3 = {
   // 个人简介
   intro: '2019年8月在湖南女子学院优家培训平台以优异的成绩，荣获中级育婴结业证书，并获得被动操和实操能手荣誉证书。参加国家职业资格证考试，获得国家职业资格证书育婴员证，会做精致的辅食，婴儿常见疾病的护理，宝宝哄睡，以及良好的生活习惯。擅长科学育儿，会新生儿的黄疸辩证和护理，会脐带消毒和护理，臀部护理，洗澡抚触，婴儿主被动操，穿脱衣服，做简单早教。其他技能：亲和力非常不错，形象气质很好，积极主动，能很好的与他人沟通，做事细心，勤快，有耐心，敬业，能吃苦。普通话标准，有爱心，曾在私塾教书2年，对胎婴幼儿教育有一定的认识。有带过一个1岁左右的女宝宝到3岁多上幼儿园的经验，做饭菜好吃，可以兼做饭菜，家务。'
 }
+
+const matronInfo4 = {
+  name: Random.cname(),
+  img: 'https://beijing.198526.com/baomuimages/images/198526-5bd71cf3c2f0d.jpg',
+  // 标签
+  label: '三星保姆',
+  age: Random.natural(35, 55) + '岁',
+  address: Random.province(),
+  experience: Random.natural(1, 8) + '年经验',
+  // 是否关注 0未关注  1关注
+  attention: Random.natural(0, 1),
+  // 注册公司
+  is_company: '湖南前海优家网络科技有限公司',
+  // 职业
+  profession: '保姆 月嫂 育婴师',
+  phone: '13970444583',
+  wechat: '13970444583',
+  // 技能
+  skill: ['做饭', '月子餐', '家庭保洁', '洗衣', '育婴护理', '小孩看管', '家教辅导'],
+  // 任职公司
+  be_company: '湖南前海优家网络科技有限公司',
+  // 民族
+  nation: '汉族',
+  // 生肖
+  culture: '蛇',
+  // 星座
+  constellation: '魔蝎座(12.22~1.19)',
+  born: '1974-08-26',
+  education: '大专',
+  // 个人简介
+  intro: '2019年8月在湖南女子学院优家培训平台以优异的成绩，荣获中级育婴结业证书，并获得被动操和实操能手荣誉证书。参加国家职业资格证考试，获得国家职业资格证书育婴员证，会做精致的辅食，婴儿常见疾病的护理，宝宝哄睡，以及良好的生活习惯。擅长科学育儿，会新生儿的黄疸辩证和护理，会脐带消毒和护理，臀部护理，洗澡抚触，婴儿主被动操，穿脱衣服，做简单早教。其他技能：亲和力非常不错，形象气质很好，积极主动，能很好的与他人沟通，做事细心，勤快，有耐心，敬业，能吃苦。普通话标准，有爱心，曾在私塾教书2年，对胎婴幼儿教育有一定的认识。有带过一个1岁左右的女宝宝到3岁多上幼儿园的经验，做饭菜好吃，可以兼做饭菜，家务。'
+}
 // 家服公司基本信息
 const companyMsg = []
 for (let i = 0; i < 10; i++) {
   companyMsg.push({
     id: i,
-    profession: ['保姆', '月嫂', '厨师', '育婴师', '产康师', '家装/搬家', '早教/托教', '养老/陪护', '保洁/清洗'],
+    profession: text,
     // 职业大全
     shopAddress: Random.city(true) + ' 东方红县 夹皮沟404号', // 随机生成地址
     companyName: Random.ctitle(3, 5) + '家政有限公司', // 公司名
@@ -179,9 +214,25 @@ for (let i = 0; i < 10; i++) {
 
   })
 }
+// 轮播图
 const bannerPic = ['//s1.ayibang.com/static/h5/6.1/css/img/rcbjimg1_e668551.png',
   '//s1.ayibang.com/static/h5/6.1/css/img/rcbjnew1_a8f95a0.png',
   '//s1.ayibang.com/static/h5/6.1/css/img/yes8_e7641e5.jpg']
+
+// 服务人员个人信息
+const userInfo = {
+  // 随机生成一个常见的中文姓名
+  name: Random.cname(),
+  // 随机地址
+  address: Random.city(true),
+  // 生成随机的 图片
+  image: Random.image('200x100', '#fb0a2a'),
+  // 手机号码
+  mobile: mockjs.getMobile(),
+  // 随机生成0或1
+  sex: Random.integer(0, 1)
+}
+
 export default {
   'http://localhost:8080/type|get': options => {
     return {
@@ -203,6 +254,13 @@ export default {
       data: companyMsg
     }
   },
+  'http://localhost:8080/banner|get': options => {
+    return {
+      status: 200,
+      msg: '获取信息成功',
+      data: bannerPic
+    }
+  },
   'http://localhost:8080/matronInfo|get': options => {
     const i = options.url.substr(options.url.length - 1, 1)
     var matronInfo = null
@@ -212,6 +270,8 @@ export default {
       matronInfo = matronInfo2
     } else if (i === '3') {
       matronInfo = matronInfo3
+    } else {
+      matronInfo = matronInfo4
     }
     return {
       status: 200,
@@ -219,12 +279,11 @@ export default {
       data: matronInfo
     }
   },
-  'http://localhost:8080/banner|get': options => {
+  'http://localhost:8080/userinfo|get': options => {
     return {
       status: 200,
       msg: '获取信息成功',
-      data: bannerPic
+      data: userInfo
     }
   }
-
 }

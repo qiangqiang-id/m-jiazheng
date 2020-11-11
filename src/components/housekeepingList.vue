@@ -1,43 +1,41 @@
 <template>
-  <van-cell>
+  <van-cell @click="$router.push(`/housekeeping/${value.id}`)">
     <div class="Page-box"
-      slot="title"
-      v-for="item in infoList"
-      :key="item.id">
+         slot="title">
       <div class="Pag">
         <div class="page-left">
           <van-image class="imgs"
-            src="https://img.yzcdn.cn/vant/cat.jpeg" />
+                     src="https://img.yzcdn.cn/vant/cat.jpeg" />
         </div>
         <div class="Page-right">
           <div class="Page-right-box">
-            <h4>{{item.name}}</h4>
-            <p>{{item.price}}元 / 26天</p>
+            <h4>{{value.name}}</h4>
+            <p>{{value.price}}元 / 26天</p>
           </div>
           <van-cell class="Page-bnt">
             <!-- 使用 title 插槽来自定义标题 -->
             <div slot="title"
-              class="Page-bnt-box"
-              v-for="(items,index) in item.label"
-              :key="index">
+                 class="Page-bnt-box"
+                 v-for="(items,index) in value.label"
+                 :key="index">
               <van-button plain
-                round
-                size="mini">{{items}}</van-button>
+                          round
+                          size="mini">{{items}}</van-button>
             </div>
           </van-cell>
           <van-cell class="Page-bottom">
             <!-- 使用 title 插槽来自定义标题 -->
             <span class="Page-bnt-bottom">
-              {{item.address}}
+              {{value.address}}
             </span>
             <span class="Page-bnt-bottom">
-              {{item.age}}岁
+              {{value.age}}岁
             </span>
             <span class="Page-bnt-bottom">
-              服务{{item.service}}户
+              服务{{value.service}}户
             </span>
             <span class="Page-bnt-bottom">
-              评价{{item.service}}条
+              评价{{value.service}}条
             </span>
           </van-cell>
 
@@ -50,37 +48,22 @@
 
 <script>
 export default {
-
+  name: 'housekeepingList',
+  props: {
+    value: {
+      type: Object, required: true
+    }
+  },
   data () {
     return {
-
-      // 家服人员信息
-      infoList: []
-
     }
   },
-  props: {
 
-  },
   created () {
-    this.getInformation()
+
   },
   methods: {
-    // 获取家政人员基本信息
-    async getInformation () {
-      const { data: res } = await this.$axios.get('http://localhost:8080/data|get')
 
-      console.log('getInformation -> res', res)
-      if (res.status === 200) {
-        this.$toast.success('获取信息成功')
-        // console.log(res.datas)
-        this.infoList = res.datas
-
-        // this.infoList.push(res.datas)
-
-        //
-      }
-    }
   }
 
 }
@@ -144,8 +127,14 @@ export default {
         }
       }
       .Page-bottom {
+        box-sizing: border-box;
         padding: 0;
-        width: 100%;
+        width: 480px;
+        .van-cell__value {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
         .Page-bnt-bottom {
           font-size: 12px;
           color: #979191;
