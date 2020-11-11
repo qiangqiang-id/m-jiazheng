@@ -267,6 +267,8 @@ export default {
 
 <style lang="scss" scoped>
 .domestic-service {
+  background-color:#d4cccc4d;
+  height: 100%;
   ::v-deep .nav-bar-header {
     position: fixed;
     left: 0;
