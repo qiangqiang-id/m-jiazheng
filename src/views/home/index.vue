@@ -1,5 +1,6 @@
 <template>
-  <div class="home-container">
+  <div class="home-container"
+       ref="home-Height">
     <!-- 头部 -->
     <van-nav-bar class="nav-header">
       <span slot="left"
@@ -125,6 +126,7 @@
 <script>
 import CompanyList from '@/components/companyList.vue'
 import HousekeepingList from '@/components/housekeepingList.vue'
+import { debounce } from 'lodash'
 export default {
 
   name: 'HomeIndex',
@@ -140,7 +142,6 @@ export default {
       housekeepingInfo: [],
       companyInfo: [],
       isLoading: false
-
     }
   },
   created () {
@@ -150,6 +151,14 @@ export default {
     this.getCompany()
   },
   mounted () {
+    const homeHeight = this.$refs['home-Height']
+    homeHeight.onscroll = debounce(() => {
+      this.scrollTop = homeHeight.scrollTop
+    }, 50)
+  },
+  // 从缓存状态被激活时触发的钩子函数
+  activated () {
+    this.$refs['home-Height'].scrollTop = this.scrollTop
   },
   methods: {
     async getTypeList () {
@@ -195,7 +204,13 @@ export default {
 
 <style lang="scss" scoped>
 .home-container {
-  padding-bottom: 130px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  margin-bottom: 130px;
   background-color: #f9f5f5;
   .loading {
     z-index: 1000;
