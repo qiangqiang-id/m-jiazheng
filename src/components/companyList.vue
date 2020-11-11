@@ -1,11 +1,12 @@
 <template>
-  <van-cell class="waike">
+  <van-cell class="waike"
+            @click="$router.push(`/companyInfo/${value.id}`)">
     <div class="Page-box"
-      slot="title">
+         slot="title">
       <div class="Pag">
         <div class="page-left">
           <van-image class="imgs"
-            src="https://img.yzcdn.cn/vant/cat.jpeg" />
+                     src="https://img.yzcdn.cn/vant/cat.jpeg" />
         </div>
         <div class="Page-right">
           <h4>{{value.companyName}}</h4>
@@ -13,12 +14,12 @@
           <van-cell class="Page-bnt">
             <!-- 使用 title 插槽来自定义标题 -->
             <div slot="title"
-              class="Page-bnt-box"
-              v-for="(items,index) in value.evaluate"
-              :key="index">
+                 class="Page-bnt-box"
+                 v-for="(items,index) in value.evaluate"
+                 :key="index">
               <van-button plain
-                round
-                size="mini">{{items}}</van-button>
+                          round
+                          size="mini">{{items}}</van-button>
             </div>
           </van-cell>
 

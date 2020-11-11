@@ -12,6 +12,14 @@ const name = MockJS.mock({
   name: '@cname'
 })
 let follow = true
+// var w = 0
+// var arr = []
+// for (w = 0; w < w + 3; w++) {
+//   arr.push({
+//     id: w
+//   })
+// }
+// w += 3
 export default {
   'http://localhost:8080/test|get': options => {
     return {
@@ -60,5 +68,10 @@ export default {
       msg: '修改成功'
     }
   }
+  // 'http://localhost:8080/test1|get': options => {
+  //   return {
+  //     arr
+  //   }
+  // }
 
 }

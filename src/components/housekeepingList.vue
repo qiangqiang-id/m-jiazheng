@@ -1,5 +1,5 @@
 <template>
-  <van-cell>
+  <van-cell @click="$router.push(`/housekeeping/${value.id}`)">
     <div class="Page-box"
          slot="title">
       <div class="Pag">

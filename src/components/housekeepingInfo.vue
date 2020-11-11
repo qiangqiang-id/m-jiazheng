@@ -1,8 +1,10 @@
 <template>
-  <div class="housekeepingInfo">
+  <div class="housekeepingInfo"
+       ref="housekeepingInfoRef">
     <van-nav-bar left-text="家政平台"
                  left-arrow
                  @click-left='$router.push("/home")' />
+
     <div class="infobox">
       <div class="top">
         <van-image :src="info.img" />
@@ -87,6 +89,7 @@
                    src="https://img.yzcdn.cn/vant/cat.jpeg" />
       </div>
     </div>
+
     <div class="footer">
       <van-grid>
         <van-grid-item text="评价"
@@ -111,6 +114,7 @@
         </van-grid-item>
       </van-grid>
     </div>
+
     <!-- 电话号码弹出层 -->
     <van-popup v-model="phoneShow"
                class="phoneShowBox"
@@ -160,6 +164,7 @@
 
 <script>
 export default {
+  name: 'HousekeepingInfo',
   data () {
     return {
       info: {},

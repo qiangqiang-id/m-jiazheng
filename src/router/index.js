@@ -6,6 +6,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    redirect: '/home',
     name: 'layout',
     component: () => import(/* webpackChunkName: "about" */ '../views/layout'),
     children: [
@@ -52,7 +53,7 @@ const routes = [
     name: 'housekeepingInfo',
     component: () => import('@/components/housekeepingInfo.vue')
   }, {
-    path: '/companyInfo',
+    path: '/companyInfo/:companyID',
     name: 'companyInfo',
     props: true,
     component: () => import('@/components/company-info.vue')

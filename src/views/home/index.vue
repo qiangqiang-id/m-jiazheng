@@ -79,7 +79,9 @@
           湖南征信认证家服公司
         </span>
       </van-nav-bar>
-      <company-list @click="$router.push('/companyInfo')"></company-list>
+      <company-list v-for="item in companyInfo"
+                    :key="item.id"
+                    :value="item"></company-list>
       <van-nav-bar class="more">
         <span slot="title"
               class="more-text">更多公司</span>
@@ -98,7 +100,9 @@
           诚信注册家服员
         </span>
       </van-nav-bar>
-      <housekeeping-list></housekeeping-list>
+      <housekeeping-list v-for="item in housekeepingInfo "
+                         :key="item.id"
+                         :value="item"></housekeeping-list>
       <van-nav-bar class="more">
         <span slot="title"
               class="more-text">更多家服员</span>
@@ -124,12 +128,16 @@ export default {
     return {
       serverPic: ['//s1.ayibang.com/static/h5/6.1/css/img/hdb/banner_05d6a2b.png', '//s1.ayibang.com/static/h5/6.1/css/img/gdstimg1_b41f803.png', '//s1.ayibang.com/static/h5/6.1/css/img/img1_99f039a.png', '//s1.ayibang.com/static/h5/6.1/css/img/dbdlimg2_8bf257f.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/yes8_e7641e5.jpg', '//s1.ayibang.com/static/h5/6.1/css/img/djaz/img1_cdbf2f1.png'],
       typeList: [],
-      bannerPicList: []
+      bannerPicList: [],
+      housekeepingInfo: [],
+      companyInfo: []
     }
   },
   created () {
     this.getTypeList()
     this.getBannerPic()
+    this.getHousekeepingInfo()
+    this.getCompanyInfo()
   },
   methods: {
     async getTypeList () {
@@ -147,6 +155,20 @@ export default {
       } catch (err) {
         this.$toast('数据获取失败')
       }
+    },
+    async getHousekeepingInfo () {
+      const data = await this.$axios.get('http://localhost:8080/data')
+      // console.log(data.data.datas)
+      this.housekeepingInfo = data.data.datas
+    },
+    async getCompanyInfo () {
+      const data = await this.$axios.get('http://localhost:8080/info')
+      // const data1 = await this.$axios.get('http://localhost:8080/test1')
+      // console.log(data1)
+      this.companyInfo = data.data.data
+    },
+    clickCompanyList () {
+      console.log(1)
     }
   }
 }

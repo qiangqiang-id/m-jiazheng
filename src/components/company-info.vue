@@ -13,59 +13,105 @@
     <div class="header-box">
     </div>
     <!-- /头部 -->
-    <!-- banner图 -->
-    <div class="banner">
-      <img class="banner-pic"
-           :src="infoList.banner">
-    </div>
-    <!-- /banner图 -->
-    <!-- 用户数量区域 -->
-    <div class="user-total">
-      <van-grid :column-num="2">
-        <van-grid-item class="user-register">
-          <span slot="text"
-                class="total">{{infoList.num1}}</span>
-          <span slot="text"
-                class="text">注册家政员数</span>
-        </van-grid-item>
-        <van-grid-item class="user-register">
-          <span slot="text"
-                class="total">{{infoList.num2}}</span>
-          <span slot="text"
-                class="text">已认证客户数</span>
-        </van-grid-item>
-      </van-grid>
-      <div class="follow">
-        <van-button @click="editIsFollow"
-                    :loading="isLoading"
-                    class="follow-btn"
-                    :type="infoList.is_follow ? 'info' : 'default'"
-                    round>{{infoList.is_follow ? '关注' : '已关注'}}</van-button>
+    <div class="box"
+         ref="company-info-ref">
+      <!-- banner图 -->
+      <div class="banner">
+        <img class="banner-pic"
+             :src="infoList.banner">
+      </div>
+      <!-- /banner图 -->
+      <!-- 用户数量区域 -->
+      <div class="user-total">
+        <van-grid :column-num="2">
+          <van-grid-item class="user-register">
+            <span slot="text"
+                  class="total">{{infoList.num1}}</span>
+            <span slot="text"
+                  class="text">注册家政员数</span>
+          </van-grid-item>
+          <van-grid-item class="user-register">
+            <span slot="text"
+                  class="total">{{infoList.num2}}</span>
+            <span slot="text"
+                  class="text">已认证客户数</span>
+          </van-grid-item>
+        </van-grid>
+        <div class="follow">
+          <van-button @click="editIsFollow"
+                      :loading="isLoading"
+                      class="follow-btn"
+                      :type="infoList.is_follow ? 'info' : 'default'"
+                      round>{{infoList.is_follow ? '关注' : '已关注'}}</van-button>
+        </div>
+      </div>
+      <!-- /用户数量区域 -->
+      <!-- 业务范围 -->
+      <div class="business">
+        <van-nav-bar>
+          <span slot="left"
+                class="business-text">业务范围</span>
+        </van-nav-bar>
+        <van-grid :column-num="4"
+                  class="type">
+          <van-grid-item class="type-item"
+                         v-for="item in infoList.business"
+                         :key="item">
+            <div slot="default"
+                 class="type-content">
+              <div class="type-btn">
+                <van-icon class="type-icon"
+                          name="smile-o"></van-icon>
+              </div>
+              <span class="type-text">{{item}}</span>
+            </div>
+          </van-grid-item>
+        </van-grid>
+      </div>
+      <!-- 公司资料 -->
+      <div class="company-introduce">
+        <van-tabs v-model="active2"
+                  class="tab">
+          <van-tab title="公司资料">
+            <van-cell v-for="(item,index) in infoList.compang_pic"
+                      :key="index">
+              <span slot="title"
+                    class="business-text">{{item.name}}</span>
+              <div slot="label"
+                   class="company-pic">
+                <div class="company-pic-item"
+                     v-for="(value,index) in item.picPath"
+                     :key="index">
+                  <img :src="value" />
+                </div>
+              </div>
+            </van-cell>
+            <van-cell>
+              <span slot="title"
+                    class="business-text">基本资料</span>
+              <div slot="label">
+                <p>公司名称：{{infoList.company_name}}</p>
+                <p>法人代表：{{infoList.representative}}</p>
+                <p>公司电话：{{infoList.mobile}}</p>
+                <p>公司规模：{{infoList.scale}}</p>
+                <p>公司地址：{{infoList.address}}</p>
+              </div>
+            </van-cell>
+            <van-cell>
+              <span slot="title"
+                    class="business-text">公司介绍</span>
+              <p slot="label"> {{infoList.intorduce}}</p>
+            </van-cell>
+          </van-tab>
+          <van-tab title="注册人员">
+            <van-cell title="单元格"
+                      value="内容"
+                      label="描述信息" />
+          </van-tab>
+        </van-tabs>
       </div>
     </div>
-    <!-- /用户数量区域 -->
-    <!-- 业务范围 -->
-    <div class="business">
-      <van-nav-bar>
-        <span slot="left"
-              class="business-text">业务范围</span>
-      </van-nav-bar>
-      <van-grid :column-num="4"
-                class="type">
-        <van-grid-item class="type-item"
-                       v-for="item in infoList.business"
-                       :key="item">
-          <div slot="default"
-               class="type-content">
-            <div class="type-btn">
-              <van-icon class="type-icon"
-                        name="smile-o"></van-icon>
-            </div>
-            <span class="type-text">{{item}}</span>
-          </div>
-        </van-grid-item>
-      </van-grid>
-    </div>
+    <!-- /公司资料 -->
     <!-- 标签栏 -->
     <van-tabbar v-model="active1"
                 active-color="#7d7e80">
@@ -83,49 +129,7 @@
                        @click="showMobilePopup('电话')">电话联系</van-tabbar-item>
     </van-tabbar>
     <!-- /标签栏 -->
-    <!-- 公司资料 -->
-    <div class="company-introduce">
-      <van-tabs v-model="active2"
-                class="tab">
-        <van-tab title="公司资料">
-          <van-cell v-for="(item,index) in infoList.compang_pic"
-                    :key="index">
-            <span slot="title"
-                  class="business-text">{{item.name}}</span>
-            <div slot="label"
-                 class="company-pic">
-              <div class="company-pic-item"
-                   v-for="(value,index) in item.picPath"
-                   :key="index">
-                <img :src="value" />
-              </div>
-            </div>
-          </van-cell>
-          <van-cell>
-            <span slot="title"
-                  class="business-text">基本资料</span>
-            <div slot="label">
-              <p>公司名称：{{infoList.company_name}}</p>
-              <p>法人代表：{{infoList.representative}}</p>
-              <p>公司电话：{{infoList.mobile}}</p>
-              <p>公司规模：{{infoList.scale}}</p>
-              <p>公司地址：{{infoList.address}}</p>
-            </div>
-          </van-cell>
-          <van-cell>
-            <span slot="title"
-                  class="business-text">公司介绍</span>
-            <p slot="label"> {{infoList.intorduce}}</p>
-          </van-cell>
-        </van-tab>
-        <van-tab title="注册人员">
-          <van-cell title="单元格"
-                    value="内容"
-                    label="描述信息" />
-        </van-tab>
-      </van-tabs>
-    </div>
-    <!-- /公司资料 -->
+
     <!-- 电话联系弹出框 -->
     <van-popup v-model="isShowMobile"
                class="mobile-popup"
@@ -171,6 +175,9 @@ export default {
   created () {
     this.getCompanyInfo()
   },
+  mounted () {
+    this.$refs['company-info-ref'].scrollTop = 0
+  },
   methods: {
     async getCompanyInfo () {
       try {
@@ -205,6 +212,14 @@ export default {
 
 <style lang="scss" scoped>
 ::v-deep.Company-info-container {
+  .box {
+    position: fixed;
+    top: 86px;
+    bottom: 50px;
+    right: 0;
+    left: 0;
+    overflow: auto;
+  }
   padding: 92px 0;
   background-color: #f8f8f8;
   .nav-header {
