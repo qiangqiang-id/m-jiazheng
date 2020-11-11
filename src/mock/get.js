@@ -98,7 +98,7 @@ var register = {
 var jobWanted = {
   name: '张三',
   mobile: '13678987612',
-  intended: ['月嫂', '育婴师', '保洁/清洗', '保姆', '早教/托', '养老/陪护', '家装/搬家', '产康师'],
+  intended: [{ occupation_name: '月嫂', active: false }, { occupation_name: '育婴师', active: false }, { occupation_name: '保洁/清洗', active: false }, { occupation_name: '保姆', active: false }, { occupation_name: '早教/托', active: false }, { occupation_name: '养老/陪护', active: false }, { occupation_name: '家装/搬家', active: false }, { occupation_name: '产康师', active: false }],
   certificate: ['月嫂', '育婴师', '小儿推拿', '保姆', '保育员证'],
   NativePlace: '唐朝', // 籍贯
   CurrentAddress: '北京房区', // 现居地址

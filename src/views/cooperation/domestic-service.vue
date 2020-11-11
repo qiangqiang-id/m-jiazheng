@@ -41,34 +41,59 @@ import { Dialog } from 'vant';
       </van-form>
       <van-cell-group>
         <van-cell>
-          <span slot="title">*意向岗位：</span>
-          <span
-            slot="label"
-            v-for="(item,index) in jobInformation.intended"
-            :key="index"
-          >
+          <div slot="title">*意向岗位：</div>
+          <template #label>
+            <!-- itemIndex.indexOf(index) === -1 -->
             <van-tag
               round
               plain
+              :class="item.active ? 'highLight':''"
               size="medium"
-            >{{item}}</van-tag>
-          </span>
+              v-for="(item,index) in jobInformation.intended"
+              :key="index"
+              ref="tag-ref"
+              @click='clickSelect(item,index)'
+            >{{item.occupation_name}}</van-tag>
+          </template>
         </van-cell>
       </van-cell-group>
       <van-cell-group>
         <van-cell>
-          <span slot="title">*已获证书：</span>
-          <span
-            slot="label"
-            v-for="(item,index) in jobInformation.certificate"
-            :key="index"
-          >
+          <div slot="title">*已获证书：</div>
+          <template #label>
+            <!-- <span
+              slot="label"
+              v-for="(item,index) in jobInformation.certificate"
+              :key="index"
+            > -->
             <van-tag
+              v-for="(item,index) in jobInformation.certificate"
+              :key="index"
               round
               plain
               size="medium"
             >{{item}}</van-tag>
-          </span>
+            <!-- </span> -->
+            <!-- <span slot="label"> -->
+            <van-field
+              class="field-new-tag"
+              v-if="inputVisible"
+              v-model="inputValue"
+              ref="saveTagInput"
+              size="small"
+              @keyup.enter.native="handleInputConfirm"
+              @blur="handleInputConfirm"
+            >
+            </van-field>
+            <van-button
+              v-else
+              class="button-new-tag"
+              size="small"
+              @click="showField"
+            >+ 点击添加</van-button>
+            <!-- </span> -->
+
+          </template>
         </van-cell>
       </van-cell-group>
       <van-cell-group>
@@ -89,6 +114,7 @@ import { Dialog } from 'vant';
         </van-cell>
         <van-field
           label="备注信息："
+          class="fieldTop"
           v-model="jobInformation.remarks"
         />
       </van-cell-group>
@@ -131,7 +157,10 @@ export default {
       //   name: '',
       //   mobile: ''
       // },
+      // active: false,
+      itemIndex: [],
       isCompanyShow: false, // 意向家政公司弹层
+      // intentionWork: ['月嫂', '育婴师', '保洁/清洗', '保姆', '早教/托', '养老/陪护', '家装/搬家', '产康师'],
       columns: ['波力公司', '放松', '游戏', '打野'],
       // remarks: '', // 备注信息
       jobInformation: {
@@ -146,7 +175,9 @@ export default {
         name: [{ required: true, message: '请填写用户名' }],
         mobile: [{ required: true, message: '手机号不能为空' },
           { pattern: /^1[3|5|7|8]\d{9}$/, message: '手机格式错误' }]
-      }
+      },
+      inputVisible: false, // 获取证书标签显示与隐藏
+      inputValue: ''
     }
   },
   components: {},
@@ -165,13 +196,16 @@ export default {
       try {
         const { data: res } = await this.$axios.get('http://localhost:8080/jobWanted')
         this.jobInformation = res.jobWanted
-        console.log(this.jobInformation)
+        // console.log(this.jobInformation)
       } catch (error) {
         this.$toast.fail('获取信息失败')
       }
     },
     // 提交
     submitOccupation () {
+      // this.itemIndex.forEach((item) => {
+      //   this.jobInformation.intended[item].active = true
+      // })
       Dialog.confirm({
         title: '提示',
         message: '已确认信息无误'
@@ -179,12 +213,53 @@ export default {
         const { data: res } = await this.$axios.post('http://localhost:8080/jobWanted', this.jobInformation)
         this.jobInformation = res.jobWanted
         this.housekeepingProfession()
-        console.log('保存后', this.jobInformation)
+        console.log('提交保存后', this.jobInformation)
       }).catch(() => {
         this.jobInformation = ''
         this.$toast('已取消')
       })
+    },
+    showField () {
+      this.inputVisible = true
+      this.$nextTick(_ => {
+        this.$refs.saveTagInput.$refs.input.focus()
+      })
+      console.log('ok')
+    },
+    clickSelect (item, index) {
+      // const i = this.itemIndex.indexOf(index)
+      // console.log(item)
+      item.active = !item.active
+      console.log(item.active)
+
+      // if (i === -1) {
+      //   this.itemIndex.push(index)
+      // } else {
+      //   this.itemIndex.splice(i, 1)
+      // }
+      // console.log(this.itemIndex)
+
+      // console.log(item, index)
+      // this.jobInformation.intended.forEach((item, i) => {
+      //   if (i === index) {
+      //     item.active = !item.active
+      //     console.log(item.active)
+      //   }
+      // })
+      // console.log(this.jobInformation.intended)
+    },
+    handleInputConfirm () {
+      if (this.inputValue.trim().length === 0) {
+        this.inputValue = ''
+        this.inputVisible = false
+        return
+      }
+      this.jobInformation.certificate.push(this.inputValue.trim())
+      this.inputValue = ''
+      this.inputVisible = false
+      console.log('ok')
     }
+
   }
 
 }
@@ -216,12 +291,10 @@ export default {
     background-color: #3f51b5;
   }
   ::v-deep .main-form {
-    height: 1000px;
     width: 704px;
     margin: 0 auto;
     margin-top: -54px;
     border-radius: 10px 10px;
-    background-color: skyblue;
   }
   .van-icon-minus {
     transform: rotate(90deg);
@@ -230,6 +303,8 @@ export default {
     color: #3f51b5;
   }
   .van-tag {
+    height: 40px;
+    line-height: 40px;
     margin: 15px;
   }
   .btn-next {
@@ -242,6 +317,36 @@ export default {
   }
   .van-field__control {
     background-color: unset;
+  }
+
+  .button-new-tag {
+    margin: 15px;
+    height: 46px;
+    line-height: 46px;
+    padding-top: 0;
+    padding-bottom: 0;
+    border: 1px solid #a7a2a2;
+    border-radius: 23px;
+    color: #a7a2a2;
+  }
+  .field-new-tag {
+    width: 150px;
+    height: 46px;
+    line-height: 46px;
+    border-radius: 23px;
+    margin: 15px;
+    padding: 0 10px;
+    border: 1px solid #a7a2a2;
+  }
+  .highLight {
+    background-color: rgb(32, 164, 204);
+    color: #fff;
+  }
+  .van-tag--medium {
+    padding: 0.3em 0.3rem;
+  }
+  .fieldTop {
+    margin-bottom: 100px;
   }
 }
 </style>
