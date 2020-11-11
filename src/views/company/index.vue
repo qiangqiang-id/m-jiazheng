@@ -70,7 +70,7 @@ export default {
 
       console.log('getInformation -> res', res)
       if (res.status === 200) {
-        this.$toast.success('获取信息成功')
+        // this.$toast.success('获取信息成功')
         // this.companyMsg.push(res.data)
       }
       this.companyMsg = res.data

@@ -62,7 +62,7 @@ const routes = [
   {
     path: '/matching_company',
     name: 'matching_company',
-    component: () => import('@/components/matching_company')
+    component: () => import('@/components/matching')
   }, {
     path: '/home/business',
     name: 'business',

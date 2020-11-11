@@ -1,29 +1,51 @@
 <template>
   <div class="matching_company-container">
     <!-- 区县 -->
-    <div>
+    <!-- <div v-for="(item,index) in  companyList"
+         :key="index">
       <van-cell :border='false'>
         <div slot="title"
              class="title">
-          区县
+          {{item.title}}
         </div>
       </van-cell>
-      <van-grid title="家政"
-                class="van-matching"
+      <van-grid class="van-matching"
                 :column-num="4"
                 :gutter="20"
                 :border='false'
                 :clickable='true'>
-        <van-grid-item text="辖市区"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
+        <van-grid-item v-for="(i ,k) in item.list"
+                       :key='k'
+                       @click="addStyle(item,k)">
+          <span slot="text"
+                class="text "
+                :class="{textColor: id=== i}">{{i}}</span>
+        </van-grid-item>
+
+      </van-grid>
+      <div class="fold">展开
+        <van-icon name="arrow-down" />
+      </div>
+    </div> -->
+    <div>
+      <van-cell :border='false'>
+        <div slot="title"
+             class="title">
+          {{companyList[0].title}}
+        </div>
+      </van-cell>
+      <van-grid class="van-matching"
+                :column-num="4"
+                :gutter="20"
+                :border='false'
+                :clickable='true'>
+        <van-grid-item v-for="(i ,k) in companyList[0].list"
+                       :key='k'
+                       @click="addStyle1(i,k)">
+          <span slot="text"
+                class="text "
+                :class="{textColor: id === i}">{{i}}</span>
+        </van-grid-item>
 
       </van-grid>
       <div class="fold">展开
@@ -35,135 +57,111 @@
       <van-cell :border='false'>
         <div slot="title"
              class="title">
-          职业类型
+          {{companyList[1].title}}
         </div>
       </van-cell>
-      <van-grid title="家政"
-                class="van-matching"
+      <van-grid class="van-matching"
                 :column-num="4"
                 :gutter="20"
                 :border='false'
                 :clickable='true'>
-        <van-grid-item text="全部职业"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
+        <van-grid-item v-for="(i ,k) in companyList[1].list"
+                       :key='k'
+                       @click="addStyle2(i,k)">
+          <span slot="text"
+                class="text "
+                :class="{textColor: id1 === i}">{{i}}</span>
+        </van-grid-item>
 
       </van-grid>
       <div class="fold">展开
         <van-icon name="arrow-down" />
       </div>
     </div>
-    <!-- 学历 -->
+    <!-- 信用等级 -->
     <div>
       <van-cell :border='false'>
         <div slot="title"
              class="title">
-          学历
+          {{companyList[2].title}}
         </div>
       </van-cell>
-      <van-grid title="家政"
-                class="van-matching"
+      <van-grid class="van-matching"
                 :column-num="4"
                 :gutter="20"
                 :border='false'
                 :clickable='true'>
-        <van-grid-item text="文字"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
+        <van-grid-item v-for="(i ,k) in companyList[2].list"
+                       :key='k'
+                       @click="addStyle3(i,k)">
+          <span slot="text"
+                class="text "
+                :class="{textColor: id2 === i}">{{i}}</span>
+        </van-grid-item>
 
       </van-grid>
+      <div class="fold">展开
+        <van-icon name="arrow-down" />
+      </div>
     </div>
-    <!-- 民族 -->
+    <!-- 认证客户服务数 -->
     <div>
       <van-cell :border='false'>
         <div slot="title"
              class="title">
-          民族
+          {{companyList[3].title}}
         </div>
       </van-cell>
-      <van-grid title="家政"
-                class="van-matching"
+      <van-grid class="van-matching"
                 :column-num="4"
                 :gutter="20"
                 :border='false'
                 :clickable='true'>
-        <van-grid-item text="文字"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
+        <van-grid-item v-for="(i ,k) in companyList[3].list"
+                       :key='k'
+                       @click="addStyle4(i,k)">
+          <span slot="text"
+                class="text "
+                :class="{textColor: id3 === i}">{{i}}</span>
+        </van-grid-item>
+
       </van-grid>
+      <div class="fold">展开
+        <van-icon name="arrow-down" />
+      </div>
     </div>
-    <!-- 婚姻状况 -->
+    <!-- 公司规模 -->
     <div>
       <van-cell :border='false'>
         <div slot="title"
              class="title">
-          婚姻状况
+          {{companyList[4].title}}
         </div>
       </van-cell>
-      <van-grid title="家政"
-                class="van-matching"
+      <van-grid class="van-matching"
                 :column-num="4"
                 :gutter="20"
                 :border='false'
                 :clickable='true'>
-        <van-grid-item text="文字"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
+        <van-grid-item v-for="(i ,k) in companyList[4].list"
+                       :key='k'
+                       @click="addStyle5(i,k)">
+          <span slot="text"
+                class="text "
+                :class="{textColor: id4 === i}">{{i}}</span>
+        </van-grid-item>
+
       </van-grid>
-    </div>
-    <!-- 生肖 -->
-    <div>
-      <van-cell :border='false'>
-        <div slot="title"
-             class="title">
-          婚姻状况
-        </div>
-      </van-cell>
-      <van-grid title="家政"
-                class="van-matching"
-                :column-num="4"
-                :gutter="20"
-                :border='false'
-                :clickable='true'>
-        <van-grid-item text="文字"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
-        <van-grid-item text="文字"
-                       class="text" />
-      </van-grid>
+      <div class="fold">展开
+        <van-icon name="arrow-down" />
+      </div>
     </div>
     <!-- 按钮 -->
     <div class="buttons">
       <van-button round
                   type="info"
-                  class="button">清除条件</van-button>
+                  class="button"
+                  @click="clear">清除条件</van-button>
       <van-button round
                   type="info"
                   class="button">确认筛选</van-button>
@@ -178,15 +176,58 @@ export default {
   props: {},
   data () {
     return {
-
+      // 家服公司智能匹配列表
+      companyList: [],
+      // 控制样式
+      // isShow: false,
+      id: '',
+      id1: '',
+      id2: '',
+      id3: '',
+      id4: ''
     }
   },
-  created () {},
+  created () {
+    this.getCompanyList()
+  },
 
   computed: {},
 
   methods: {
-
+    // 获取家服公司智能匹配列表
+    async getCompanyList () {
+      const { data: res } = await this.$axios.get('http://localhost:8080/company|get')
+      console.log('家服公司列表:' + res)
+      this.companyList = res.data
+    },
+    // 添加样式
+    addStyle1 (k) {
+      // console.log(item.list[k])
+      this.id = k
+      // this.isShow = !this.isShow
+      // this.id = item.list[k]
+      // this.isShow = !this.isShow
+    },
+    addStyle2 (k) {
+      this.id1 = k
+      // this.isShow = !this.isShow
+    },
+    addStyle3 (k) {
+      this.id2 = k
+      // this.isShow = !this.isShow
+    },
+    addStyle4 (k) {
+      this.id3 = k
+      // this.isShow = !this.isShow
+    },
+    addStyle5 (k) {
+      this.id4 = k
+      // this.isShow = !this.isShow
+    },
+    // 清除条件
+    clear () {
+      this.id = this.id1 = this.id2 = this.id3 = this.id4 = ''
+    }
   },
 
   mounted () {},
@@ -228,6 +269,13 @@ export default {
     text-align: center;
     color: #827e7e;
     font-size: 30px;
+  }
+  .textColor {
+    color: #0000ff;
+  }
+  .text {
+    font-size: 24px;
+    white-space: nowrap;
   }
 }
 </style>
