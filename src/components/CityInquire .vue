@@ -3,16 +3,15 @@
   <div>
     <form action="/">
       <van-search v-model.trim="searchText"
-        class="inputs"
-        :clearable='true'
-        show-action
-        @blur='onBlur'
-        @search="onSearch"
-        @focus='isSearchHistoriesShow=true'
-        placeholder="智能匹配">
+                  class="inputs"
+                  :clearable='true'
+                  show-action
+                  @search="onSearch"
+                  @focus='isSearchHistoriesShow=true'
+                  placeholder="智能匹配">
         <div slot="action">
           <div class="city"
-            @click="isUpCityNameshow=true">{{city}}
+               @click="isUpCityNameshow=true">{{city}}
             <i class="housekeeping icon-jiantou-down"></i>
           </div>
         </div>
@@ -20,38 +19,14 @@
     </form>
     <!-- 编辑地址 -->
     <van-popup v-model="isUpCityNameshow"
-      position="bottom">
+               position="bottom">
       <van-picker title="选择城市"
-        show-toolbar
-        :columns="columns"
-        @confirm="onConfirm"
-        @cancel="onCancel" />
+                  show-toolbar
+                  :columns="columns"
+                  @confirm="onConfirm"
+                  @cancel="onCancel" />
     </van-popup>
     <!-- /编辑地址 -->
-    <!-- 历史记录 -->
-
-    <div v-show="isSearchHistoriesShow">
-      <van-cell title="搜索历史"
-        slot="title"
-        v-show="isSearchHistoriesShow">
-        <div v-if="isDeleteShow">
-          <span @click="searchHistories=[]">全部删除 </span>&nbsp;&nbsp;
-          <span @click="isDeleteShow=false"> 完成</span>
-        </div>
-
-        <van-icon v-else
-          name="delete"
-          @click="isDeleteShow=true" />
-      </van-cell>
-      <van-cell :title="item"
-        v-for="(item,index) in searchHistories"
-        :key="index"
-        @click="onSearchItemClick(item,index)">
-        <van-icon v-if="isDeleteShow"
-          name="close" />
-      </van-cell>
-    </div>
-    <!-- /历史记录 -->
   </div>
 </template>
 
@@ -117,8 +92,6 @@ export default {
         // 关闭历史记录
         this.isSearchHistoriesShow = false
       }
-    },
-    onBlur () {
     },
 
     // 删除历史记录

@@ -8,7 +8,7 @@
     <!-- 导航栏 -->
     <!-- 头像 -->
     <div class="box">
-      <div class="box1">0
+      <div class="box1">
         <van-image class="img"
                    round
                    src="https://img.yzcdn.cn/vant/cat.jpeg" />
