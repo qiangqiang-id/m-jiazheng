@@ -115,7 +115,6 @@ export default {
 .btn-small {
   background-color: #ededed;
   font-size: 22px;
-  width: 152px;
   height: 46px;
   line-height: 46px;
   color: #666;

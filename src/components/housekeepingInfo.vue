@@ -3,89 +3,92 @@
     <van-nav-bar left-text="家政平台"
                  left-arrow
                  @click-left='$router.push("/home")' />
-    <div class="infobox">
-      <div class="top">
-        <van-image :src="info.img" />
-        <div class="userinfo">
-          <div class="user">{{info.name}}</div>
+    <div class="box">
+      <div class="infobox">
+        <div class="top">
+          <van-image :src="info.img" />
+          <div class="userinfo">
+            <div class="user">{{info.name}}</div>
+            <van-tag plain
+                     round
+                     type="primary">{{info.label}}</van-tag>
+            <span class="textcol">{{info.address}} | {{info.age}} | {{info.experience}}</span>
+          </div>
+          <van-button type="info"
+                      v-if="attention"
+                      class="attention"
+                      @click="attentionClick"
+                      round>已关注</van-button>
+          <van-button type="info"
+                      v-else
+                      @click="attentionClick"
+                      round>关注</van-button>
+        </div>
+        <span class="text">注册公司：{{info.is_company}}</span>
+        <div class="text">职业：{{info.profession}}</div>
+        <div class="bottom">
+          <div class="bottom-left">
+            <div slot="icon"
+                 class="icon-antFill-safety-certificate housekeeping"></div>
+            <span>身份信息已核实</span>
+          </div>
+          <div class="bottom-right">
+            <van-button type="info"
+                        @click="phoneShow=true"
+                        round
+                        plain>电话联系</van-button>
+            <van-button type="info"
+                        round
+                        @click="wechatShow=true"
+                        plain>微信联系</van-button>
+          </div>
+        </div>
+      </div>
+      <div class="skillbox">
+        <div class="mainskill">
+          <span>主要技能</span>
+        </div>
+        <div class="skill">
           <van-tag plain
                    round
-                   type="primary">{{info.label}}</van-tag>
-          <span class="textcol">{{info.address}} | {{info.age}} | {{info.experience}}</span>
+                   v-for="(item,index) in info.skill"
+                   :key="index"
+                   type="primary">{{item}}</van-tag>
         </div>
-        <van-button type="info"
-                    v-if="attention"
-                    class="attention"
-                    @click="attentionClick"
-                    round>已关注</van-button>
-        <van-button type="info"
-                    v-else
-                    @click="attentionClick"
-                    round>关注</van-button>
-      </div>
-      <span class="text">注册公司：{{info.is_company}}</span>
-      <div class="text">职业：{{info.profession}}</div>
-      <div class="bottom">
-        <div class="bottom-left">
-          <div slot="icon"
-               class="icon-antFill-safety-certificate housekeeping"></div>
-          <span>身份信息已核实</span>
+        <div class="perinfo">
+          <van-collapse v-model="activeNames">
+            <van-collapse-item title="个人简介"
+                               name="1">{{info.intro}}</van-collapse-item>
+          </van-collapse>
         </div>
-        <div class="bottom-right">
-          <van-button type="info"
-                      @click="phoneShow=true"
-                      round
-                      plain>电话联系</van-button>
-          <van-button type="info"
-                      round
-                      @click="wechatShow=true"
-                      plain>微信联系</van-button>
+        <div class="perinfo">
+          <van-collapse v-model="activeNames">
+            <van-collapse-item title="个人简介"
+                               name="2">
+              <div class="info">
+                <span>任职公司：{{info.be_company}}</span>
+                <span>籍贯民族：{{info.nation}}</span>
+                <span>生肖属相：{{info.culture}}</span>
+                <span>星座：{{info.constellation}}</span>
+                <span>出生日期：{{info.born}}</span>
+                <span>学历：{{info.education}}</span>
+              </div>
+            </van-collapse-item>
+          </van-collapse>
+        </div>
+        <div class="perinfo">
+          <span>证件信息</span>
+        </div>
+        <div class="information">
+          <van-image fit="cover"
+                     src="https://img.yzcdn.cn/vant/cat.jpeg" />
+          <van-image fit="cover"
+                     src="https://img.yzcdn.cn/vant/cat.jpeg" />
+          <van-image fit="cover"
+                     src="https://img.yzcdn.cn/vant/cat.jpeg" />
         </div>
       </div>
-    </div>
-    <div class="skillbox">
-      <div class="mainskill">
-        <span>主要技能</span>
-      </div>
-      <div class="skill">
-        <van-tag plain
-                 round
-                 v-for="(item,index) in info.skill"
-                 :key="index"
-                 type="primary">{{item}}</van-tag>
-      </div>
-      <div class="perinfo">
-        <van-collapse v-model="activeNames">
-          <van-collapse-item title="个人简介"
-                             name="1">{{info.intro}}</van-collapse-item>
-        </van-collapse>
-      </div>
-      <div class="perinfo">
-        <van-collapse v-model="activeNames">
-          <van-collapse-item title="个人简介"
-                             name="2">
-            <div class="info">
-              <span>任职公司：{{info.be_company}}</span>
-              <span>籍贯民族：{{info.nation}}</span>
-              <span>生肖属相：{{info.culture}}</span>
-              <span>星座：{{info.constellation}}</span>
-              <span>出生日期：{{info.born}}</span>
-              <span>学历：{{info.education}}</span>
-            </div>
-          </van-collapse-item>
-        </van-collapse>
-      </div>
-      <div class="perinfo">
-        <span>证件信息</span>
-      </div>
-      <div class="information">
-        <van-image fit="cover"
-                   src="https://img.yzcdn.cn/vant/cat.jpeg" />
-        <van-image fit="cover"
-                   src="https://img.yzcdn.cn/vant/cat.jpeg" />
-        <van-image fit="cover"
-                   src="https://img.yzcdn.cn/vant/cat.jpeg" />
-      </div>
+
     </div>
     <div class="footer">
       <van-grid>
@@ -252,13 +255,21 @@ export default {
       align-items: unset;
     }
   }
+  .box {
+    position: fixed;
+    top: 100px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    overflow-y: auto;
+    margin-bottom: 200px;
+  }
   .infobox {
-    position: absolute;
-    top: 120px;
-    left: 5%;
     z-index: 99;
     background-color: #fff;
     width: 90%;
+    margin-left: 5%;
     padding: 15px;
     box-sizing: border-box;
     .top {
@@ -336,7 +347,6 @@ export default {
     }
   }
   .skillbox {
-    margin-top: 360px;
     width: 90%;
     margin-left: 5%;
     box-sizing: border-box;
@@ -402,7 +412,11 @@ export default {
     }
   }
   .footer {
-    margin-top: 50px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9;
     .housekeeping {
       font-size: 50px;
     }
