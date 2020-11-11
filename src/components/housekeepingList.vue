@@ -1,5 +1,5 @@
 <template>
-  <van-cell @click="$router.push(`/housekeeping/${value.id}`)">
+  <van-cell @click="goHousekeeping">
     <div class="Page-box"
          slot="title">
       <div class="Pag">
@@ -63,7 +63,10 @@ export default {
 
   },
   methods: {
-
+    goHousekeeping () {
+      this.$router.push(`/housekeeping/${this.value.id}`)
+      this.$store.commit('setHousekeeping', { name: this.value.name, address: this.value.address })
+    }
   }
 
 }

@@ -70,6 +70,10 @@
       </van-grid>
     </div>
     <!-- /服务模块 -->
+    <van-loading type="spinner"
+                 class="loading"
+                 v-show="isLoading"
+                 size="35px" />
     <!-- 家政公司 -->
     <div class="conpany">
       <van-nav-bar>
@@ -84,7 +88,8 @@
                     :value="item"></company-list>
       <van-nav-bar class="more">
         <span slot="title"
-              class="more-text">更多公司</span>
+              class="more-text"
+              @click="getCompany">更多公司</span>
         <van-icon slot="title"
                   class="more-icon"
                   name="arrow" />
@@ -105,13 +110,15 @@
                          :value="item"></housekeeping-list>
       <van-nav-bar class="more">
         <span slot="title"
-              class="more-text">更多家服员</span>
+              class="more-text"
+              @click="getHousekeepingInfo">更多家服员</span>
         <van-icon slot="title"
                   class="more-icon"
                   name="arrow" />
       </van-nav-bar>
     </div>
     <!-- /家政人员 -->
+
   </div>
 </template>
 
@@ -119,6 +126,7 @@
 import CompanyList from '@/components/companyList.vue'
 import HousekeepingList from '@/components/housekeepingList.vue'
 export default {
+
   name: 'HomeIndex',
   components: {
     CompanyList,
@@ -130,14 +138,18 @@ export default {
       typeList: [],
       bannerPicList: [],
       housekeepingInfo: [],
-      companyInfo: []
+      companyInfo: [],
+      isLoading: false
+
     }
   },
   created () {
     this.getTypeList()
     this.getBannerPic()
     this.getHousekeepingInfo()
-    this.getCompanyInfo()
+    this.getCompany()
+  },
+  mounted () {
   },
   methods: {
     async getTypeList () {
@@ -156,19 +168,26 @@ export default {
         this.$toast('数据获取失败')
       }
     },
+    async getCompany () {
+      this.isLoading = true
+      try {
+        const data = await this.$axios.get('http://localhost:8080/homeCompanyInfo')
+        this.companyInfo.push(...data.data.data)
+      } catch (err) {
+        this.$toast('获取数据失败')
+      }
+      this.isLoading = false
+    },
     async getHousekeepingInfo () {
-      const data = await this.$axios.get('http://localhost:8080/data')
-      // console.log(data.data.datas)
-      this.housekeepingInfo = data.data.datas
-    },
-    async getCompanyInfo () {
-      const data = await this.$axios.get('http://localhost:8080/info')
-      // const data1 = await this.$axios.get('http://localhost:8080/test1')
-      // console.log(data1)
-      this.companyInfo = data.data.data
-    },
-    clickCompanyList () {
-      console.log(1)
+      this.isLoading = true
+      try {
+        const data = await this.$axios.get('http://localhost:8080/homeHousekeepingInfo')
+        const results = data.data.data
+        this.housekeepingInfo.push(...results)
+      } catch (err) {
+        this.$toast('获取信息失败')
+      }
+      this.isLoading = false
     }
   }
 }
@@ -178,6 +197,13 @@ export default {
 .home-container {
   padding-bottom: 130px;
   background-color: #f9f5f5;
+  .loading {
+    z-index: 1000;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
   .banner {
     padding: 40px 30px;
     box-sizing: border-box;
@@ -300,5 +326,8 @@ export default {
 .banner-pic {
   width: 100%;
   height: 100%;
+}
+.amap-demo {
+  height: 300px;
 }
 </style>

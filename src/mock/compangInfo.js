@@ -12,14 +12,60 @@ const name = MockJS.mock({
   name: '@cname'
 })
 let follow = true
-// var w = 0
-// var arr = []
-// for (w = 0; w < w + 3; w++) {
-//   arr.push({
-//     id: w
-//   })
-// }
-// w += 3
+// 首页家政公司信息
+var w = 0
+function data1 () {
+  var arr = []
+  for (let a = w; a < w + 3; a++) {
+    arr.push({
+      id: a,
+      profession: '品质家政服务领导者',
+      // 职业大全
+      shopAddress: Random.city(true) + ' 东方红县 夹皮沟404号', // 随机生成地址
+      companyName: Random.ctitle(3, 5) + '家政有限公司', // 公司名
+      evaluate: ['服务好', '客户至上', '巴拉巴拉'], // 评价
+      distance: Random.float(5, 30, 1, 2) + 'km' // 距离
+    })
+  }
+  w += 3
+  return arr
+}
+// 首页家政人员信息
+var k = 0
+function data2 () {
+  const arr1 = []
+  for (let i = k; i < k + 3; i++) {
+    arr1.push({
+      id: i,
+      // 性别 0为女性 1为男性
+      sex: Math.round(Math.random()),
+      // 随机生成一个常见的中文姓名
+      name: Random.cname(),
+      // 手机号码
+      mobile: MockJS.getMobile(),
+      // 工作经验
+      age: Random.natural(30, 50),
+      // 保姆年龄
+      experience: Random.natural(1, 8),
+      // 随机地址
+      address: Random.city(true),
+      price: Math.ceil(Math.random() * 10) * 1000,
+      // 服务几户
+      service: Random.natural(20, 200),
+      // 评价
+      // profession: text,
+      // 职业大全
+      evaluate: Random.natural(1, 2000),
+      // 标签
+      label: [Random.natural(1, 8) + '星育婴师', Random.natural(1, 8) + '年工作经验', Random.ctitle(3, 5)],
+      // 生成一段随机的Base64 图片编码
+      image: Random.dataImage()
+    })
+  }
+  k += 3
+  return arr1
+}
+
 export default {
   'http://localhost:8080/test|get': options => {
     return {
@@ -67,11 +113,15 @@ export default {
       status: 200,
       msg: '修改成功'
     }
+  },
+  'http://localhost:8080/homeCompanyInfo|get': options => {
+    return {
+      data: data1()
+    }
+  },
+  'http://localhost:8080/homeHousekeepingInfo|get': options => {
+    return {
+      data: data2()
+    }
   }
-  // 'http://localhost:8080/test1|get': options => {
-  //   return {
-  //     arr
-  //   }
-  // }
-
 }
