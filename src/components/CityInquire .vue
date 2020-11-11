@@ -7,7 +7,7 @@
                   :clearable='true'
                   show-action
                   @search="onSearch"
-                  @focus='isSearchHistoriesShow=true'
+                  @focus="$emit('content-show')"
                   placeholder="智能匹配">
         <div slot="action">
           <div class="city"
@@ -117,5 +117,10 @@ export default {
   .city {
     color: #fff;
   }
+}
+.van-popup {
+  position: fixed;
+  top: 15%;
+  z-index: 9999;
 }
 </style>

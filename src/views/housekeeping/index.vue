@@ -3,24 +3,24 @@
     <!-- 头部 -->
     <van-nav-bar class="nav-header">
       <span slot="left"
-        class="header-text">家政平台</span>
+            class="header-text">家政平台</span>
     </van-nav-bar>
     <!-- /头部 -->
     <div class="elevator">
       <!-- 导航栏 -->
-      <city-inquire></city-inquire>
+      <city-inquire @content-show='show=true'></city-inquire>
       <!-- /导航栏 -->
 
       <!-- 选择框 -->
       <van-cell class="attribute-tag">
         <!-- 使用 title 插槽来自定义标题 -->
         <div slot="title"
-          class="btn-box"
-          v-for="(item,index) in occupation"
-          :key="index">
+             class="btn-box"
+             v-for="(item,index) in occupation"
+             :key="index">
           <van-button plain
-            round
-            size="mini">{{item}}</van-button>
+                      round
+                      size="mini">{{item}}</van-button>
         </div>
 
         <!-- /选择框 -->
@@ -31,29 +31,33 @@
       </div>
 
       <house-keeping-list v-for=" item in infoList"
-        :key="item.id"
-        :value='item'>
+                          :key="item.id"
+                          :value='item'>
       </house-keeping-list>
     </div>
-
+    <!-- 弹出层 -->
+    <van-popup v-model="show"
+               position="bottom"
+               :style="{height:'85%'}">
+      <matching></matching>
+    </van-popup>
   </div>
 </template>
 
 <script>
 
 import HouseKeepingList from '@/components/housekeepingList'
-import CityInquire from '../../components/CityInquire '
+import CityInquire from '@/components/CityInquire '
+import matching from '@/components/matching'
 export default {
   name: 'HousekeepingIndex',
-  components: {
-    HouseKeepingList, CityInquire
-  },
   data () {
     return {
       value: '',
       // 家服人员信息
       infoList: [], // 职业
-      occupation: []
+      occupation: [],
+      show: false
     }
   },
   props: {},
@@ -62,7 +66,9 @@ export default {
   },
 
   computed: {},
-
+  components: {
+    HouseKeepingList, CityInquire, matching
+  },
   methods: {
     // 返回按钮
     onClickLeft () {

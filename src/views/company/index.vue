@@ -9,7 +9,7 @@
     <!-- /头部 -->
     <div class="elevator">
       <!-- 导航栏 -->
-      <city-inquire></city-inquire>
+      <city-inquire @content-show='show=true'></city-inquire>
       <!-- /导航栏 -->
 
       <!-- 选择框 -->
@@ -34,18 +34,25 @@
                     :value='item'></comment-like>
 
     </div>
-
+    <!-- 弹出层 -->
+    <van-popup v-model="show"
+               position="bottom"
+               :style="{height:'85%'}">
+      <matching-company></matching-company>
+    </van-popup>
   </div>
 </template>
 
 <script>
 import CommentLike from '@/components/companyList'
 import CityInquire from '@/components/CityInquire '
+import matchingCompany from '@/components/matching_company'
 export default {
   name: 'CompanyIndex',
   components: {
     CommentLike,
-    CityInquire
+    CityInquire,
+    matchingCompany
   },
   data () {
     return {
@@ -53,7 +60,8 @@ export default {
       // 家服公司信息,
       companyMsg: [],
       // 职业
-      occupation: []
+      occupation: [],
+      show: false
 
     }
   },
