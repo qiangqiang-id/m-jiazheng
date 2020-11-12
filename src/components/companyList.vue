@@ -10,7 +10,7 @@
         </div>
         <div class="Page-right">
           <h4>{{value.companyName}}</h4>
-          <p>{{value.profession}}</p>
+          <p>{{value.title}}</p>
           <van-cell class="Page-bnt">
             <!-- 使用 title 插槽来自定义标题 -->
             <div slot="title"

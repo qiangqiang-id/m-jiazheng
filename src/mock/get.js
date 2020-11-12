@@ -206,7 +206,8 @@ const companyMsg = []
 for (let i = 0; i < 10; i++) {
   companyMsg.push({
     id: i,
-    profession: '品质家政服务领导者',
+    profession: text,
+    title: '品质家政服务领导者',
     // 职业大全
     shopAddress: Random.city(true) + ' 东方红县 夹皮沟404号', // 随机生成地址
     companyName: Random.ctitle(3, 5) + '家政有限公司', // 公司名
@@ -223,7 +224,7 @@ const bannerPic = ['//s1.ayibang.com/static/h5/6.1/css/img/rcbjimg1_e668551.png'
 // 服务人员个人信息
 const userInfo = {
   // 随机生成一个常见的中文姓名
-  name: Random.cname(),
+  name: '李月娥',
   // 随机地址
   address: Random.city(true),
   // 生成随机的 图片
@@ -231,11 +232,12 @@ const userInfo = {
   // 手机号码
   mobile: mockjs.getMobile(),
   // 随机生成0或1
-  sex: Random.integer(0, 1)
+  sex: 1
 }
 
 // 家服公司智能匹配列表
 const companyList = [{
+  id: 1,
   title: '区县',
   list: ['市辖区', '芙蓉区',
     '天心区',
@@ -252,6 +254,7 @@ const companyList = [{
     '天元区',
     '渌口区']
 }, {
+  id: 2,
   title: '职业类型',
   list: ['全部', '保姆',
     '月嫂',
@@ -264,26 +267,32 @@ const companyList = [{
     '保洁',
     '家庭管理']
 }, {
+  id: 3,
   title: '信用等级',
   list: ['A级', 'AA级',
     'AAA级',
-    'AAAA级'
+    'AAAA级',
+    'AAAAA级'
   ]
 }, {
+  id: 4,
   title: '已认证客户服务数',
-  list: ['大于100', '50-100',
-    '30-50',
+  list: ['大于200人', '200-100人',
+    '50-100人',
+    '30-50人',
     '小于30人'
   ]
 },
 {
+  id: 5,
   title: '公司规模',
-  list: ['500人以上', '50-300',
-    '200人以内'
+  list: ['500人以上', '500-300人',
+    '200人以内', '200-100人', '100人以下'
   ]
 }]
 // 家服人员智能匹配列表
 const staffList = [{
+  id: 1,
   title: '职业类型',
   list: ['全部', '保姆',
     '月嫂',
@@ -294,10 +303,12 @@ const staffList = [{
     '陪护',
     '育婴师',
     '保洁',
-    '家庭管理']
+    '家庭管理',
+    '家教']
 
 },
 {
+  id: 2,
   title: '学历',
   list: ['不限', '小学',
     '初中',
@@ -310,6 +321,7 @@ const staffList = [{
 
 },
 {
+  id: 3,
   title: '民族',
   list: ['不限', '汉族',
     '苗族',
@@ -318,9 +330,11 @@ const staffList = [{
     '维吾尔族',
     '彝族',
     '壮族'
+
   ]
 },
 {
+  id: 4,
   title: '婚姻状况',
   list: ['不限', '未婚',
     '已婚',
@@ -329,6 +343,7 @@ const staffList = [{
   ]
 },
 {
+  id: 5,
   title: '生肖',
   list: ['不限', '鼠',
     '牛',
@@ -339,12 +354,14 @@ const staffList = [{
 
 },
 {
+  id: 6,
   title: '工作年限',
   list: ['不限', '1年',
     '2年', '3年', '4年', '5年', '6年', '7年', '8年']
 
 },
 {
+  id: 7,
   title: '主要技能',
   list: ['做饭', '催乳',
     '产后修复',
@@ -379,6 +396,17 @@ var jobWanted = {
   CurrentAddress: '北京房区', // 现居地址
   company: '请选择', // 意向家政公司
   remarks: '123888' // 备注信息
+}
+// 需求岗位
+
+var demandJobs = {
+  mobile: '',
+  age: '',
+  pay: '',
+  home: '',
+  username: '',
+  address: '',
+  jobs: [{ profession: '保姆', active: false }, { profession: '月嫂', active: false }, { profession: '厨师', active: false }, { profession: '育婴师', active: false }, { profession: '产康师', active: false }, { profession: '家装/搬家', active: false }, { profession: '早教/托教', active: false }, { profession: '养老/陪护', active: false }]
 }
 
 export default {
@@ -478,6 +506,22 @@ export default {
       status: 200,
       msg: '保存成功',
       jobWanted: JSON.parse(option.body)
+    }
+  },
+  'http://localhost:8080/look|get': options => {
+    return {
+      status: 200,
+      msg: '获取信息成功',
+      demandJobs
+    }
+  },
+  'http://localhost:8080/look|post': options => {
+    console.log(options)
+    demandJobs = JSON.parse(options.body)
+    return {
+      status: 200,
+      msg: '获取信息成功',
+      demandJobs
     }
   }
 }

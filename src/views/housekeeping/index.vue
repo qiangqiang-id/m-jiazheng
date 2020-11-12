@@ -39,7 +39,7 @@
     <van-popup v-model="show"
                position="bottom"
                :style="{height:'85%'}">
-      <matching></matching>
+      <matching @closePopup='show=false'></matching>
     </van-popup>
   </div>
 </template>

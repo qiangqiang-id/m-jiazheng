@@ -19,7 +19,9 @@
     </form>
     <!-- 编辑地址 -->
     <van-popup v-model="isUpCityNameshow"
-               position="bottom">
+               position="bottom"
+               class="city-popup"
+               :style="{ height: '50%' }">
       <van-picker title="选择城市"
                   show-toolbar
                   :columns="columns"
@@ -117,10 +119,5 @@ export default {
   .city {
     color: #fff;
   }
-}
-.van-popup {
-  position: fixed;
-  top: 15%;
-  z-index: 9999;
 }
 </style>

@@ -87,7 +87,7 @@ const routes = [
   {
     path: '/matching_company',
     name: 'matching_company',
-    component: () => import('@/components/matching')
+    component: () => import('@/components/matching_company')
   }, {
     path: '/home/business', // 入住商务部
     name: 'business',
@@ -97,11 +97,6 @@ const routes = [
     path: '/home/domestic', // 家政求职
     name: 'domestic',
     component: () => import('@/views/cooperation/domestic-service')
-  },
-  {
-    path: '/home/homeservice', // 家庭服务
-    name: 'homeservice',
-    component: () => import('@/views/cooperation/home-service')
   },
   {
     path: '/about',
@@ -117,7 +112,6 @@ const routes = [
   { path: '/Already', component: () => import('@/views/my/components/Already-contacted') }
 
 ]
-
 const router = new VueRouter({
   routes
 })

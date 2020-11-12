@@ -4,7 +4,7 @@
        ref="housekeepingInfoRef">
     <van-nav-bar left-text="家政平台"
                  left-arrow
-                 @click-left='$router.push("/home")' />
+                 @click-left='$router.back()' />
     <div class="box">
       <div class="infobox">
         <div class="top">
@@ -291,6 +291,7 @@ export default {
         background-color: #3f51b5;
       }
       .attention {
+        white-space: nowrap;
         background-color: #999;
         border: 1px solid #999;
       }
@@ -303,7 +304,7 @@ export default {
       .userinfo {
         display: flex;
         flex-direction: column;
-        margin-left: 0px;
+        margin-left: 10px;
         height: 140px;
         justify-content: space-between;
         div {
