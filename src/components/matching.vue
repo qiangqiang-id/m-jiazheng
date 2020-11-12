@@ -355,7 +355,7 @@ export default {
 <style lang="scss" scoped>
 .matching_company-container {
   overflow: auto;
-  padding-bottom: 105px;
+  padding-bottom: 30px;
   ::v-deep .van-grid-item__content {
     height: 32px;
     border-radius: 10px;
@@ -372,6 +372,7 @@ export default {
     color: #101010;
   }
   ::v-deep .buttons {
+    margin-top: 30px;
     display: flex;
     justify-content: space-around;
     .button {
