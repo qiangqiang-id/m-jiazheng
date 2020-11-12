@@ -7,10 +7,12 @@
                    @click-left="onClickLeft"
                    :border='false'>
       </van-nav-bar>
-      <!-- 底部按钮 -->
-      <van-tabs v-model="active">
+
+      <van-tabs v-model="active"
+                swipeable
+                sticky>
         <van-tab title="家服公司">
-          <company-list></company-list>
+          <company-list class="company-list"></company-list>
 
         </van-tab>
         <van-tab title="家服人员">
@@ -90,7 +92,10 @@ export default {
 
 <style lang="scss" scoped>
 .my-follow-container {
+  height: 100vh;
+  overflow-y: auto;
   .nav-head {
+    margin-bottom: 200px;
     height: 192px;
     background-color: #3f51b5;
     .van-nav-bar {
@@ -113,6 +118,9 @@ export default {
       .van-tabs__line {
         background-color: #fff;
       }
+    }
+    .company-list {
+      padding-top: 200px;
     }
   }
 }

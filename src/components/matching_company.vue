@@ -1,6 +1,6 @@
 <template>
   <div class="matching_company-container">
-    <!-- 区县 -->
+    <!-- 职业类型 -->
     <!-- <div v-for="(item,index) in  companyList"
          :key="index">
       <van-cell :border='false'>
@@ -39,20 +39,23 @@
                 :gutter="20"
                 :border='false'
                 :clickable='true'>
-        <van-grid-item v-for="(i ,k) in companyList[0].list"
-                       :key='k'
-                       @click="addStyle1(i,k)">
-          <span slot="text"
-                class="text "
-                :class="{textColor: id === i}">{{i}}</span>
-        </van-grid-item>
-
+        <div class="box"
+             v-for="(i ,k) in companyList[0].list"
+             :key='k'>
+          <van-grid-item @click="addStyle1(i,k)"
+                         v-if='isShow||k<4'>
+            <span slot="text"
+                  class="text "
+                  :class="{textColor: id === i}">{{i}}</span>
+          </van-grid-item>
+        </div>
       </van-grid>
-      <div class="fold">展开
-        <van-icon name="arrow-down" />
+      <div class="fold"
+           @click="reveal">{{isShow?'收起':'展开'}}
+        <van-icon :name="isShow?'arrow-up':'arrow-down '" />
       </div>
     </div>
-    <!-- 职业类型 -->
+    <!-- 学历 -->
     <div>
       <van-cell :border='false'>
         <div slot="title"
@@ -65,20 +68,23 @@
                 :gutter="20"
                 :border='false'
                 :clickable='true'>
-        <van-grid-item v-for="(i ,k) in companyList[1].list"
-                       :key='k'
-                       @click="addStyle2(i,k)">
-          <span slot="text"
-                class="text "
-                :class="{textColor: id1 === i}">{{i}}</span>
-        </van-grid-item>
-
+        <div class="box"
+             v-for="(i ,k) in companyList[1].list"
+             :key='k'>
+          <van-grid-item @click="addStyle2(i,k)"
+                         v-if='isShow1||k<4'>
+            <span slot="text"
+                  class="text "
+                  :class="{textColor: id1 === i}">{{i}}</span>
+          </van-grid-item>
+        </div>
       </van-grid>
-      <div class="fold">展开
-        <van-icon name="arrow-down" />
+      <div class="fold"
+           @click="reveal1">{{isShow1?'收起':'展开'}}
+        <van-icon :name="isShow1?'arrow-up':'arrow-down'" />
       </div>
     </div>
-    <!-- 信用等级 -->
+    <!-- 民族 -->
     <div>
       <van-cell :border='false'>
         <div slot="title"
@@ -91,20 +97,23 @@
                 :gutter="20"
                 :border='false'
                 :clickable='true'>
-        <van-grid-item v-for="(i ,k) in companyList[2].list"
-                       :key='k'
-                       @click="addStyle3(i,k)">
-          <span slot="text"
-                class="text "
-                :class="{textColor: id2 === i}">{{i}}</span>
-        </van-grid-item>
-
+        <div class="box"
+             v-for="(i ,k) in companyList[2].list"
+             :key='k'>
+          <van-grid-item @click="addStyle3(i,k)"
+                         v-if='isShow2||k<4'>
+            <span slot="text"
+                  class="text "
+                  :class="{textColor: id2 === i}">{{i}}</span>
+          </van-grid-item>
+        </div>
       </van-grid>
-      <div class="fold">展开
-        <van-icon name="arrow-down" />
+      <div class="fold"
+           @click="reveal2">{{isShow2?'收起':'展开'}}
+        <van-icon :name="isShow2?'arrow-up':'arrow-down'" />
       </div>
     </div>
-    <!-- 认证客户服务数 -->
+    <!-- 婚姻状况 -->
     <div>
       <van-cell :border='false'>
         <div slot="title"
@@ -117,20 +126,23 @@
                 :gutter="20"
                 :border='false'
                 :clickable='true'>
-        <van-grid-item v-for="(i ,k) in companyList[3].list"
-                       :key='k'
-                       @click="addStyle4(i,k)">
-          <span slot="text"
-                class="text "
-                :class="{textColor: id3 === i}">{{i}}</span>
-        </van-grid-item>
-
+        <div class="box"
+             v-for="(i ,k) in companyList[3].list"
+             :key='k'>
+          <van-grid-item @click="addStyle4(i,k)"
+                         v-if='isShow3||k<4'>
+            <span slot="text"
+                  class="text "
+                  :class="{textColor: id3 === i}">{{i}}</span>
+          </van-grid-item>
+        </div>
       </van-grid>
-      <div class="fold">展开
-        <van-icon name="arrow-down" />
+      <div class="fold"
+           @click="reveal3">{{isShow3?'收起':'展开'}}
+        <van-icon :name="isShow3?'arrow-up':'arrow-down'" />
       </div>
     </div>
-    <!-- 公司规模 -->
+    <!-- 生肖 -->
     <div>
       <van-cell :border='false'>
         <div slot="title"
@@ -143,17 +155,20 @@
                 :gutter="20"
                 :border='false'
                 :clickable='true'>
-        <van-grid-item v-for="(i ,k) in companyList[4].list"
-                       :key='k'
-                       @click="addStyle5(i,k)">
-          <span slot="text"
-                class="text "
-                :class="{textColor: id4 === i}">{{i}}</span>
-        </van-grid-item>
-
+        <div class="box"
+             v-for="(i ,k) in companyList[4].list"
+             :key='k'>
+          <van-grid-item @click="addStyle5(i,k)"
+                         v-if='isShow4||k<4'>
+            <span slot="text"
+                  class="text "
+                  :class="{textColor: id4 === i}">{{i}}</span>
+          </van-grid-item>
+        </div>
       </van-grid>
-      <div class="fold">展开
-        <van-icon name="arrow-down" />
+      <div class="fold"
+           @click="reveal4">{{isShow4?'收起':'展开'}}
+        <van-icon :name="isShow4?'arrow-up':'arrow-down'" />
       </div>
     </div>
     <!-- 按钮 -->
@@ -179,12 +194,20 @@ export default {
       // 家服公司智能匹配列表
       companyList: [],
       // 控制样式
-      // isShow: false,
+      isShow: false,
+      isShow1: false,
+      isShow2: false,
+      isShow3: false,
+      isShow4: false,
+      isShow5: false,
+      isShow6: false,
       id: '',
       id1: '',
       id2: '',
       id3: '',
-      id4: ''
+      id4: '',
+      id5: '',
+      id6: ''
     }
   },
   created () {
@@ -224,9 +247,38 @@ export default {
       this.id4 = k
       // this.isShow = !this.isShow
     },
+    addStyle6 (k) {
+      this.id5 = k
+      // this.isShow = !this.isShow
+    },
+    addStyle7 (k) {
+      this.id6 = k
+      // this.isShow = !this.isShow
+    },
     // 清除条件
     clear () {
-      this.id = this.id1 = this.id2 = this.id3 = this.id4 = ''
+      this.id = this.id1 = this.id2 = this.id3 = this.id4 = this.id5 = this.id6 = ''
+    },
+    reveal () {
+      this.isShow = !this.isShow
+    },
+    reveal1 () {
+      this.isShow1 = !this.isShow1
+    },
+    reveal2 () {
+      this.isShow2 = !this.isShow2
+    },
+    reveal3 () {
+      this.isShow3 = !this.isShow3
+    },
+    reveal4 () {
+      this.isShow4 = !this.isShow4
+    },
+    reveal5 () {
+      this.isShow5 = !this.isShow5
+    },
+    reveal6 () {
+      this.isShow6 = !this.isShow6
     }
   },
 
@@ -276,6 +328,14 @@ export default {
   .text {
     font-size: 24px;
     white-space: nowrap;
+  }
+  .box {
+    display: flex;
+    justify-content: center;
+    flex: 25%;
+  }
+  ::v-deep .van-grid-item__content {
+    width: 140px;
   }
 }
 </style>
