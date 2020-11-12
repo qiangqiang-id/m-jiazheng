@@ -22,6 +22,7 @@ mockjs.random = function (len, list) {
   }
   return s
 }
+
 mockjs.getMobile = function () {
   return mockjs.random(1, mockjs.mobile_prefix) +
     mockjs.random(8, mockjs.numeric)
@@ -354,6 +355,32 @@ const staffList = [{
 
 }
 ]
+
+// 入住商务部信息
+var register = {
+  faRemVal: '个人企业', // 法人类型下拉框
+  enterprise: '龙头大亨', // 企业名称
+  displayName: '哇哈哈', // 显示名称
+  bankCard: '888888888888888888', // 社会卡号
+  showDay: '2001-10-19', // 工商注册时间
+  capital: '888', // 注册资本
+  address: '北京市北京市房山区', // 注册地区
+  enterpriseValue: '请选择', // 企业类型
+  management: ['月嫂', '育婴师', '保洁/清洗', '保姆', '早教/托', '养老/陪护', '家装/搬家', '产康师']
+}
+
+// 家政服务
+var jobWanted = {
+  name: '张三',
+  mobile: '13678987612',
+  intended: [{ occupation_name: '月嫂', active: false }, { occupation_name: '育婴师', active: false }, { occupation_name: '保洁/清洗', active: false }, { occupation_name: '保姆', active: false }, { occupation_name: '早教/托', active: false }, { occupation_name: '养老/陪护', active: false }, { occupation_name: '家装/搬家', active: false }, { occupation_name: '产康师', active: false }],
+  certificate: ['月嫂', '育婴师', '小儿推拿', '保姆', '保育员证'],
+  NativePlace: '唐朝', // 籍贯
+  CurrentAddress: '北京房区', // 现居地址
+  company: '请选择', // 意向家政公司
+  remarks: '123888' // 备注信息
+}
+
 export default {
   'http://localhost:8080/type|get': options => {
     return {
@@ -421,6 +448,36 @@ export default {
       status: 200,
       msg: '获取信息成功',
       data: staffList
+    }
+  },
+  'http://localhost:8080/register|get': option => { // 入住商务部
+    return {
+      status: 200,
+      msg: '获取信息成功',
+      register
+    }
+  },
+  'http://localhost:8080/register|post': options => { // 入住商务部
+    register = JSON.parse(options.body)
+    return {
+      status: 200,
+      msg: '保存信息成功',
+      register: JSON.parse(options.body)
+    }
+  },
+  'http://localhost:8080/jobWanted|get': options => { // 家政求职
+    return {
+      status: 200,
+      msg: '获取信息成功',
+      jobWanted
+    }
+  },
+  'http://localhost:8080/jobWanted|post': option => {
+    jobWanted = JSON.parse(option.body)
+    return {
+      status: 200,
+      msg: '保存成功',
+      jobWanted: JSON.parse(option.body)
     }
   }
 }

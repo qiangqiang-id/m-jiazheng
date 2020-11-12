@@ -5,89 +5,103 @@
       class="nav-bar-header"
       left-arrow
       title="入驻商务部"
-    ></van-nav-bar>
+      :border='false'
+      @click-left='$router.back()'
+    />
     <div class="box"></div>
 
     <!-- 中间表单内容 -->
     <div class="main-form">
+      <!-- <div><span>企业资料</span></div> -->
       <van-cell
         title="企业资料"
         icon="minus"
       />
-
       <van-form>
         <van-cell
-          title="*法人类型"
-          is-link
-          :value="faRemVal"
-          @click="showLegalPerson"
-        />
+          title="*法人类型："
+          @click="isShowPopup = true"
+        >
+          <span slot="default">{{information.faRemVal}}</span>
+          <van-icon
+            slot="default"
+            :name="isShowPopup? 'arrow-down':'arrow'"
+          />
+        </van-cell>
 
         <van-cell-group>
           <van-field
-            v-model="enterprise"
+            v-model="information.enterprise"
+            input-align="right"
             label="*企业名称："
           />
           <van-field
-            v-model="displayName"
+            v-model="information.displayName"
+            input-align="right"
             label="*显示名称："
           />
           <!-- 允许输入正整数，调起纯数字键盘 -->
           <van-field
             class="CreditCardBox"
-            v-model="bankCard"
-            type="digit"
-            label="*社会信用卡号："
-            placeholder="请输入18位统一社会信用卡号"
+            v-model="information.bankCard"
+            label="*社会信用代码："
+            input-align="right"
+            maxlength="18"
+            type="number"
+            placeholder="请输入18位统一社会信用"
           />
           <van-cell
             title="*注册时间："
-            is-link
-            :value="showDay"
             @click="isShowPopupDay = true"
-          />
+          >
+            <span slot="default">{{information.showDay}}</span>
+            <van-icon
+              slot='default'
+              :name="isShowPopupDay? 'arrow-down':'arrow'"
+            />
+          </van-cell>
           <van-field
             class="CreditCardBox"
-            label="*注册时间(万元)："
+            label="*注册资本(万元)："
+            input-align="right"
+            type="number"
+            v-model="information.capital"
           />
 
           <van-field
             readonly
             clickable
             name="area"
-            :value="address"
-            label="地区选择"
+            :value="information.address"
+            label="*注册地区："
+            input-align="right"
+            is-link
             placeholder="点击选择省市区"
             @click="showArea = true"
-          />
-
+          >
+            <van-icon :name="showArea ? 'arrow-down':'arrow'" />
+          </van-field>
           <van-cell
             title="*企业类型："
-            :value="enterpriseValue"
+            :value="information.enterpriseValue"
             is-link
             @click="showEnterprise = true"
           />
         </van-cell-group>
         <van-cell-group>
           <van-cell>
-            <span slot="title">*主营业务： </span>
-            <div slot="label">
+            <span slot="title">*主营业务：</span>
+            <span
+              slot="label"
+              v-for="(item,index) in information.management"
+              :key="index"
+            >
               <van-tag
                 round
                 plain
                 size="large"
-              >标签</van-tag>
-              <van-tag
-                round
-                plain
-                size="large"
-              >标签</van-tag>
-              <van-tag
-                round
-                plain
-                size="large"
-              >标签</van-tag>
-            </div>
+              >{{item}}</van-tag>
+            </span>
           </van-cell>
         </van-cell-group>
       </van-form>
@@ -95,6 +109,7 @@
     <van-button
       class="btn-next"
       block
+      @click="SubmitInformation"
     >下一步</van-button>
     <!-- 法人弹层 -->
     <van-popup
@@ -150,88 +165,99 @@
         @cancel="showEnterprise=false"
       />
     </van-popup>
+
   </div>
 </template>
 
 <script>
 import dayjs from 'dayjs'
+import areaList from '@/assets/Area'
+import { Dialog } from 'vant'
 export default {
   name: 'businessForm',
   props: {},
+  components: {
+    // areaList
+  },
   data () {
     return {
-      enterprise: '', // 企业名称
-      displayName: '', // 显示名称
-      bankCard: '', // 社会卡号
       isShowPopup: false, // 法人弹层
-      faRemVal: '', // 法人类型下拉框
-      columns: ['法人代表', '专业磨刀'],
-      showDay: '请选择工商注册时间', // 工商注册时间
+      columns: ['企业法人', '个体法人', '个人企业', '合伙企业'],
       isShowPopupDay: false, // 注册时间显示弹层
       minDate: new Date(1950, 12, 31),
       maxDate: new Date(2070, 12, 31),
       currentDate: new Date(),
-      address: '',
       showArea: false,
-      areaList: {
-        province_list: {
-          110000: '北京市',
-          120000: '天津市'
-        },
-        city_list: {
-          110100: '北京市',
-          110200: '县',
-          120100: '天津市',
-          120200: '县'
-        },
-        county_list: {
-          110101: '东城区',
-          110102: '西城区',
-          110105: '朝阳区',
-          110106: '丰台区',
-          120101: '和平区',
-          120102: '河东区',
-          120103: '河西区',
-          120104: '南开区',
-          120105: '河北区'
-        }
-      },
+      areaList, // 省区市
       showEnterprise: false, // 企业类型
-      enterpriseValue: '',
-      enterpriseColumns: ['个人企业', '私人企业', '游戏产业'] // 企业类型
+      enterpriseColumns: ['个人企业', '私人企业', '游戏产业'], // 企业类型
+      // management: '标签',
+      // 入住商务部信息
+      information: {
+        // faRemVal: '', // 法人类型下拉框
+        // enterprise: '', // 企业名称
+        // displayName: '', // 显示名称
+        // bankCard: '', // 社会卡号
+        // showDay: '请选择工商注册时间', // 工商注册时间
+        // capital: '', // 注册资本
+        // address: '', // 注册地区
+        // enterpriseValue: '' // 企业类型
+      }
     }
   },
-  components: {
-
+  created () {
+    this.registrationInformation()
   },
   methods: {
-    showLegalPerson () {
-      this.isShowPopup = true
-    },
     onConfirm (value) {
       this.isShowPopup = false
       // console.log(value, index)
-      this.faRemVal = value
+      this.information.faRemVal = value
     },
     // 注册时间
     onConfirmDay (value) {
       this.currentDate = dayjs(value).format('YYYY-MM-DD')
-      console.log(this.currentDate)
-      this.showDay = this.currentDate
+      this.information.showDay = this.currentDate
+      // console.log(this.information.showDay)
       this.isShowPopupDay = false
     },
     // 地址
     onConfirmAddress (values) {
-      this.address = values
+      this.information.address = values
         .filter((item) => !!item)
         .map((item) => item.name)
         .join('/')
       this.showArea = false
     },
-    //
     onEnterpriseConfirm (val) {
-      this.enterpriseValue = val
+      this.information.enterpriseValue = val
       this.showEnterprise = false
+    },
+
+    // 获取数据
+    async registrationInformation () {
+      try {
+        const { data: res } = await this.$axios.get('http://localhost:8080/register')
+        // console.log(res)
+        this.information = res.register
+      } catch (error) {
+        this.$toast('获取数据失败')
+      }
+    },
+    SubmitInformation () {
+      Dialog.confirm({
+        title: '提示',
+        message: '已确认信息无误'
+      }).then(async () => {
+        const { data: res } = await this.$axios.post('http://localhost:8080/register', this.information)
+        this.information = res.register
+        console.log(res)
+        this.$toast.success('操作成功')
+        this.registrationInformation()
+      }).catch(() => {
+        this.information = ''
+        this.$toast('已取消')
+      })
     }
   }
 }
@@ -266,7 +292,7 @@ export default {
   }
   ::v-deep .main-form {
     width: 704px;
-    // background-color: skyblue;
+    background-color: skyblue;
     // height: 900px;
     margin: 0 auto;
     margin-top: -54px;
@@ -285,7 +311,7 @@ export default {
       width: unset;
     }
     .van-tag {
-      margin: 20px;
+      margin: 15px 10px;
     }
   }
   .btn-next {

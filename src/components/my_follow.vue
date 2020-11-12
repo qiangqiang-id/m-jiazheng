@@ -2,21 +2,29 @@
   <div class="my-follow-container">
     <!-- 顶部导航 -->
     <div class="nav-head">
-      <van-nav-bar left-text="我的关注"
-                   left-arrow
-                   @click-left="onClickLeft"
-                   :border='false'>
+      <van-nav-bar
+        left-text="我的关注"
+        left-arrow
+        @click-left="$router.back()"
+        :border='false'
+      >
       </van-nav-bar>
       <!-- 底部按钮 -->
       <van-tabs v-model="active">
         <van-tab title="家服公司">
-          <company-list></company-list>
+          <company-list
+            v-for="item in companyMsg"
+            :key="item.id"
+            :value='item'
+          ></company-list>
 
         </van-tab>
         <van-tab title="家服人员">
-          <housekeeping-list v-for="item in infoList "
-                             :key="item.id"
-                             :userInfo='item'></housekeeping-list>
+          <housekeeping-list
+            v-for="item in infoList "
+            :key="item.id"
+            :value='item'
+          ></housekeeping-list>
         </van-tab>
       </van-tabs>
     </div>
@@ -58,7 +66,7 @@ export default {
       console.log('getInformation -> res', res)
       if (res.status === 200) {
         // this.$toast.success('获取信息成功')
-        this.infoList.push(res.datas)
+        this.infoList.push(...res.datas)
       }
     }, // 获取家政公司基本信息
     async getCompanyInformation () {
@@ -67,13 +75,15 @@ export default {
       console.log('getInformation -> res', res)
       if (res.status === 200) {
         // this.$toast.success('获取信息成功')
-        this.companyMsg.push(res.data)
+        // console.log(res.data)
+        this.companyMsg.push(...res.data)
       }
       // const { data: res } = await this.$axios.get('http://localhost:8080/info|get')
 
       // console.log('getInformation -> res', res)
       // if (res.status === 200) {
       //   this.$toast.success('获取信息成功')
+      //   this.companyMsg.push(res.data)
       //   this.companyMsg.push(res.data)
       // }
     }

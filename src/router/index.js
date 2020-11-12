@@ -89,17 +89,17 @@ const routes = [
     name: 'matching_company',
     component: () => import('@/components/matching')
   }, {
-    path: '/home/business',
+    path: '/home/business', // 入住商务部
     name: 'business',
     component: () => import('@/views/cooperation/business-form')
   },
   {
-    path: '/home/domestic',
+    path: '/home/domestic', // 家政求职
     name: 'domestic',
     component: () => import('@/views/cooperation/domestic-service')
   },
   {
-    path: '/home/homeservice',
+    path: '/home/homeservice', // 家庭服务
     name: 'homeservice',
     component: () => import('@/views/cooperation/home-service')
   },
