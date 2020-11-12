@@ -112,7 +112,6 @@ const routes = [
   { path: '/Already', component: () => import('@/views/my/components/Already-contacted') }
 
 ]
-
 const router = new VueRouter({
   routes
 })
