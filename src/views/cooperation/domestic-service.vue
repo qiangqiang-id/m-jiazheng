@@ -11,120 +11,119 @@ import { Dialog } from 'vant';
     />
     <div class="box"></div>
     <!-- 中间表单内容 -->
-    <div class="main-form">
-      <van-cell
-        title="做家政"
-        icon="minus"
-      >
-
-      </van-cell>
-      <van-form
-        @submit="onSubmit"
-        autocomplete="off"
-      >
-        <van-field
-          v-model.trim="jobInformation.name"
-          name="姓名"
-          label="*姓名："
-          placeholder="请输入姓名"
-          :rules="userFormRules.name"
-        />
-        <van-field
-          v-model="jobInformation.mobile"
-          name="mobile"
-          label='*手机号码：'
-          placeholder="请输入手机号"
-          :rules="userFormRules.mobile"
-          type="number"
-          maxlength="11"
-        />
-      </van-form>
-      <van-cell-group>
-        <van-cell>
-          <div slot="title">*意向岗位：</div>
-          <template #label>
-            <!-- itemIndex.indexOf(index) === -1 -->
-            <van-tag
-              round
-              plain
-              :class="item.active ? 'highLight':''"
-              size="medium"
-              v-for="(item,index) in jobInformation.intended"
-              :key="index"
-              @click='clickSelect(item,index)'
-            >{{item.occupation_name}}</van-tag>
-          </template>
-        </van-cell>
-      </van-cell-group>
-      <van-cell-group>
-        <van-cell>
-          <div slot="title">*已获证书：</div>
-          <template #label>
-            <!-- <span
-              slot="label"
-              v-for="(item,index) in jobInformation.certificate"
-              :key="index"
-            > -->
-            <van-tag
-              v-for="(item,index) in jobInformation.certificate"
-              :key="index"
-              round
-              plain
-              size="medium"
-            >{{item}}</van-tag>
-            <!-- </span> -->
-            <!-- <span slot="label"> -->
-            <van-field
-              class="field-new-tag"
-              v-if="inputVisible"
-              v-model="inputValue"
-              ref="saveTagInput"
-              size="small"
-              @keyup.enter.native="handleInputConfirm"
-              @blur="handleInputConfirm"
-            >
-            </van-field>
-            <van-button
-              v-else
-              class="button-new-tag"
-              size="small"
-              @click="showField"
-            >+ 点击添加</van-button>
-            <!-- </span> -->
-
-          </template>
-        </van-cell>
-      </van-cell-group>
-      <van-cell-group>
-        <van-field
-          v-model="jobInformation.NativePlace"
-          label="籍贯："
-        />
-        <van-field
-          v-model="jobInformation.CurrentAddress"
-          label="现居住地："
-        />
+    <van-form ref='formValidation'>
+      <div class="main-form">
         <van-cell
-          title="意向家政公司："
-          is-link
-          @click="isCompanyShow=true"
+          title="做家政"
+          icon="minus"
         >
-          <span slot="default">{{jobInformation.company}}</span>
+
         </van-cell>
-        <van-field
-          label="备注信息："
-          class="fieldTop"
-          v-model="jobInformation.remarks"
-        />
-      </van-cell-group>
-    </div>
+        <van-form
+          @submit="onSubmit"
+          autocomplete="off"
+        >
+          <van-field
+            v-model.trim="jobInformation.name"
+            name="姓名"
+            label="*姓名："
+            placeholder="请输入姓名"
+            :rules="userFormRules.name"
+          />
+          <van-field
+            v-model="jobInformation.mobile"
+            name="mobile"
+            label='*手机号码：'
+            placeholder="请输入手机号"
+            :rules="userFormRules.mobile"
+            type="number"
+            maxlength="11"
+          />
+        </van-form>
+        <van-cell-group>
+          <van-cell>
+            <div slot="title">*意向岗位：</div>
+            <template #label>
+              <!-- itemIndex.indexOf(index) === -1 -->
+              <van-tag
+                round
+                plain
+                :class="item.active ? 'highLight':''"
+                size="medium"
+                v-for="(item,index) in jobInformation.intended"
+                :key="index"
+                @click='clickSelect(item,index)'
+              >{{item.occupation_name}}</van-tag>
+            </template>
+          </van-cell>
+        </van-cell-group>
+        <van-cell-group>
+          <van-cell>
+            <div slot="title">*已获证书：</div>
+            <template #label>
+              <van-tag
+                v-for="(item,index) in jobInformation.certificate"
+                :key="index"
+                round
+                plain
+                closeable
+                size="medium"
+                @close="closeItemTag(index)"
+              >{{item}}</van-tag>
+              <!-- </span> -->
+              <!-- <span slot="label"> -->
+              <van-field
+                class="field-new-tag"
+                v-if="inputVisible"
+                v-model="inputValue"
+                ref="saveTagInput"
+                size="small"
+                @keyup.enter.native="handleInputConfirm"
+                @blur="handleInputConfirm"
+              >
+              </van-field>
+              <van-button
+                v-else
+                class="button-new-tag"
+                size="small"
+                @click="showField"
+              >+ 点击添加</van-button>
+              <!-- </span> -->
+
+            </template>
+          </van-cell>
+        </van-cell-group>
+        <van-cell-group>
+          <van-field
+            v-model="jobInformation.NativePlace"
+            label="籍贯："
+          />
+          <van-field
+            v-model="jobInformation.CurrentAddress"
+            label="现居住地："
+          />
+          <van-cell
+            title="意向家政公司："
+            is-link
+            @click="isCompanyShow=true"
+          >
+            <span slot="default">{{jobInformation.company}}</span>
+          </van-cell>
+          <van-field
+            label="备注信息："
+            class="fieldTop"
+            v-model="jobInformation.remarks"
+          />
+        </van-cell-group>
+      </div>
+    </van-form>
+
     <!-- 提交按钮 -->
     <van-button
       block
       class="btn-next"
       @click="submitOccupation"
     >提交资料</van-button>
-
     <!-- 意向家政公司 -->
     <van-popup
       v-model="isCompanyShow"
@@ -157,7 +156,7 @@ export default {
       //   mobile: ''
       // },
       // active: false,
-      itemIndex: [],
+      // itemIndex: [],
       isCompanyShow: false, // 意向家政公司弹层
       // intentionWork: ['月嫂', '育婴师', '保洁/清洗', '保姆', '早教/托', '养老/陪护', '家装/搬家', '产康师'],
       columns: ['波力公司', '放松', '游戏', '打野'],
@@ -176,7 +175,8 @@ export default {
           { pattern: /^1[3|5|7|8]\d{9}$/, message: '手机格式错误' }]
       },
       inputVisible: false, // 获取证书标签显示与隐藏
-      inputValue: ''
+      inputValue: '',
+      formValidation: ''
     }
   },
   components: {},
@@ -209,10 +209,14 @@ export default {
         title: '提示',
         message: '已确认信息无误'
       }).then(async () => {
-        const { data: res } = await this.$axios.post('http://localhost:8080/jobWanted', this.jobInformation)
-        this.jobInformation = res.jobWanted
-        this.housekeepingProfession()
-        console.log('提交保存后', this.jobInformation)
+        if (this.jobInformation.name && this.jobInformation.mobile && this.jobInformation.intended && this.jobInformation.certificate && this.jobInformation.NativePlace && this.jobInformation.CurrentAddress && this.jobInformation.company && this.jobInformation.remarks !== '' && []) {
+          const { data: res } = await this.$axios.post('http://localhost:8080/jobWanted', this.jobInformation)
+          this.jobInformation = res.jobWanted
+          console.log('提交保存后', this.jobInformation)
+          this.housekeepingProfession()
+        } else {
+          this.$toast('请填写完整信息')
+        }
       }).catch(() => {
         this.jobInformation = ''
         this.$toast('已取消')
@@ -226,26 +230,15 @@ export default {
       console.log('ok')
     },
     clickSelect (item, index) {
-      // const i = this.itemIndex.indexOf(index)
-      // console.log(item)
       item.active = !item.active
       // console.log(item.active)
-
-      // if (i === -1) {
-      //   this.itemIndex.push(index)
+      // if (!item.active) {
+      //   this.itemIndex.push(item)
       // } else {
+      //   const i = this.itemIndex.indexOf(item)
       //   this.itemIndex.splice(i, 1)
       // }
       // console.log(this.itemIndex)
-
-      // console.log(item, index)
-      // this.jobInformation.intended.forEach((item, i) => {
-      //   if (i === index) {
-      //     item.active = !item.active
-      //     console.log(item.active)
-      //   }
-      // })
-      // console.log(this.jobInformation.intended)
     },
     handleInputConfirm () {
       if (this.inputValue.trim().length === 0) {
@@ -257,6 +250,23 @@ export default {
       this.inputValue = ''
       this.inputVisible = false
       console.log('ok')
+    },
+    closeItemTag (index) {
+      // console.log(index)
+      Dialog.confirm({
+        title: '提示',
+        message: '请确认是否删除'
+      })
+        .then(() => {
+          // on confirm
+          this.jobInformation.certificate.splice(index, 1)
+          this.$toast.success('删除成功！')
+          console.log(this.jobInformation.certificate)
+        })
+        .catch(() => {
+          // on cancel
+          this.$toast('已取消！')
+        })
     }
 
   }
@@ -266,7 +276,7 @@ export default {
 
 <style lang="scss" scoped>
 .domestic-service {
-  background-color:#d4cccc4d;
+  background-color: #d4cccc4d;
   height: 100%;
   ::v-deep .nav-bar-header {
     position: fixed;
@@ -304,9 +314,22 @@ export default {
     color: #3f51b5;
   }
   .van-tag {
+    position: relative;
     height: 40px;
     line-height: 40px;
     margin: 15px;
+    .van-icon-cross {
+      position: absolute;
+      right: 0;
+      bottom: 35px;
+      width: 25px;
+      height: 25px;
+      color: #fff;
+      line-height: 25px;
+      text-align: center;
+      border-radius: 100%;
+      background-color: rgb(42, 55, 173);
+    }
   }
   .btn-next {
     position: fixed;

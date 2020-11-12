@@ -366,7 +366,7 @@ var register = {
   capital: '888', // 注册资本
   address: '北京市北京市房山区', // 注册地区
   enterpriseValue: '请选择', // 企业类型
-  management: ['月嫂', '育婴师', '保洁/清洗', '保姆', '早教/托', '养老/陪护', '家装/搬家', '产康师']
+  management: [{ occupation_name: '月嫂', active: false }, { occupation_name: '育婴师', active: false }, { occupation_name: '保洁/清洗', active: false }, { occupation_name: '保姆', active: false }, { occupation_name: '早教/托', active: false }, { occupation_name: '养老/陪护', active: false }, { occupation_name: '家装/搬家', active: false }, { occupation_name: '产康师', active: false }]
 }
 
 // 家政服务

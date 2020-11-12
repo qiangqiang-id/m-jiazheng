@@ -90,18 +90,24 @@
         </van-cell-group>
         <van-cell-group>
           <van-cell>
-            <span slot="title">*主营业务：</span>
-            <span
-              slot="label"
-              v-for="(item,index) in information.management"
-              :key="index"
-            >
+            <div slot="title">*主营业务：
+              <!-- <span
+                slot="value"
+                class="mainBusiness"
+              >请选择</span> -->
+            </div>
+
+            <template #label>
               <van-tag
                 round
                 plain
+                :class="item.active ? 'highLight':''"
+                v-for="(item,index) in information.management"
+                :key="index"
                 size="large"
-              >{{item}}</van-tag>
-            </span>
+                @click='clickSelect(item,index)'
+              >{{item.occupation_name}}</van-tag>
+            </template>
           </van-cell>
         </van-cell-group>
       </van-form>
@@ -203,6 +209,7 @@ export default {
         // address: '', // 注册地区
         // enterpriseValue: '' // 企业类型
       }
+      // active: false // 高亮
     }
   },
   created () {
@@ -238,7 +245,7 @@ export default {
     async registrationInformation () {
       try {
         const { data: res } = await this.$axios.get('http://localhost:8080/register')
-        // console.log(res)
+        console.log(res)
         this.information = res.register
       } catch (error) {
         this.$toast('获取数据失败')
@@ -258,6 +265,11 @@ export default {
         this.information = ''
         this.$toast('已取消')
       })
+    },
+    // 点击高亮
+    clickSelect (item, index) {
+      console.log(item)
+      item.active = !item.active
     }
   }
 }
@@ -329,5 +341,15 @@ export default {
     color: #3f51b5;
     // margin: unset;
   }
+  .highLight {
+    background-color: rgb(32, 164, 204);
+    color: #fff;
+  }
+  // .mainBusiness {
+  //   margin-left: 550px;
+  //   height: 20px;
+  //   width: 40px;
+  //   color: rgb(155, 152, 152);
+  // }
 }
 </style>

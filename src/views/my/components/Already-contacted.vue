@@ -1,10 +1,12 @@
 <template>
   <div>
     <!-- 导航栏 -->
-    <van-nav-bar class="nav-top-bar"
-                 title="已联系家政人员"
-                 left-arrow
-                 @click-left="$router.back()" />
+    <van-nav-bar
+      class="nav-top-bar"
+      title="已联系家政人员"
+      left-arrow
+      @click-left="$router.back()"
+    />
     <company-list class="list-top" />
   </div>
 </template>
