@@ -225,6 +225,10 @@ export default {
       .server-btn {
         display: flex;
         justify-content: space-around;
+        .van-grid-item__text {
+          color: #fff;
+          font-size: 30px;
+        }
         .van-grid-item__content {
           background: linear-gradient(blue, pink);
         }

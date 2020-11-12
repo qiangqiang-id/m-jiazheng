@@ -113,6 +113,7 @@ export default {
     z-index: 100;
   }
   .nav-head {
+    margin-bottom: 200px;
     height: 192px;
     background-color: #3f51b5;
     .van-nav-bar {

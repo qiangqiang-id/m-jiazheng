@@ -87,7 +87,7 @@ const routes = [
   {
     path: '/matching_company',
     name: 'matching_company',
-    component: () => import('@/components/matching')
+    component: () => import('@/components/matching_company')
   }, {
     path: '/home/business', // 入住商务部
     name: 'business',
