@@ -119,9 +119,6 @@ export default {
         background-color: #fff;
       }
     }
-    .company-list {
-      padding-top: 200px;
-    }
   }
 }
 </style>
