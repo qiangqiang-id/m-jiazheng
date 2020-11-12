@@ -27,51 +27,67 @@
       <!-- 需求岗位 -->
       <div class="look-jobs">
         <div class="jobs-text">*需求岗位</div>
+        <div
+          slot="default"
+          class="jobs-main"
+        >
+          <van-tag
+            round
+            plain
+            :class='item.active ? "gaoliang":""'
+            size='large'
+            v-for="(item,index) in list.jobs"
+            :key="index"
+            @click="changeColor(item)"
+          >{{item.profession}}</van-tag>
+        </div>
+        <div
+          slot="default"
+          class="jobs-main"
+        >
+        </div>
       </div>
       <!-- /需求岗位 -->
       <!-- 详细信息 -->
-      <van-cell-group>
+      <van-form>
         <van-field
           label="手机号码"
           placeholder="请输入手机号码"
           colon
-          required
+          type="number"
+          maxlength="11"
+          :rules="[{ required: true, message: '请填写手机号码' }]"
+          v-model.trim="list.mobile"
         />
         <van-field
           label="年龄"
           colon
+          v-model="list.age"
         >
-          <div slot="extra">
-            <van-dropdown-menu>
-              <van-dropdown-item
-                v-model="value1"
-                :options="option1"
-              />
-            </van-dropdown-menu>
-          </div>
         </van-field>
         <van-field
           label="薪资"
           colon
+          v-model="list.pay"
         />
         <van-field
           label="住家"
           colon
+          v-model="list.home"
         >
         </van-field>
         <van-field
           label="联系人"
           colon
-        />
-        <van-field
-          label="籍贯要求"
-          colon
+          v-model="list.username"
         />
         <van-field
           label="工作地点"
+          ag
           colon
+          v-model="list.address"
         />
-      </van-cell-group>
+      </van-form>
       <!-- 详细信息 -->
     </div>
     <!-- /中间部分 -->
@@ -80,9 +96,11 @@
       block
       type="info"
       class="look-btn"
+      @click="onSubmit"
     >
       提交资料
     </van-button>
+
     <!--/提交按钮 -->
   </div>
 </template>
@@ -92,13 +110,41 @@ export default {
   name: 'LookIndex',
   data () {
     return {
-      value1: 0,
-      option1: [
-        { text: '全部商品', value: 0 },
-        { text: '新款商品', value: 1 },
-        { text: '活动商品', value: 2 }
-      ]
+      list: {}
     }
+  },
+  created () {
+    this.loadLook()
+  },
+  methods: {
+    async loadLook () {
+      try {
+        const { data: res } = await this.$axios.get('http://localhost:8080/look')
+        this.list = res.demandJobs
+        // console.log(this.list)
+      } catch (e) {
+        this.$toast('获取数据失败')
+      }
+    },
+    async onSubmit () {
+      if (this.list.mobile === '') {
+        return this.$toast('请填写手机号码')
+      }
+      try {
+        const { data: res } = await this.$axios.post('http://localhost:8080/look', this.list)
+        this.list = res.demandJobs
+        this.$toast.success('提交成功')
+        this.$router.push('/home')
+        // console.log(this.list)
+      } catch (e) {
+        this.$toast.fail('提交数据失败')
+      }
+    },
+    changeColor (item) {
+      item.active = !item.active
+      // console.log(item)
+    }
+
   }
 }
 </script>
@@ -106,6 +152,8 @@ export default {
 <style lang="scss" scoped>
 ::v-deep.look-index {
   font-weight: 700;
+  background-color: pink;
+  height: 100%;
   .nav-bar {
     height: 180px;
     background-color: rgba(63, 81, 181, 100);
@@ -137,12 +185,19 @@ export default {
       }
     }
     .look-jobs {
-      // background-color: pink;
-      height: 100px;
+      height: 240px;
       border-bottom: 1px solid #f8f8f8;
+      margin: 15px 15px;
       .jobs-text {
-        margin: 30px 0px 30px 30px;
-        font-size: 26px;
+        margin-top: 10px;
+        font-size: 32px;
+      }
+      .jobs-main {
+        .van-tag {
+          margin: 10px;
+          color: #b6b2b2;
+          border: 1px solid #b6b2b2;
+        }
       }
     }
   }
@@ -152,6 +207,10 @@ export default {
     background-color: rgba(63, 81, 181, 100);
     font-size: 28px;
     font-weight: 700;
+  }
+  .gaoliang {
+    background-color: #3f51b5;
+    color: #fff;
   }
 }
 </style>

@@ -79,6 +79,19 @@ for (let i = 0; i < 10; i++) {
 
   })
 }
+
+// 需求岗位
+
+var demandJobs = {
+  mobile: '',
+  age: '',
+  pay: '',
+  home: '',
+  username: '',
+  address: '',
+  jobs: [{ profession: '保姆', active: false }, { profession: '月嫂', active: false }, { profession: '厨师', active: false }, { profession: '育婴师', active: false }, { profession: '产康师', active: false }, { profession: '家装/搬家', active: false }, { profession: '早教/托教', active: false }, { profession: '养老/陪护', active: false }]
+}
+
 export default {
   'http://localhost:8080/type|get': options => {
     return {
@@ -99,6 +112,21 @@ export default {
       msg: '获取信息成功',
       data: companyMsg
     }
+  },
+  'http://localhost:8080/look|get': options => {
+    return {
+      status: 200,
+      msg: '获取信息成功',
+      demandJobs
+    }
+  },
+  'http://localhost:8080/look|post': options => {
+    console.log(options)
+    demandJobs = JSON.parse(options.body)
+    return {
+      status: 200,
+      msg: '获取信息成功',
+      demandJobs
+    }
   }
-
 }

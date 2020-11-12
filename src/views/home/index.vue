@@ -2,18 +2,24 @@
   <div class="home-container">
     <!-- 头部 -->
     <van-nav-bar class="nav-header">
-      <span slot="left"
-            class="header-text">家政平台</span>
+      <span
+        slot="left"
+        class="header-text"
+      >家政平台</span>
     </van-nav-bar>
     <!-- /头部 -->
     <!-- 轮播图 -->
     <div class="banner">
       <van-swipe :autoplay="3000">
-        <van-swipe-item class="my-swipe"
-                        v-for="(image, index) in images"
-                        :key="index">
-          <img class="banner-pic"
-               v-lazy="image" />
+        <van-swipe-item
+          class="my-swipe"
+          v-for="(image, index) in images"
+          :key="index"
+        >
+          <img
+            class="banner-pic"
+            v-lazy="image"
+          />
         </van-swipe-item>
       </van-swipe>
 
@@ -21,43 +27,66 @@
     <!-- /轮播图 -->
     <!-- 服务模块 -->
     <div class="main">
-      <van-grid :column-num="3"
-                class="server">
+      <van-grid
+        :column-num="3"
+        class="server"
+      >
         <!-- <van-grid-item class="server-btn"
                        v-for="(item,index) in serverPic"
                        :key="index">
           <img class="server-pic"
                :src="item">
         </van-grid-item> -->
-        <van-grid-item icon="photo-o"
-                       class="server-btn"
-                       text="入驻商务部" />
-        <van-grid-item icon="photo-o"
-                       class="server-btn"
-                       text="家政求职" />
-        <van-grid-item icon="photo-o"
-                       class="server-btn"
-                       text="找家庭服务" />
-        <van-grid-item icon="photo-o"
-                       class="server-btn"
-                       text="线上家政培训" />
-        <van-grid-item icon="photo-o"
-                       class="server-btn"
-                       text="线上家政保险" />
-        <van-grid-item icon="photo-o"
-                       class="server-btn"
-                       text="合同" />
+        <van-grid-item
+          icon="photo-o"
+          class="server-btn"
+          text="入驻商务部"
+        />
+        <van-grid-item
+          icon="photo-o"
+          class="server-btn"
+          text="家政求职"
+        />
+        <van-grid-item
+          icon="photo-o"
+          class="server-btn"
+          text="找家庭服务"
+          to="/look"
+        />
+        <van-grid-item
+          icon="photo-o"
+          class="server-btn"
+          text="线上家政培训"
+        />
+        <van-grid-item
+          icon="photo-o"
+          class="server-btn"
+          text="线上家政保险"
+        />
+        <van-grid-item
+          icon="photo-o"
+          class="server-btn"
+          text="合同"
+        />
       </van-grid>
-      <van-grid :column-num="4"
-                class="type">
-        <van-grid-item class="type-item"
-                       v-for="(item,index) in pic"
-                       :key="index">
-          <div slot="default"
-               class="type-content">
+      <van-grid
+        :column-num="4"
+        class="type"
+      >
+        <van-grid-item
+          class="type-item"
+          v-for="(item,index) in pic"
+          :key="index"
+        >
+          <div
+            slot="default"
+            class="type-content"
+          >
             <div class="type-btn">
-              <img class="type-pic"
-                   :src="item">
+              <img
+                class="type-pic"
+                :src="item"
+              >
               <!-- <van-icon class="type-icon"
                         name="smile-o"></van-icon> -->
             </div>
@@ -70,38 +99,50 @@
     <!-- 家政公司 -->
     <div class="conpany">
       <van-nav-bar>
-        <i slot="left"
-           class="housekeeping icon-fasfa-home"></i>
+        <i
+          slot="left"
+          class="housekeeping icon-fasfa-home"
+        ></i>
         <span slot="left">
           湖南征信认证家服公司
         </span>
       </van-nav-bar>
       <company-list></company-list>
       <van-nav-bar class="more">
-        <span slot="title"
-              class="more-text">更多公司</span>
-        <van-icon slot="title"
-                  class="more-icon"
-                  name="arrow" />
+        <span
+          slot="title"
+          class="more-text"
+        >更多公司</span>
+        <van-icon
+          slot="title"
+          class="more-icon"
+          name="arrow"
+        />
       </van-nav-bar>
     </div>
     <!-- /家政公司 -->
     <!-- 家政人员 -->
     <div class="housekeepings">
       <van-nav-bar>
-        <i slot="left"
-           class="housekeeping icon-fasfa-user"></i>
+        <i
+          slot="left"
+          class="housekeeping icon-fasfa-user"
+        ></i>
         <span slot="left">
           诚信注册家服员
         </span>
       </van-nav-bar>
       <housekeeping-list></housekeeping-list>
       <van-nav-bar class="more">
-        <span slot="title"
-              class="more-text">更多家服员</span>
-        <van-icon slot="title"
-                  class="more-icon"
-                  name="arrow" />
+        <span
+          slot="title"
+          class="more-text"
+        >更多家服员</span>
+        <van-icon
+          slot="title"
+          class="more-icon"
+          name="arrow"
+        />
       </van-nav-bar>
     </div>
     <!-- /家政人员 -->
