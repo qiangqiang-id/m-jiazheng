@@ -51,7 +51,6 @@ import { Dialog } from 'vant';
               size="medium"
               v-for="(item,index) in jobInformation.intended"
               :key="index"
-              ref="tag-ref"
               @click='clickSelect(item,index)'
             >{{item.occupation_name}}</van-tag>
           </template>
@@ -230,7 +229,7 @@ export default {
       // const i = this.itemIndex.indexOf(index)
       // console.log(item)
       item.active = !item.active
-      console.log(item.active)
+      // console.log(item.active)
 
       // if (i === -1) {
       //   this.itemIndex.push(index)
