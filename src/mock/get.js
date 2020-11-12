@@ -206,7 +206,8 @@ const companyMsg = []
 for (let i = 0; i < 10; i++) {
   companyMsg.push({
     id: i,
-    profession: '品质家政服务领导者',
+    profession: text,
+    title: '品质家政服务领导者',
     // 职业大全
     shopAddress: Random.city(true) + ' 东方红县 夹皮沟404号', // 随机生成地址
     companyName: Random.ctitle(3, 5) + '家政有限公司', // 公司名
@@ -223,7 +224,7 @@ const bannerPic = ['//s1.ayibang.com/static/h5/6.1/css/img/rcbjimg1_e668551.png'
 // 服务人员个人信息
 const userInfo = {
   // 随机生成一个常见的中文姓名
-  name: Random.cname(),
+  name: '李月娥',
   // 随机地址
   address: Random.city(true),
   // 生成随机的 图片
@@ -231,7 +232,7 @@ const userInfo = {
   // 手机号码
   mobile: mockjs.getMobile(),
   // 随机生成0或1
-  sex: Random.integer(0, 1)
+  sex: 1
 }
 
 // 家服公司智能匹配列表

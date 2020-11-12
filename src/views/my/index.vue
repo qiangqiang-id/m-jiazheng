@@ -2,24 +2,18 @@
   <div class="my-container">
     <van-nav-bar left-text="我的" />
     <div class="userbox">
-      <div
-        class="not-login"
-        v-if="userinfo"
-      >
+      <div class="not-login"
+           v-if="userinfo">
         <div class="icon-img">
-          <van-image
-            :src="user.img"
-            round
-            fit="cover"
-          />
+          <van-image :src="user.img"
+                     round
+                     fit="cover" />
         </div>
         <span>{{user.name}}</span>
       </div>
-      <div
-        class="not-login"
-        v-else
-        @click="toLogin"
-      >
+      <div class="not-login"
+           v-else
+           @click="toLogin">
         <div class="icon-img">
           <van-icon name="user-o" />
         </div>
@@ -28,103 +22,69 @@
       <div class="nav-box">
         <van-grid :border='false'>
           <van-grid-item to='/taoge'>
-            <div
-              slot="icon"
-              class="icon-gerenziliao housekeeping"
-            ></div>
+            <div slot="icon"
+                 class="icon-gerenziliao housekeeping"></div>
             <span slot="text">个人资料</span>
           </van-grid-item>
-          <van-grid-item>
-            <div
-              slot="icon"
-              class="icon-fasfa-user1 housekeeping"
-            ></div>
-            <span
-              slot="text"
-              @click='$router.push("/myfollow")'
-            >我的关注</span>
+          <van-grid-item @click='$router.push("/myfollow")'>
+            <div slot="icon"
+                 class="icon-fasfa-user1 housekeeping"></div>
+            <span slot="text">我的关注</span>
           </van-grid-item>
           <van-grid-item>
-            <div
-              slot="icon"
-              class="icon-farfa-comment-dots housekeeping"
-            ></div>
+            <div slot="icon"
+                 class="icon-farfa-comment-dots housekeeping"></div>
             <span slot="text">我的评价</span>
           </van-grid-item>
-          <van-grid-item>
-            <div
-              slot="icon"
-              class="icon-fa-fax housekeeping"
-            ></div>
-            <span
-              slot="text"
-              @click="$router.push('/Already')"
-            >已联系家政员</span>
+          <van-grid-item @click="$router.push('/Already')">
+            <div slot="icon"
+                 class="icon-fa-fax housekeeping"></div>
+            <span slot="text">已联系家政员</span>
           </van-grid-item>
         </van-grid>
       </div>
     </div>
     <div class="cell">
       <van-cell-group>
-        <van-cell
-          title="找家政服务记录"
-          is-link
-        >
-          <div
-            slot="icon"
-            class="icon-md-receipt housekeeping"
-          ></div>
+        <van-cell title="找家政服务记录"
+                  is-link>
+          <div slot="icon"
+               class="icon-md-receipt housekeeping"></div>
         </van-cell>
-        <van-cell
-          title="家政求职记录"
-          is-link
-        >
-          <div
-            slot="icon"
-            class="icon-ziyuan1 housekeeping"
-          ></div>
+        <van-cell title="家政求职记录"
+                  is-link>
+          <div slot="icon"
+               class="icon-ziyuan1 housekeeping"></div>
         </van-cell>
       </van-cell-group>
       <van-cell-group class="usre-status">
-        <van-cell
-          title="身份认证通道"
-          class="cell-buttom"
-          is-link
-          @click="identity=true"
-        >
-          <div
-            slot="icon"
-            class="icon-antFill-safety-certificate housekeeping"
-          ></div>
+        <van-cell title="身份认证通道"
+                  class="cell-buttom"
+                  is-link
+                  @click="identity=true">
+          <div slot="icon"
+               class="icon-antFill-safety-certificate housekeeping"></div>
         </van-cell>
-        <van-cell
-          title="关于我们"
-          @click="$router.push('/about')"
-          icon="location-o"
-          is-link
-        >
-          <div
-            slot="icon"
-            class="icon-fas_fa-info-circle_Copy housekeeping"
-          ></div>
+        <van-cell title="关于我们"
+                  @click="$router.push('/about')"
+                  icon="location-o"
+                  is-link>
+          <div slot="icon"
+               class="icon-fas_fa-info-circle_Copy housekeeping"></div>
         </van-cell>
       </van-cell-group>
-      <van-button
-        type="danger"
-        v-if="userinfo"
-        class="logout-btn"
-        @click="logout"
-        round
-      >退出登录</van-button>
+      <van-button type="danger"
+                  v-if="userinfo"
+                  class="logout-btn"
+                  @click="logout"
+                  round>退出登录</van-button>
     </div>
     <!-- 身份认证弹出层 -->
-    <van-popup
-      v-model="identity"
-      position="bottom"
-    >
+    <van-popup v-model="identity"
+               position="bottom">
       <div class="identitypopUp">
-        <div @click="$router.push('/verify')">家服人员授权认证</div>
-        <div @click="$router.push('/admin')">家服公司管理员认证</div>
+        <div @click="goIdentity">家服人员授权认证</div>
+        <div @click="goAdmin">家服公司管理员认证</div>
       </div>
     </van-popup>
   </div>
@@ -155,7 +115,19 @@ export default {
         .catch(() => {
           // on cancel
         })
+    },
+    goIdentity () {
+      this.$router.push('/verify')
+      this.identity = false
+    },
+    goAdmin () {
+      this.$router.push('/admin')
+      this.identity = false
     }
+
+  },
+  activated () {
+    this.identity = false
   },
   computed: {
     ...mapState(['userinfo'])

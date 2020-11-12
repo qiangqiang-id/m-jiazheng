@@ -99,11 +99,6 @@ const routes = [
     component: () => import('@/views/cooperation/domestic-service')
   },
   {
-    path: '/home/homeservice', // 家庭服务
-    name: 'homeservice',
-    component: () => import('@/views/cooperation/home-service')
-  },
-  {
     path: '/about',
     name: 'about',
     component: () => import('../views/my/components/about/index.vue')

@@ -216,7 +216,8 @@
                   @click="clear">清除条件</van-button>
       <van-button round
                   type="info"
-                  class="button">确认筛选</van-button>
+                  class="button"
+                  @click="comfirm">确认筛选</van-button>
     </div>
   </div>
 </template>
@@ -289,6 +290,9 @@ export default {
     // 清除条件
     clear () {
       this.id = this.id1 = this.id2 = this.id3 = this.id4 = this.id5 = this.id6 = ''
+    },
+    comfirm () {
+      this.$emit('closePopup')
     }
   },
 

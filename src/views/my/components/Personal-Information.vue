@@ -188,13 +188,9 @@ export default {
 
       console.log('getUserInfo -> res', res)
       if (res.status === 200) {
-        this.$toast.success('获取信息成功')
-        // console.log(res.datas)
         this.infoList = res.data
-
-        // this.infoList.push(res.datas)
-
-        //
+      } else {
+        this.$toast('获取信息失败')
       }
     },
 

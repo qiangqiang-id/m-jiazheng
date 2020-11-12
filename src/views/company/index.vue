@@ -38,7 +38,7 @@
     <van-popup v-model="show"
                position="bottom"
                :style="{height:'85%'}">
-      <matching-company></matching-company>
+      <matching-company @closePopup="show=false"></matching-company>
     </van-popup>
   </div>
 </template>
@@ -73,7 +73,6 @@ export default {
     async getCompanyInformation () {
       const { data: res } = await this.$axios.get('http://localhost:8080/info|get')
 
-      // console.log('getInformation -> res', res)
       if (res.status === 200) {
         // this.$toast.success('获取信息成功')
         // this.companyMsg.push(res.data)

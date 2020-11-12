@@ -2,29 +2,27 @@
   <div class="my-follow-container">
     <!-- 顶部导航 -->
     <div class="nav-head">
-      <van-nav-bar
-        left-text="我的关注"
-        left-arrow
-        @click-left="$router.back()"
-        :border='false'
-      >
+      <van-nav-bar left-text="我的关注"
+                   class="my-follow-text"
+                   left-arrow
+                   @click-left="$router.back()"
+                   :border='false'>
       </van-nav-bar>
       <!-- 底部按钮 -->
-      <van-tabs v-model="active">
+      <van-tabs v-model="active"
+                swipeable
+                sticky
+                animated>
         <van-tab title="家服公司">
-          <company-list
-            v-for="item in companyMsg"
-            :key="item.id"
-            :value='item'
-          ></company-list>
+          <company-list v-for="item in companyMsg"
+                        :key="item.id"
+                        :value='item'></company-list>
 
         </van-tab>
         <van-tab title="家服人员">
-          <housekeeping-list
-            v-for="item in infoList "
-            :key="item.id"
-            :value='item'
-          ></housekeeping-list>
+          <housekeeping-list v-for="item in infoList "
+                             :key="item.id"
+                             :value='item'></housekeeping-list>
         </van-tab>
       </van-tabs>
     </div>
@@ -55,10 +53,7 @@ export default {
   computed: {},
 
   methods: {
-    // 返回按钮
-    onClickLeft () {
 
-    },
     // 获取家政人员基本信息
     async getInformation () {
       const { data: res } = await this.$axios.get('http://localhost:8080/data|get')
@@ -100,6 +95,23 @@ export default {
 
 <style lang="scss" scoped>
 .my-follow-container {
+  height: 84vh;
+  overflow-y: auto;
+  padding-top: 180px;
+  .my-follow-text {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  ::v-deep .van-tabs__wrap {
+    position: fixed;
+    top: 93px;
+    left: 0;
+    right: 0;
+    z-index: 100;
+  }
   .nav-head {
     height: 192px;
     background-color: #3f51b5;

@@ -1,44 +1,40 @@
 <template>
-  <div>
+  <div class="box">
     <!-- 导航栏 -->
     <van-nav-bar class="nav-top-bar"
                  title="已联系家政人员"
                  left-arrow
                  @click-left="$router.back()" />
-    <company-list class="list-top" />
+    <housekeeping-list class="list-top"
+                       v-for="item in infoList"
+                       :key="item.id"
+                       :value="item"></housekeeping-list>
   </div>
 </template>
 
 <script>
-import CompanyList from '@/views/housekeeping/index'
+import HousekeepingList from '@/components/housekeepingList'
 export default {
   components: {
-    CompanyList
+    HousekeepingList
   },
   created () {
     this.getInformation()
   },
-
-  computed: {},
+  data () {
+    return {
+      infoList: []
+    }
+  },
 
   methods: {
-    // 返回按钮
-    onClickLeft () {
-
-    },
     // 获取家政人员基本信息
     async getInformation () {
-      const { data: res } = await this.$axios.get('http://localhost:8080/data|get')
-
-      // console.log('getInformation -> res', res)
+      const { data: res } = await this.$axios.get('http://localhost:8080/data')
       if (res.status === 200) {
-        this.$toast.success('获取信息成功')
-        // this.infoList.push(res.datas)
         this.infoList = res.datas
-        // console.log(this.infoList)
-        this.occupation = this.infoList[0].profession
-        // console.log(this.occupation)
-        this.occupation.push('全部职业')
+      } else {
+        this.$toast('获取信息失败')
       }
     }
 
@@ -47,6 +43,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.box {
+  padding-top: 131px;
+}
 .nav-top-bar {
   position: fixed;
   top: 0px;
@@ -70,8 +69,5 @@ export default {
     font-size: 36px;
     margin-top: 10px;
   }
-}
-.list-top {
-  margin-top: 128px;
 }
 </style>
